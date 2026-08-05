@@ -230,7 +230,7 @@ export default function App() {
   };
 
   const handleVerify = async () => {
-    if (!animeDetails) return;
+    if (!animeDetails || isLoading) return;
     setIsLoading(true);
     try {
       const mappings: any = {};
@@ -288,7 +288,7 @@ export default function App() {
   };
 
   const handleUnverify = async () => {
-    if (!animeDetails) return;
+    if (!animeDetails || isLoading) return;
     setIsLoading(true);
     try {
       const res = await unverifyAnime(animeDetails.anilist_id);
@@ -325,73 +325,75 @@ export default function App() {
         setCurrentView={setCurrentView} 
       />
 
-      <main className="container" style={{ position: 'relative', opacity: isLoading ? 0.6 : 1, pointerEvents: isLoading ? 'none' : 'auto', transition: 'opacity 0.2s ease-in-out', minHeight: '60vh' }}>
+      <main className="container" style={{ position: 'relative', minHeight: '60vh' }}>
         {isLoading && (animeDetails || currentView === 'catalog') && (
-          <div style={{ position: 'absolute', top: '20vh', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 50 }}>
+          <div style={{ position: 'fixed', top: '45%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 100 }}>
             <Loader2 className="animate-spin text-white" size={48} />
           </div>
         )}
         
-        {isLoading && !animeDetails && currentView === 'home' ? (
-          <div className="flex-col items-center justify-center animate-in" style={{ height: '60vh', color: 'var(--accent)' }}>
-            <Loader2 className="animate-spin" size={64} style={{ marginBottom: '16px' }} />
-            <p className="text-xl font-semibold">Loading Anime Data...</p>
-          </div>
-        ) : currentView === 'home' && animeDetails ? (
-          <>
-            <InfoCard 
-              animeDetails={animeDetails} 
-              animeId={animeId!} 
-              goPrev={goPrev} 
-              goNext={goNext} 
-              loadAnime={loadAnime} 
-              hasChanges={hasChanges} 
-              handleVerify={handleVerify} 
-              handleUnverify={handleUnverify}
-            />
-            
-            <ProviderList 
-              provs={getProviderInfo()} 
-              providerChanges={providerChanges} 
-              savingProviders={savingProviders}
-              animeTitle={animeDetails.title_english || animeDetails.title_romaji || animeDetails.title || ''} 
-              handleProviderIdChange={handleProviderIdChange} 
-              handleProviderSave={handleProviderSave} 
-            />
-            
-            {!(animeDetails.format || '').toUpperCase().includes('MOVIE') && (
-              <EpisodeTable 
-                totalEpisodes={totalEpisodes} 
-                episodesMap={episodesMap} 
-                epDrafts={epDrafts} 
-                episodeChanges={episodeChanges}
-                savingEpisodes={savingEpisodes}
-                handleEpisodeChange={handleEpisodeChange}
-                handleEpisodeSave={handleEpisodeSave}
+        <div style={{ opacity: isLoading ? 0.4 : 1, pointerEvents: isLoading ? 'none' : 'auto', transition: 'opacity 0.2s ease-in-out' }}>
+          {isLoading && !animeDetails && currentView === 'home' ? (
+            <div className="flex-col items-center justify-center animate-in" style={{ height: '60vh', color: 'var(--accent)' }}>
+              <Loader2 className="animate-spin" size={64} style={{ marginBottom: '16px' }} />
+              <p className="text-xl font-semibold">Loading Anime Data...</p>
+            </div>
+          ) : currentView === 'home' && animeDetails ? (
+            <>
+              <InfoCard 
+                animeDetails={animeDetails} 
+                animeId={animeId!} 
+                goPrev={goPrev} 
+                goNext={goNext} 
+                loadAnime={loadAnime} 
+                hasChanges={hasChanges} 
+                handleVerify={handleVerify} 
+                handleUnverify={handleUnverify}
               />
-            )}</>
-        ) : currentView === 'catalog' ? (
-          <CatalogView 
-            catalog={catalog} 
-            searchQ={searchQ} 
-            setSearchQ={setSearchQ} 
-            filter={filter} 
-            setFilter={setFilter} 
-            status={status} 
-            setStatus={setStatus} 
-            format={format} 
-            setFormat={setFormat} 
-            sort={sort}
-            setSort={setSort}
-            loadCatalog={() => loadCatalog(false)} 
-            loadMore={() => loadCatalog(true)}
-            handleAnimeClick={handleAnimeClick} 
-          />
-        ) : (
-          <div className="flex-col gap-md animate-in text-center text-muted mt-10">
-            Please select an anime from the catalog.
-          </div>
-        )}
+              
+              <ProviderList 
+                provs={getProviderInfo()} 
+                providerChanges={providerChanges} 
+                savingProviders={savingProviders}
+                animeTitle={animeDetails.title_english || animeDetails.title_romaji || animeDetails.title || ''} 
+                handleProviderIdChange={handleProviderIdChange} 
+                handleProviderSave={handleProviderSave} 
+              />
+              
+              {!(animeDetails.format || '').toUpperCase().includes('MOVIE') && (
+                <EpisodeTable 
+                  totalEpisodes={totalEpisodes} 
+                  episodesMap={episodesMap} 
+                  epDrafts={epDrafts} 
+                  episodeChanges={episodeChanges}
+                  savingEpisodes={savingEpisodes}
+                  handleEpisodeChange={handleEpisodeChange}
+                  handleEpisodeSave={handleEpisodeSave}
+                />
+              )}</>
+          ) : currentView === 'catalog' ? (
+            <CatalogView 
+              catalog={catalog} 
+              searchQ={searchQ} 
+              setSearchQ={setSearchQ} 
+              filter={filter} 
+              setFilter={setFilter} 
+              status={status} 
+              setStatus={setStatus} 
+              format={format} 
+              setFormat={setFormat} 
+              sort={sort}
+              setSort={setSort}
+              loadCatalog={() => loadCatalog(false)} 
+              loadMore={() => loadCatalog(true)}
+              handleAnimeClick={handleAnimeClick} 
+            />
+          ) : (
+            <div className="flex-col gap-md animate-in text-center text-muted mt-10">
+              Please select an anime from the catalog.
+            </div>
+          )}
+        </div>
       </main>
     </div>
   );
