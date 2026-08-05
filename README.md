@@ -41,3 +41,25 @@ Forces the gap filler to re-verify every missing ID by wiping the `dead_ids.json
 cd automation
 python main.py --clean-graveyard
 ```
+
+<!-- STATS_START -->
+## Database Coverage & Stats
+
+### Provider Coverage
+| Provider Category | Total AniList | Mapped Count | Missing / Left |
+| :--- | --: | --: | --: |
+| MyAnimeList (MAL) | 22,473 | 18,697 (83.2%) | 3,776 (16.8%) |
+| AniDB | 22,473 | 13,302 (59.2%) | 9,171 (40.8%) |
+| TVDB (Show/Movie) | 22,473 | 9,503 (42.3%) | 12,970 (57.7%) |
+| TMDB (Show/Movie) | 22,473 | 8,837 (39.3%) | 13,636 (60.7%) |
+| Step 3 Verified (Manual) | 22,473 | 46 (0.2%) | 22,427 (99.8%) |
+
+### Anime Status Breakdown
+| Anime Status | Total Anime | Total Verified | Percentage |
+| :--- | --: | --: | --: |
+| FINISHED | 21,429 | 46 | 0.2% |
+| NOT_YET_RELEASED | 693 | 0 | 0.0% |
+| RELEASING | 312 | 0 | 0.0% |
+| CANCELLED | 39 | 0 | 0.0% |
+
+<!-- STATS_END -->

@@ -126,21 +126,46 @@ def render_coverage_table(base_total: int, step2_data: Dict[str, int], verified_
 
 
 # Render status breakdown summary table
-def render_status_table(status_breakdown: Dict[str, int]) -> None:
+def render_status_table(status_breakdown: Dict[str, int], verified_status_breakdown: Dict[str, int]) -> None:
     if not status_breakdown:
         return
     status_table = Table(title="📺 ANIME STATUS BREAKDOWN", border_style="cyan", header_style="bold magenta")
     status_table.add_column("Anime Status", style="bold cyan", width=22)
-    status_table.add_column("Total Count", style="bold white", justify="right")
-    status_table.add_column("Percentage", style="bold green", justify="right")
+    status_table.add_column("Total Anime", style="bold white", justify="right")
+    status_table.add_column("Total Verified", style="bold green", justify="right")
+    status_table.add_column("Percentage", style="bold yellow", justify="right")
 
-    total_status_count = sum(status_breakdown.values())
-    for st_name, count in status_breakdown.items():
-        pct = f"{(count / total_status_count * 100):.1f}%" if total_status_count > 0 else "0%"
-        status_table.add_row(st_name, f"{count:,}", pct)
+    for st_name, total_count in sorted(status_breakdown.items(), key=lambda x: x[1], reverse=True):
+        verified_count = verified_status_breakdown.get(st_name, 0)
+        pct = f"{(verified_count / total_count * 100):.1f}%" if total_count > 0 else "0%"
+        status_table.add_row(st_name, f"{total_count:,}", f"{verified_count:,}", pct)
 
     console.print()
     console.print(status_table)
+
+
+# Helper: Query Verified Anime Status breakdown by joining with Step 1
+def query_verified_status_breakdown(step1_db: str, step3_db: str) -> Dict[str, int]:
+    breakdown = {}
+    if not os.path.exists(step1_db) or not os.path.exists(step3_db):
+        return breakdown
+    try:
+        conn = sqlite3.connect(step3_db)
+        conn.execute(f"ATTACH DATABASE '{step1_db}' AS step1")
+        cursor = conn.cursor()
+        cursor.execute("""
+            SELECT COALESCE(NULLIF(s1.status, ''), 'UNKNOWN') as st, COUNT(v.anilist_id)
+            FROM verified_anime v
+            JOIN step1.anime s1 ON v.anilist_id = s1.anilist_id
+            WHERE v.manual_checked = 1
+            GROUP BY st
+        """)
+        for r in cursor.fetchall():
+            breakdown[r[0]] = r[1]
+        conn.close()
+    except Exception:
+        pass
+    return breakdown
 
 
 # Main render statistics summary controller
@@ -153,6 +178,7 @@ def render_stats_summary(automation_dir: str) -> None:
     total_anilist, status_breakdown = query_step1_stats(step1_db)
     step2_data = query_step2_stats(step2_db)
     verified_count = query_step3_stats(step3_db)
+    verified_status_breakdown = query_verified_status_breakdown(step1_db, step3_db)
 
     base_total = max(total_anilist, step2_data.get("total_mapped", 0))
 
@@ -160,7 +186,7 @@ def render_stats_summary(automation_dir: str) -> None:
         render_coverage_table(base_total, step2_data, verified_count)
 
     if status_breakdown:
-        render_status_table(status_breakdown)
+        render_status_table(status_breakdown, verified_status_breakdown)
 
 
 # Render pipeline finish message
