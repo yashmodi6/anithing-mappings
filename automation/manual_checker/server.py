@@ -101,13 +101,16 @@ def api_anime_details(anilist_id):
         cover_url = raw.get("coverImage", {}).get("extraLarge") or raw.get("coverImage", {}).get("large")
         
         format_val = (details.get("format") or "").upper()
-        is_movie = "MOVIE" in format_val
         
-        tmdb_id = details.get("tmdb_movie_id") if is_movie else details.get("tmdb_show_id")
-        is_tmdb_movie = is_movie
+        tmdb_movie_id = details.get("tmdb_movie_id")
+        tmdb_show_id = details.get("tmdb_show_id")
+        is_tmdb_movie = bool(tmdb_movie_id)
+        tmdb_id = tmdb_movie_id or tmdb_show_id
         
-        tvdb_id = details.get("tvdb_movie_id") if is_movie else details.get("tvdb_show_id")
-        is_tvdb_movie = is_movie
+        tvdb_movie_id = details.get("tvdb_movie_id")
+        tvdb_show_id = details.get("tvdb_show_id")
+        is_tvdb_movie = bool(tvdb_movie_id)
+        tvdb_id = tvdb_movie_id or tvdb_show_id
         
         with ThreadPoolExecutor(max_workers=4) as pool:
             f_anilist = pool.submit(lambda: cover_url or ProviderFetcher.fetch_anilist_cover_image(anilist_id))
@@ -156,6 +159,12 @@ def api_episodes(provider, anilist_id):
         req_data = request.json if request.method == "POST" else {}
         if req_data.get("mappings"):
             mappings = req_data["mappings"]
+            
+        is_movie_flag = req_data.get("is_movie")
+        if is_movie_flag is not None:
+            is_movie = bool(is_movie_flag)
+        else:
+            is_movie = "MOVIE" in (details.get("format") or "").upper()
 
         eps = []
         if not is_movie:

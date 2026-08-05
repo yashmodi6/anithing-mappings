@@ -7,11 +7,13 @@ interface ProviderListProps {
   providerChanges: Record<string, boolean>;
   savingProviders: Record<string, boolean>;
   animeTitle: string;
+  providerTypes?: Record<string, 'show' | 'movie'>;
   handleProviderIdChange: (id: string, val: string) => void;
+  handleProviderTypeChange?: (id: string, val: 'show' | 'movie') => void;
   handleProviderSave: (id: string) => void;
 }
 
-export default function ProviderList({ provs, providerChanges, savingProviders, animeTitle, handleProviderIdChange, handleProviderSave }: ProviderListProps) {
+export default function ProviderList({ provs, providerChanges, savingProviders, animeTitle, providerTypes, handleProviderIdChange, handleProviderTypeChange, handleProviderSave }: ProviderListProps) {
   const handleSearch = (providerId: string) => {
     const q = encodeURIComponent(animeTitle);
     let url = '';
@@ -49,6 +51,16 @@ export default function ProviderList({ provs, providerChanges, savingProviders, 
             )}
             
             <div className="flex-row gap-sm items-center">
+              {(p.id === 'tmdb' || p.id === 'tvdb') && providerTypes && handleProviderTypeChange && (
+                <select 
+                  className="select" 
+                  value={providerTypes[p.id] || 'show'} 
+                  onChange={(e) => handleProviderTypeChange(p.id, e.target.value as 'show' | 'movie')}
+                >
+                  <option value="show">TV Show</option>
+                  <option value="movie">Movie</option>
+                </select>
+              )}
               <input 
                 type="text" 
                 className="input-field" 

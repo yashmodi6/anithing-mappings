@@ -59,16 +59,16 @@ This pipeline relies on the incredible work of several community-driven database
 ### Provider Coverage
 | Provider Category | Total AniList | Mapped Count | Missing / Left |
 | :--- | --: | --: | --: |
-| MyAnimeList (MAL) | 22,473 | 160 (0.7%) | 22,313 (99.3%) |
+| MyAnimeList (MAL) | 22,473 | 188 (0.8%) | 22,285 (99.2%) |
 | AniDB | 22,473 | 0 (0.0%) | 22,473 (100.0%) |
-| TVDB (Show/Movie) | 22,473 | 160 (0.7%) | 22,313 (99.3%) |
-| TMDB (Show/Movie) | 22,473 | 160 (0.7%) | 22,313 (99.3%) |
-| Step 3 Verified (Manual) | 22,473 | 160 (0.7%) | 22,313 (99.3%) |
+| TVDB (Show/Movie) | 22,473 | 188 (0.8%) | 22,285 (99.2%) |
+| TMDB (Show/Movie) | 22,473 | 188 (0.8%) | 22,285 (99.2%) |
+| Step 3 Verified (Manual) | 22,473 | 188 (0.8%) | 22,285 (99.2%) |
 
 ### Anime Status Breakdown
 | Anime Status | Total Anime | Total Verified | Percentage |
 | :--- | --: | --: | --: |
-| FINISHED | 21,429 | 160 | 0.7% |
+| FINISHED | 21,429 | 188 | 0.9% |
 | NOT_YET_RELEASED | 693 | 0 | 0.0% |
 | RELEASING | 312 | 0 | 0.0% |
 | CANCELLED | 39 | 0 | 0.0% |

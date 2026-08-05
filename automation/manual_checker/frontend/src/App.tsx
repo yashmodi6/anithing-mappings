@@ -37,6 +37,7 @@ export default function App() {
   const [savingEpisodes, setSavingEpisodes] = useState<Record<string, boolean>>({});
   const [epDrafts, setEpDrafts] = useState<Record<string, string | number>>({});
   const [providerDrafts, setProviderDrafts] = useState<Record<string, string>>({});
+  const [providerTypes, setProviderTypes] = useState<Record<string, 'show' | 'movie'>>({});
   const [committedProviders, setCommittedProviders] = useState<Record<string, string>>({});
   
   // Loading State
@@ -94,16 +95,20 @@ export default function App() {
       setAnimeDetails(details);
       
       const isMovie = (details.format || '').toUpperCase().includes('MOVIE');
-      const tmdbId = isMovie ? details.tmdb_movie_id : details.tmdb_show_id;
-      const tvdbId = isMovie ? details.tvdb_movie_id : details.tvdb_show_id;
+      const tmdbId = details.tmdb_show_id || details.tmdb_movie_id || '';
+      const tvdbId = details.tvdb_show_id || details.tvdb_movie_id || '';
+      
+      const tmdbType = details.tmdb_movie_id ? 'movie' : (details.tmdb_show_id ? 'show' : (isMovie ? 'movie' : 'show'));
+      const tvdbType = details.tvdb_movie_id ? 'movie' : (details.tvdb_show_id ? 'show' : (isMovie ? 'movie' : 'show'));
       
       const initialProviders = {
-        tmdb: tmdbId || '',
-        tvdb: tvdbId || '',
+        tmdb: String(tmdbId),
+        tvdb: String(tvdbId),
         mal: details.mal_id || ''
       };
       
       setProviderDrafts(initialProviders);
+      setProviderTypes({ tmdb: tmdbType, tvdb: tvdbType, mal: 'show' });
       setCommittedProviders(initialProviders);
       
       const tmdbRes = await getEpisodes('tmdb', id);
@@ -178,20 +183,26 @@ export default function App() {
     setProviderDrafts(prev => ({ ...prev, [pId]: val }));
   };
 
+  const handleProviderTypeChange = (pId: string, val: 'show' | 'movie') => {
+    setHasChanges(true);
+    setProviderChanges(prev => ({ ...prev, [pId]: true }));
+    setProviderTypes(prev => ({ ...prev, [pId]: val }));
+  };
+
   const handleProviderSave = async (pId: string) => {
     if (!animeDetails || pId === 'anilist') return;
     setSavingProviders(prev => ({ ...prev, [pId]: true }));
     try {
       const val = providerDrafts[pId];
       if (pId === 'tmdb' || pId === 'tvdb' || pId === 'mal') {
-        const isMovie = (animeDetails.format || '').toUpperCase().includes('MOVIE');
+        const isMovie = providerTypes[pId] === 'movie';
         const posterRes = await getPosterPreview(pId, val, isMovie);
         if (posterRes.poster) {
           setAnimeDetails(prev => prev ? { ...prev, [`${pId}_poster`]: posterRes.poster } : prev);
         }
         
         if (pId !== 'mal') {
-          const epRes = await getEpisodes(pId, animeDetails.anilist_id, null, val);
+          const epRes = await getEpisodes(pId, animeDetails.anilist_id, null, val, isMovie);
           setEpisodesMap(prev => ({ ...prev, [pId]: epRes.episodes || [] }));
           
           const newDrafts = { ...epDrafts };
@@ -231,7 +242,8 @@ export default function App() {
         };
       }
       
-      const epRes = await getEpisodes(pId, animeDetails.anilist_id, mappings, pVal);
+      const isMovie = providerTypes[pId] === 'movie';
+      const epRes = await getEpisodes(pId, animeDetails.anilist_id, mappings, pVal, isMovie);
       setEpisodesMap(prev => ({ ...prev, [pId]: epRes.episodes || [] }));
       
       const newDrafts = { ...epDrafts };
@@ -273,15 +285,13 @@ export default function App() {
           } : null
         };
       }
-      
-      const isMovie = animeDetails.format && animeDetails.format.toUpperCase().includes('MOVIE');
       const payload = {
         anilist_id: animeDetails.anilist_id,
         format: animeDetails.format,
-        tmdb_show_id: isMovie ? null : committedProviders.tmdb,
-        tmdb_movie_id: isMovie ? committedProviders.tmdb : null,
-        tvdb_show_id: isMovie ? null : committedProviders.tvdb,
-        tvdb_movie_id: isMovie ? committedProviders.tvdb : null,
+        tmdb_show_id: providerTypes.tmdb === 'show' ? committedProviders.tmdb : null,
+        tmdb_movie_id: providerTypes.tmdb === 'movie' ? committedProviders.tmdb : null,
+        tvdb_show_id: providerTypes.tvdb === 'show' ? committedProviders.tvdb : null,
+        tvdb_movie_id: providerTypes.tvdb === 'movie' ? committedProviders.tvdb : null,
         mal_id: committedProviders.mal,
         episode_mappings: mappings
       };
@@ -370,17 +380,19 @@ export default function App() {
                 handleVerify={handleVerify} 
                 handleUnverify={handleUnverify}
               />
-              
-              <ProviderList 
-                provs={getProviderInfo()} 
-                providerChanges={providerChanges} 
-                savingProviders={savingProviders}
-                animeTitle={animeDetails.title_english || animeDetails.title_romaji || animeDetails.title || ''} 
-                handleProviderIdChange={handleProviderIdChange} 
-                handleProviderSave={handleProviderSave} 
-              />
-              
-              {!(animeDetails.format || '').toUpperCase().includes('MOVIE') && (
+              <div className="card h-full flex-col p-0">
+                <ProviderList 
+                  provs={getProviderInfo()} 
+                  providerChanges={providerChanges} 
+                  savingProviders={savingProviders}
+                  animeTitle={animeDetails.title_english || animeDetails.title_romaji}
+                  providerTypes={providerTypes}
+                  handleProviderIdChange={handleProviderIdChange}
+                  handleProviderTypeChange={handleProviderTypeChange}
+                  handleProviderSave={handleProviderSave}
+                />
+              </div>
+              {!(providerTypes.tmdb === 'movie' || providerTypes.tvdb === 'movie' || (animeDetails.format || '').toUpperCase().includes('MOVIE')) && (
                 <EpisodeTable 
                   totalEpisodes={totalEpisodes} 
                   episodesMap={episodesMap} 
