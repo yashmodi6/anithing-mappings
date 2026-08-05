@@ -127,6 +127,26 @@ export default function App() {
         drafts[`${i+1}_tvdb_e`] = ep.episode || '';
       });
       setEpDrafts(drafts);
+      
+      // Preload posters before removing the loading spinner
+      const postersToLoad = [
+        details.anilist_poster, 
+        details.mal_poster, 
+        details.tmdb_poster, 
+        details.tvdb_poster
+      ].filter(Boolean) as string[];
+      
+      if (postersToLoad.length > 0) {
+        await Promise.all(postersToLoad.map(url => {
+          return new Promise(resolve => {
+            const img = new Image();
+            img.onload = resolve;
+            img.onerror = resolve;
+            img.src = url;
+          });
+        }));
+      }
+      
     } catch (e) { console.error(e); }
     setIsLoading(false);
   }
