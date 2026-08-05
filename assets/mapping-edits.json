@@ -1,0 +1,47 @@
+[
+  {
+    "anilist_id": 20954,
+    "mal_id": 28851,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": 378064,
+    "tvdb_show_id": null,
+    "tvdb_movie_id": 894,
+    "episodes": null
+  },
+  {
+    "anilist_id": 21519,
+    "mal_id": 32281,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": 372058,
+    "tvdb_show_id": null,
+    "tvdb_movie_id": 197,
+    "episodes": null
+  },
+  {
+    "anilist_id": 112151,
+    "mal_id": 40456,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": 635302,
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "131963",
+    "episodes": null
+  },
+  {
+    "anilist_id": 199,
+    "mal_id": 199,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": 129,
+    "tvdb_show_id": null,
+    "tvdb_movie_id": 276,
+    "episodes": null
+  },
+  {
+    "anilist_id": 131573,
+    "mal_id": 48561,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": 810693,
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "158149",
+    "episodes": null
+  }
+]
