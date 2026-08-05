@@ -25,17 +25,17 @@ def get_stats():
         except Exception:
             pass
 
-    # Step 2 Stats
-    step2_data = {"total_mapped": 0, "mal": 0, "anidb": 0, "tvdb": 0, "tmdb": 0}
-    if os.path.exists(STEP2_DB):
+    # Provider Coverage Stats (from Verified Step 3 Database instead of AniBridge)
+    provider_data = {"total_mapped": 0, "mal": 0, "anidb": 0, "tvdb": 0, "tmdb": 0}
+    if os.path.exists(STEP3_DB):
         try:
-            with sqlite3.connect(STEP2_DB) as conn:
+            with sqlite3.connect(STEP3_DB) as conn:
                 cur = conn.cursor()
-                step2_data["total_mapped"] = conn.execute("SELECT COUNT(*) FROM mappings").fetchone()[0]
-                step2_data["mal"] = conn.execute("SELECT COUNT(*) FROM mappings WHERE mal_id IS NOT NULL AND mal_id != 0").fetchone()[0]
-                step2_data["anidb"] = conn.execute("SELECT COUNT(*) FROM mappings WHERE anidb_id IS NOT NULL AND anidb_id != 0").fetchone()[0]
-                step2_data["tvdb"] = conn.execute("SELECT COUNT(*) FROM mappings WHERE tvdb_show_id IS NOT NULL OR tvdb_movie_id IS NOT NULL").fetchone()[0]
-                step2_data["tmdb"] = conn.execute("SELECT COUNT(*) FROM mappings WHERE tmdb_show_id IS NOT NULL OR tmdb_movie_id IS NOT NULL").fetchone()[0]
+                provider_data["total_mapped"] = conn.execute("SELECT COUNT(*) FROM verified_anime WHERE manual_checked = 1").fetchone()[0]
+                provider_data["mal"] = conn.execute("SELECT COUNT(*) FROM verified_anime WHERE manual_checked = 1 AND mal_id IS NOT NULL AND mal_id != 0").fetchone()[0]
+                provider_data["anidb"] = conn.execute("SELECT COUNT(*) FROM verified_anime WHERE manual_checked = 1 AND anidb_id IS NOT NULL AND anidb_id != 0").fetchone()[0]
+                provider_data["tvdb"] = conn.execute("SELECT COUNT(*) FROM verified_anime WHERE manual_checked = 1 AND (tvdb_show_id IS NOT NULL OR tvdb_movie_id IS NOT NULL)").fetchone()[0]
+                provider_data["tmdb"] = conn.execute("SELECT COUNT(*) FROM verified_anime WHERE manual_checked = 1 AND (tmdb_show_id IS NOT NULL OR tmdb_movie_id IS NOT NULL)").fetchone()[0]
         except Exception:
             pass
 
@@ -61,20 +61,20 @@ def get_stats():
         except Exception:
             pass
 
-    base_total = max(total_anilist, step2_data.get("total_mapped", 0))
-    return base_total, status_breakdown, step2_data, verified_count, verified_status_breakdown
+    base_total = max(total_anilist, provider_data.get("total_mapped", 0))
+    return base_total, status_breakdown, provider_data, verified_count, verified_status_breakdown
 
-def format_markdown(base_total, status_breakdown, step2_data, verified_count, verified_status_breakdown):
+def format_markdown(base_total, status_breakdown, provider_data, verified_count, verified_status_breakdown):
     md = "## Database Coverage & Stats\n\n"
     md += "### Provider Coverage\n"
     md += "| Provider Category | Total AniList | Mapped Count | Missing / Left |\n"
     md += "| :--- | --: | --: | --: |\n"
     
     providers = [
-        ("MyAnimeList (MAL)", step2_data.get("mal", 0)),
-        ("AniDB", step2_data.get("anidb", 0)),
-        ("TVDB (Show/Movie)", step2_data.get("tvdb", 0)),
-        ("TMDB (Show/Movie)", step2_data.get("tmdb", 0)),
+        ("MyAnimeList (MAL)", provider_data.get("mal", 0)),
+        ("AniDB", provider_data.get("anidb", 0)),
+        ("TVDB (Show/Movie)", provider_data.get("tvdb", 0)),
+        ("TMDB (Show/Movie)", provider_data.get("tmdb", 0)),
         ("Step 3 Verified (Manual)", verified_count)
     ]
     

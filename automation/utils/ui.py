@@ -49,27 +49,27 @@ def query_step1_stats(step1_db: str) -> Tuple[int, Dict[str, int]]:
     return total, status_breakdown
 
 
-# Helper: Query Step 2 SQLite database for provider mapping counts
-def query_step2_stats(step2_db: str) -> Dict[str, int]:
+# Helper: Query Verified SQLite database for provider mapping counts
+def query_provider_stats(step3_db: str) -> Dict[str, int]:
     stats = {"total_mapped": 0, "mal": 0, "anidb": 0, "tvdb": 0, "tmdb": 0}
-    if not os.path.exists(step2_db):
+    if not os.path.exists(step3_db):
         return stats
     try:
-        conn = sqlite3.connect(step2_db)
+        conn = sqlite3.connect(step3_db)
         cursor = conn.cursor()
-        cursor.execute("SELECT COUNT(*) FROM mappings")
+        cursor.execute("SELECT COUNT(*) FROM verified_anime WHERE manual_checked = 1")
         stats["total_mapped"] = cursor.fetchone()[0]
 
-        cursor.execute("SELECT COUNT(*) FROM mappings WHERE mal_id IS NOT NULL AND mal_id != 0")
+        cursor.execute("SELECT COUNT(*) FROM verified_anime WHERE manual_checked = 1 AND mal_id IS NOT NULL AND mal_id != 0")
         stats["mal"] = cursor.fetchone()[0]
 
-        cursor.execute("SELECT COUNT(*) FROM mappings WHERE anidb_id IS NOT NULL AND anidb_id != 0")
+        cursor.execute("SELECT COUNT(*) FROM verified_anime WHERE manual_checked = 1 AND anidb_id IS NOT NULL AND anidb_id != 0")
         stats["anidb"] = cursor.fetchone()[0]
 
-        cursor.execute("SELECT COUNT(*) FROM mappings WHERE tvdb_show_id IS NOT NULL OR tvdb_movie_id IS NOT NULL")
+        cursor.execute("SELECT COUNT(*) FROM verified_anime WHERE manual_checked = 1 AND (tvdb_show_id IS NOT NULL OR tvdb_movie_id IS NOT NULL)")
         stats["tvdb"] = cursor.fetchone()[0]
 
-        cursor.execute("SELECT COUNT(*) FROM mappings WHERE tmdb_show_id IS NOT NULL OR tmdb_movie_id IS NOT NULL")
+        cursor.execute("SELECT COUNT(*) FROM verified_anime WHERE manual_checked = 1 AND (tmdb_show_id IS NOT NULL OR tmdb_movie_id IS NOT NULL)")
         stats["tmdb"] = cursor.fetchone()[0]
 
         conn.close()
@@ -176,14 +176,14 @@ def render_stats_summary(automation_dir: str) -> None:
     step3_db = os.path.join(output_dir, "step3_verified", "verified.db")
 
     total_anilist, status_breakdown = query_step1_stats(step1_db)
-    step2_data = query_step2_stats(step2_db)
+    provider_data = query_provider_stats(step3_db)
     verified_count = query_step3_stats(step3_db)
     verified_status_breakdown = query_verified_status_breakdown(step1_db, step3_db)
 
-    base_total = max(total_anilist, step2_data.get("total_mapped", 0))
+    base_total = max(total_anilist, provider_data.get("total_mapped", 0))
 
     if base_total > 0:
-        render_coverage_table(base_total, step2_data, verified_count)
+        render_coverage_table(base_total, provider_data, verified_count)
 
     if status_breakdown:
         render_status_table(status_breakdown, verified_status_breakdown)
