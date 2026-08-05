@@ -28,9 +28,14 @@ export default function InfoCard({ animeDetails, animeId, goPrev, goNext, loadAn
       </div>
       <div className="flex-row gap-sm">
         {animeDetails.is_verified ? (
-          <button className="btn btn-secondary" onClick={handleUnverify}>
-            <X size={16} /> Unverify
-          </button>
+          <>
+            <button className="btn btn-primary" onClick={handleVerify} disabled={!hasChanges} title={!hasChanges ? "Make changes to re-verify" : "Re-verify changes"}>
+              <RefreshCw size={16} /> Re-verify
+            </button>
+            <button className="btn btn-secondary" onClick={handleUnverify}>
+              <X size={16} /> Unverify
+            </button>
+          </>
         ) : (
           <button className="btn btn-primary" onClick={handleVerify}>
             <Check size={16} /> Verify

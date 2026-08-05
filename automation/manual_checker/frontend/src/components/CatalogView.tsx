@@ -15,12 +15,13 @@ interface CatalogViewProps {
   sort: string;
   setSort: (s: string) => void;
   loadCatalog: () => void;
+  loadMore: () => void;
   handleAnimeClick: (id: number) => void;
 }
 
 export default function CatalogView({ 
   catalog, searchQ, setSearchQ, filter, setFilter, 
-  status, setStatus, format, setFormat, sort, setSort, loadCatalog, handleAnimeClick 
+  status, setStatus, format, setFormat, sort, setSort, loadCatalog, loadMore, handleAnimeClick 
 }: CatalogViewProps) {
   return (
     <div className="flex-col gap-md animate-in">
@@ -79,6 +80,13 @@ export default function CatalogView({
         ))}
         {catalog.length === 0 && <div className="text-muted">No anime found in this filter.</div>}
       </div>
+      {catalog.length > 0 && (
+        <div className="flex-row justify-center mt-4">
+          <button className="btn btn-secondary" onClick={loadMore}>
+            Load More
+          </button>
+        </div>
+      )}
     </div>
   );
 }

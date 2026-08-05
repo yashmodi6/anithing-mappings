@@ -21,6 +21,7 @@ export default function App() {
   const [status, setStatus] = useState<string>('ALL');
   const [format, setFormat] = useState<string>('ALL');
   const [sort, setSort] = useState<string>('POPULARITY_DESC');
+  const [offset, setOffset] = useState<number>(0);
   
   // Current Anime
   const [animeId, setAnimeId] = useState<number | null>(null);
@@ -45,27 +46,41 @@ export default function App() {
     loadCatalog();
   }, [filter, status, format, sort]);
 
-  async function loadCatalog() {
-    setIsLoading(true);
+  async function loadCatalog(append: boolean = false) {
+    if (!append) setIsLoading(true);
     try {
-      const data = await getQueue(filter, status, format, 0, sort);
-      setCatalog(data.queue || []);
-      if (data.stats) setStats(data.stats);
-      if (data.queue && data.queue.length > 0) {
-        setAnimeId(data.queue[0].anilist_id);
-        setCurrentView('home');
+      const currentOffset = append ? offset + 30 : 0;
+      const data = await getQueue(filter, status, format, currentOffset, sort);
+      const newQueue = data.queue || [];
+      
+      if (append) {
+        setCatalog(prev => [...prev, ...newQueue]);
+        setOffset(currentOffset);
       } else {
-        setAnimeId(null);
-        setCurrentView('catalog');
+        setCatalog(newQueue);
+        setOffset(0);
       }
-    } catch (e) { console.error(e); }
-    setIsLoading(false);
+      
+      if (data.stats) setStats(data.stats);
+      if (!append) {
+        if (newQueue.length > 0) {
+          if (!animeId) {
+            setAnimeId(newQueue[0].anilist_id);
+          }
+        } else {
+          setAnimeId(null);
+        }
+      }
+      return newQueue;
+    } catch (e) { console.error(e); return []; }
+    finally {
+      if (!append) setIsLoading(false);
+    }
   }
 
   useEffect(() => {
     if (animeId) {
       loadAnime(animeId);
-      setCurrentView('home');
     }
   }, [animeId]);
 
@@ -116,14 +131,20 @@ export default function App() {
     setIsLoading(false);
   }
 
-  const handleAnimeClick = (id: number) => setAnimeId(id);
+  const handleAnimeClick = (id: number) => {
+    setAnimeId(id);
+    setCurrentView('home');
+  };
 
-  const goNext = () => {
+  const goNext = async () => {
     const idx = catalog.findIndex(a => a.anilist_id === animeId);
     if (idx >= 0 && idx < catalog.length - 1) {
       setAnimeId(catalog[idx + 1].anilist_id);
     } else {
-      loadCatalog();
+      const newItems = await loadCatalog(true);
+      if (newItems.length > 0) {
+        setAnimeId(newItems[0].anilist_id);
+      }
     }
   };
   const goPrev = () => {
@@ -252,7 +273,12 @@ export default function App() {
         setEpisodeChanges({});
         if (res.stats) setStats(res.stats);
         setCatalog(prev => prev.map(a => a.anilist_id === animeDetails.anilist_id ? { ...a, is_verified: true } : a));
-        goNext();
+        if (!animeDetails.is_verified) {
+          goNext();
+        } else {
+          // If already verified, just reload to reflect new saved state without skipping
+          loadAnime(animeDetails.anilist_id);
+        }
       }
     } catch(e) {
       console.error(e);
@@ -299,8 +325,14 @@ export default function App() {
         setCurrentView={setCurrentView} 
       />
 
-      <main className="container">
-        {isLoading ? (
+      <main className="container" style={{ position: 'relative', opacity: isLoading ? 0.6 : 1, pointerEvents: isLoading ? 'none' : 'auto', transition: 'opacity 0.2s ease-in-out', minHeight: '60vh' }}>
+        {isLoading && (animeDetails || currentView === 'catalog') && (
+          <div style={{ position: 'absolute', top: '20vh', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 50 }}>
+            <Loader2 className="animate-spin text-white" size={48} />
+          </div>
+        )}
+        
+        {isLoading && !animeDetails && currentView === 'home' ? (
           <div className="flex-col items-center justify-center animate-in" style={{ height: '60vh', color: 'var(--accent)' }}>
             <Loader2 className="animate-spin" size={64} style={{ marginBottom: '16px' }} />
             <p className="text-xl font-semibold">Loading Anime Data...</p>
@@ -351,7 +383,8 @@ export default function App() {
             setFormat={setFormat} 
             sort={sort}
             setSort={setSort}
-            loadCatalog={loadCatalog} 
+            loadCatalog={() => loadCatalog(false)} 
+            loadMore={() => loadCatalog(true)}
             handleAnimeClick={handleAnimeClick} 
           />
         ) : (
