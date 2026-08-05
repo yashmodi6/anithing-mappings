@@ -10,9 +10,8 @@ import subprocess
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
-from werkzeug.serving import make_server
-from server import start_server, _shutdown_event
-from db import VerifiedDB
+from api.server import start_server, _shutdown_event
+from core.database import VerifiedDB
 
 
 def main() -> None:

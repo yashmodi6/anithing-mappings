@@ -1,6 +1,6 @@
 import React from 'react';
 import { ChevronLeft, ChevronRight, RefreshCw, Check, X } from 'lucide-react';
-import { Anime } from '../types';
+import { Anime } from '../../types';
 
 interface InfoCardProps {
   animeDetails: Anime;
@@ -23,7 +23,7 @@ export default function InfoCard({ animeDetails, animeId, goPrev, goNext, loadAn
         </div>
         <h2 className="text-md font-bold">{animeDetails.title || animeDetails.title_english || animeDetails.title_romaji}</h2>
         <span className="text-sm text-muted flex-row items-center gap-sm">
-          <span className="badge badge-neutral">{animeDetails.format} • Episodes: {animeDetails.released_episodes || '?'} • {animeDetails.status}</span>
+          <span className="badge badge-neutral">{animeDetails.format} • Episodes: {animeDetails.released_episodes || animeDetails.episodes || '?'} • {animeDetails.status}</span>
         </span>
       </div>
       <div className="flex-row gap-sm">

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Search, Loader2 } from 'lucide-react';
-import { Provider } from '../types';
+import { Provider } from '../../types';
 
 interface ProviderListProps {
   provs: Provider[];
@@ -8,12 +8,14 @@ interface ProviderListProps {
   savingProviders: Record<string, boolean>;
   animeTitle: string;
   providerTypes?: Record<string, 'show' | 'movie'>;
+  isAutoMapping?: boolean;
   handleProviderIdChange: (id: string, val: string) => void;
   handleProviderTypeChange?: (id: string, val: 'show' | 'movie') => void;
   handleProviderSave: (id: string) => void;
+  handleAutoMap?: () => void;
 }
 
-export default function ProviderList({ provs, providerChanges, savingProviders, animeTitle, providerTypes, handleProviderIdChange, handleProviderTypeChange, handleProviderSave }: ProviderListProps) {
+export default function ProviderList({ provs, providerChanges, savingProviders, animeTitle, providerTypes, isAutoMapping, handleProviderIdChange, handleProviderTypeChange, handleProviderSave, handleAutoMap }: ProviderListProps) {
   const handleSearch = (providerId: string) => {
     const q = encodeURIComponent(animeTitle);
     let url = '';
@@ -28,8 +30,18 @@ export default function ProviderList({ provs, providerChanges, savingProviders, 
 
   return (
     <section className="flex-col gap-md animate-in" style={{ animationDelay: '0.1s' }}>
-      <div>
+      <div className="flex-row justify-between items-center">
         <h3 className="text-xl">Provider ID Mapping</h3>
+        {handleAutoMap && (
+          <button 
+            className="btn btn-outline btn-sm flex-row gap-sm items-center" 
+            onClick={handleAutoMap}
+            disabled={isAutoMapping}
+          >
+            {isAutoMapping && <Loader2 className="animate-spin" size={14} />}
+            Auto Map
+          </button>
+        )}
       </div>
       <div className="provider-grid">
         {provs.map(p => (

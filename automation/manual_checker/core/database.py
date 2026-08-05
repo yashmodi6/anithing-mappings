@@ -5,8 +5,8 @@ import re
 import json
 import sqlite3
 from typing import List, Dict, Any, Optional
+from core.config import AUTOMATION_ROOT
 
-AUTOMATION_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUTPUT_DIR = os.path.join(AUTOMATION_ROOT, "output", "step3_verified")
 VERIFIED_DB_PATH = os.path.join(OUTPUT_DIR, "verified.db")
 STEP1_DB_PATH = os.path.join(AUTOMATION_ROOT, "output", "step1_anilist", "anime.db")

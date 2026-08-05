@@ -1,6 +1,6 @@
 import React from 'react';
 import { Loader2 } from 'lucide-react';
-import { EpisodesMap } from '../types';
+import { EpisodesMap } from '../../types';
 
 interface EpisodeTableProps {
   totalEpisodes: number;

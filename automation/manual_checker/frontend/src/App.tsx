@@ -1,96 +1,40 @@
 import React, { useState, useEffect } from 'react';
-import { getStats, getQueue, getAnime, getEpisodes, verifyAnime, getPosterPreview, unverifyAnime } from './api';
+import { getAnime, verifyAnime, unverifyAnime, getEpisodes } from './api_client';
 import { Loader2 } from 'lucide-react';
-import { Anime, Stats, EpisodesMap, Provider, Episode } from './types';
+import { Anime, Provider, Episode } from './types';
 
-// Components
-import Header from './components/Header';
-import CatalogView from './components/CatalogView';
-import InfoCard from './components/InfoCard';
-import ProviderList from './components/ProviderList';
-import EpisodeTable from './components/EpisodeTable';
+import { useCatalog } from './hooks/useCatalog';
+import { useProviders } from './hooks/useProviders';
+import { useEpisodes } from './hooks/useEpisodes';
+
+import Header from './components/layout/Header';
+import CatalogView from './components/views/CatalogView';
+import InfoCard from './components/shared/InfoCard';
+import ProviderList from './components/shared/ProviderList';
+import EpisodeTable from './components/shared/EpisodeTable';
 
 export default function App() {
   const [currentView, setCurrentView] = useState<string>('catalog');
-  const [stats, setStats] = useState<Stats>({ total_count: 0, verified_count: 0, percentage: 0 });
-  const [catalog, setCatalog] = useState<Anime[]>([]);
-  
-  // Filters
-  const [searchQ, setSearchQ] = useState<string>('');
-  const [filter, setFilter] = useState<string>('UNVERIFIED');
-  const [status, setStatus] = useState<string>('ALL');
-  const [format, setFormat] = useState<string>('ALL');
-  const [sort, setSort] = useState<string>('POPULARITY_DESC');
-  const [offset, setOffset] = useState<number>(0);
-  
-  // Current Anime
-  const [animeId, setAnimeId] = useState<number | null>(null);
-  const [animeDetails, setAnimeDetails] = useState<Anime | null>(null);
-  const [episodesMap, setEpisodesMap] = useState<EpisodesMap>({ tmdb: [], tvdb: [] });
-  const [totalEpisodes, setTotalEpisodes] = useState<number>(0);
-
-  // Edits
   const [hasChanges, setHasChanges] = useState<boolean>(false);
-  const [providerChanges, setProviderChanges] = useState<Record<string, boolean>>({});
-  const [episodeChanges, setEpisodeChanges] = useState<Record<string, boolean>>({});
-  const [savingProviders, setSavingProviders] = useState<Record<string, boolean>>({});
-  const [savingEpisodes, setSavingEpisodes] = useState<Record<string, boolean>>({});
-  const [epDrafts, setEpDrafts] = useState<Record<string, string | number>>({});
-  const [providerDrafts, setProviderDrafts] = useState<Record<string, string>>({});
-  const [providerTypes, setProviderTypes] = useState<Record<string, 'show' | 'movie'>>({});
-  const [committedProviders, setCommittedProviders] = useState<Record<string, string>>({});
-  
-  // Loading State
-  const [isLoading, setIsLoading] = useState<boolean>(false);
+  const [animeDetails, setAnimeDetails] = useState<Anime | null>(null);
+  const [isLoadingAnime, setIsLoadingAnime] = useState<boolean>(false);
+
+  const catalogState = useCatalog();
+  const providerState = useProviders(animeDetails, setAnimeDetails, setHasChanges);
+  const episodeState = useEpisodes(animeDetails, setHasChanges);
 
   useEffect(() => {
-    loadCatalog();
-  }, [filter, status, format, sort]);
-
-  async function loadCatalog(append: boolean = false) {
-    if (!append) setIsLoading(true);
-    try {
-      const currentOffset = append ? offset + 30 : 0;
-      const data = await getQueue(filter, status, format, currentOffset, sort);
-      const newQueue = data.queue || [];
-      
-      if (append) {
-        setCatalog(prev => [...prev, ...newQueue]);
-        setOffset(currentOffset);
-      } else {
-        setCatalog(newQueue);
-        setOffset(0);
-      }
-      
-      if (data.stats) setStats(data.stats);
-      if (!append) {
-        if (newQueue.length > 0) {
-          if (!animeId) {
-            setAnimeId(newQueue[0].anilist_id);
-          }
-        } else {
-          setAnimeId(null);
-        }
-      }
-      return newQueue;
-    } catch (e) { console.error(e); return []; }
-    finally {
-      if (!append) setIsLoading(false);
+    if (catalogState.animeId) {
+      loadAnime(catalogState.animeId);
     }
-  }
-
-  useEffect(() => {
-    if (animeId) {
-      loadAnime(animeId);
-    }
-  }, [animeId]);
+  }, [catalogState.animeId]);
 
   async function loadAnime(id: number) {
-    setIsLoading(true);
+    setIsLoadingAnime(true);
     try {
       setHasChanges(false);
-      setProviderChanges({});
-      setEpisodeChanges({});
+      providerState.setProviderChanges({});
+      episodeState.setEpisodeChanges({});
       const details = await getAnime(id);
       setAnimeDetails(details);
       
@@ -107,20 +51,20 @@ export default function App() {
         mal: details.mal_id || ''
       };
       
-      setProviderDrafts(initialProviders);
-      setProviderTypes({ tmdb: tmdbType, tvdb: tvdbType, mal: 'show' });
-      setCommittedProviders(initialProviders);
+      providerState.setProviderDrafts(initialProviders);
+      providerState.setProviderTypes({ tmdb: tmdbType, tvdb: tvdbType, mal: 'show' });
+      providerState.setCommittedProviders(initialProviders);
       
       const tmdbRes = await getEpisodes('tmdb', id);
       const tvdbRes = await getEpisodes('tvdb', id);
       
       const total = tmdbRes.total_episodes || tvdbRes.total_episodes || 0;
-      setTotalEpisodes(total);
+      episodeState.setTotalEpisodes(total);
       
       const tEps = tmdbRes.episodes || [];
       const vEps = tvdbRes.episodes || [];
       
-      setEpisodesMap({ tmdb: tEps, tvdb: vEps });
+      episodeState.setEpisodesMap({ tmdb: tEps, tvdb: vEps });
       
       const drafts: Record<string, string | number> = {};
       tEps.forEach((ep: Episode, i: number) => {
@@ -131,9 +75,8 @@ export default function App() {
         drafts[`${i+1}_tvdb_s`] = ep.season || '';
         drafts[`${i+1}_tvdb_e`] = ep.episode || '';
       });
-      setEpDrafts(drafts);
+      episodeState.setEpDrafts(drafts);
       
-      // Preload posters before removing the loading spinner
       const postersToLoad = [
         details.anilist_poster, 
         details.mal_poster, 
@@ -153,122 +96,43 @@ export default function App() {
       }
       
     } catch (e) { console.error(e); }
-    setIsLoading(false);
+    setIsLoadingAnime(false);
   }
 
   const handleAnimeClick = (id: number) => {
-    setAnimeId(id);
+    catalogState.setAnimeId(id);
     setCurrentView('home');
   };
 
-  const goNext = async () => {
-    const idx = catalog.findIndex(a => a.anilist_id === animeId);
-    if (idx >= 0 && idx < catalog.length - 1) {
-      setAnimeId(catalog[idx + 1].anilist_id);
-    } else {
-      const newItems = await loadCatalog(true);
-      if (newItems.length > 0) {
-        setAnimeId(newItems[0].anilist_id);
-      }
-    }
-  };
-  const goPrev = () => {
-    const idx = catalog.findIndex(a => a.anilist_id === animeId);
-    if (idx > 0) setAnimeId(catalog[idx - 1].anilist_id);
-  };
-
-  const handleProviderIdChange = (pId: string, val: string) => {
-    setHasChanges(true);
-    setProviderChanges(prev => ({ ...prev, [pId]: true }));
-    setProviderDrafts(prev => ({ ...prev, [pId]: val }));
-  };
-
-  const handleProviderTypeChange = (pId: string, val: 'show' | 'movie') => {
-    setHasChanges(true);
-    setProviderChanges(prev => ({ ...prev, [pId]: true }));
-    setProviderTypes(prev => ({ ...prev, [pId]: val }));
-  };
-
-  const handleProviderSave = async (pId: string) => {
-    if (!animeDetails || pId === 'anilist') return;
-    setSavingProviders(prev => ({ ...prev, [pId]: true }));
-    try {
-      const val = providerDrafts[pId];
-      if (pId === 'tmdb' || pId === 'tvdb' || pId === 'mal') {
-        const isMovie = providerTypes[pId] === 'movie';
-        const posterRes = await getPosterPreview(pId, val, isMovie);
-        if (posterRes.poster) {
-          setAnimeDetails(prev => prev ? { ...prev, [`${pId}_poster`]: posterRes.poster } : prev);
-        }
-        
-        if (pId !== 'mal') {
-          const epRes = await getEpisodes(pId, animeDetails.anilist_id, null, val, isMovie);
-          setEpisodesMap(prev => ({ ...prev, [pId]: epRes.episodes || [] }));
-          
-          const newDrafts = { ...epDrafts };
-          (epRes.episodes || []).forEach((ep: Episode, i: number) => {
-            newDrafts[`${i+1}_${pId}_s`] = ep.season || '';
-            newDrafts[`${i+1}_${pId}_e`] = ep.episode || '';
-          });
-          setEpDrafts(newDrafts);
-        }
-      }
+  const handleProviderSaveAction = async (pId: string) => {
+    const res = await providerState.saveProviderPreview(pId);
+    if (res && pId !== 'mal') {
+      const epRes = await getEpisodes(pId, animeDetails!.anilist_id, null, res.val, res.isMovie);
+      episodeState.setEpisodesMap(prev => ({ ...prev, [pId]: epRes.episodes || [] }));
       
-      setCommittedProviders(prev => ({ ...prev, [pId]: val }));
-      setProviderChanges(prev => ({ ...prev, [pId]: false }));
-    } catch(e) { 
-      console.error(e); 
-      alert("Failed to fetch provider details"); 
-    }
-    setSavingProviders(prev => ({ ...prev, [pId]: false }));
-  };
-
-  const handleEpisodeChange = (epIdx: number, provider: string, field: string, val: string) => {
-    setHasChanges(true);
-    setEpisodeChanges(prev => ({ ...prev, [`${epIdx}_${provider}`]: true }));
-    setEpDrafts(prev => ({ ...prev, [`${epIdx}_${provider}_${field}`]: val }));
-  };
-
-  const handleEpisodeSave = async (epIdx: number, pId: string) => {
-    if (!animeDetails) return;
-    setSavingEpisodes(prev => ({ ...prev, [`${epIdx}_${pId}`]: true }));
-    try {
-      const pVal = providerDrafts[pId];
-      const mappings: any = {};
-      for (let i = 1; i <= totalEpisodes; i++) {
-        mappings[i] = {
-          tmdb: { s: epDrafts[`${i}_tmdb_s`], e: epDrafts[`${i}_tmdb_e`] },
-          tvdb: { s: epDrafts[`${i}_tvdb_s`], e: epDrafts[`${i}_tvdb_e`] }
-        };
-      }
-      
-      const isMovie = providerTypes[pId] === 'movie';
-      const epRes = await getEpisodes(pId, animeDetails.anilist_id, mappings, pVal, isMovie);
-      setEpisodesMap(prev => ({ ...prev, [pId]: epRes.episodes || [] }));
-      
-      const newDrafts = { ...epDrafts };
+      const newDrafts = { ...episodeState.epDrafts };
       (epRes.episodes || []).forEach((ep: Episode, i: number) => {
         newDrafts[`${i+1}_${pId}_s`] = ep.season || '';
         newDrafts[`${i+1}_${pId}_e`] = ep.episode || '';
       });
-      setEpDrafts(newDrafts);
-      
-      setEpisodeChanges(prev => ({ ...prev, [`${epIdx}_${pId}`]: false }));
-    } catch(e) {
-      console.error(e);
-      alert("Failed to update episode mapping");
+      episodeState.setEpDrafts(newDrafts);
     }
-    setSavingEpisodes(prev => ({ ...prev, [`${epIdx}_${pId}`]: false }));
   };
 
-  const handleVerify = async () => {
-    if (!animeDetails || isLoading) return;
-    setIsLoading(true);
+  const handleEpisodeSaveAction = async (epIdx: number, pId: string) => {
+    const pVal = providerState.providerDrafts[pId];
+    const isMovie = providerState.providerTypes[pId] === 'movie';
+    await episodeState.handleEpisodeSave(epIdx, pId, pVal, isMovie);
+  };
+
+  const verifyCurrent = async () => {
+    if (!animeDetails || isLoadingAnime) return;
+    setIsLoadingAnime(true);
     try {
       const mappings: any = {};
-      for (let i = 1; i <= totalEpisodes; i++) {
-        const tmdbEp = episodesMap.tmdb[i - 1];
-        const tvdbEp = episodesMap.tvdb[i - 1];
+      for (let i = 1; i <= episodeState.totalEpisodes; i++) {
+        const tmdbEp = episodeState.episodesMap.tmdb[i - 1];
+        const tvdbEp = episodeState.episodesMap.tvdb[i - 1];
 
         mappings[i] = {
           tmdb: tmdbEp ? { 
@@ -285,140 +149,149 @@ export default function App() {
           } : null
         };
       }
+
       const payload = {
         anilist_id: animeDetails.anilist_id,
         format: animeDetails.format,
-        tmdb_show_id: providerTypes.tmdb === 'show' ? committedProviders.tmdb : null,
-        tmdb_movie_id: providerTypes.tmdb === 'movie' ? committedProviders.tmdb : null,
-        tvdb_show_id: providerTypes.tvdb === 'show' ? committedProviders.tvdb : null,
-        tvdb_movie_id: providerTypes.tvdb === 'movie' ? committedProviders.tvdb : null,
-        mal_id: committedProviders.mal,
+        tmdb_show_id: providerState.providerTypes.tmdb === 'show' ? providerState.committedProviders.tmdb : null,
+        tmdb_movie_id: providerState.providerTypes.tmdb === 'movie' ? providerState.committedProviders.tmdb : null,
+        tvdb_show_id: providerState.providerTypes.tvdb === 'show' ? providerState.committedProviders.tvdb : null,
+        tvdb_movie_id: providerState.providerTypes.tvdb === 'movie' ? providerState.committedProviders.tvdb : null,
+        mal_id: providerState.committedProviders.mal,
         episode_mappings: mappings
       };
       
       const res = await verifyAnime(payload);
       if (res.success) {
         setHasChanges(false);
-        setProviderChanges({});
-        setEpisodeChanges({});
-        if (res.stats) setStats(res.stats);
-        setCatalog(prev => prev.map(a => a.anilist_id === animeDetails.anilist_id ? { ...a, is_verified: true } : a));
+        providerState.setProviderChanges({});
+        episodeState.setEpisodeChanges({});
+        if (res.stats) catalogState.setStats(res.stats);
+        
+        catalogState.setCatalog(prev => prev.map(a => 
+          a.anilist_id === animeDetails.anilist_id ? { ...a, is_verified: true } : a
+        ));
+        
         if (!animeDetails.is_verified) {
-          goNext();
+          catalogState.goNext();
         } else {
-          // If already verified, just reload to reflect new saved state without skipping
           loadAnime(animeDetails.anilist_id);
         }
       }
-    } catch(e) {
+    } catch (e) {
       console.error(e);
-      alert("Failed to verify");
+      alert("Failed to verify anime");
     }
-    setIsLoading(false);
+    setIsLoadingAnime(false);
   };
 
-  const handleUnverify = async () => {
-    if (!animeDetails || isLoading) return;
-    setIsLoading(true);
+  const unverifyCurrent = async () => {
+    if (!animeDetails || isLoadingAnime) return;
+    setIsLoadingAnime(true);
     try {
       const res = await unverifyAnime(animeDetails.anilist_id);
       if (res.success) {
-        setStats(res.stats);
-        const updatedCatalog = catalog.map(a => 
+        if (res.stats) catalogState.setStats(res.stats);
+        const updatedCatalog = catalogState.catalog.map(a => 
           a.anilist_id === animeDetails.anilist_id ? { ...a, is_verified: false } : a
         );
-        setCatalog(updatedCatalog);
+        catalogState.setCatalog(updatedCatalog);
         await loadAnime(animeDetails.anilist_id);
       }
     } catch(e) {
       console.error(e);
       alert("Failed to unverify anime.");
     }
-    setIsLoading(false);
+    setIsLoadingAnime(false);
   };
 
   const getProviderInfo = (): Provider[] => {
     if (!animeDetails) return [];
     return [
       { id: 'anilist', name: 'AniList', logo: 'AL', currentId: String(animeDetails.anilist_id), poster: animeDetails.anilist_poster },
-      { id: 'mal', name: 'MyAnimeList', logo: 'MAL', currentId: providerDrafts.mal, poster: animeDetails.mal_poster },
-      { id: 'tmdb', name: 'TMDB', logo: 'TMDB', currentId: providerDrafts.tmdb, poster: animeDetails.tmdb_poster },
-      { id: 'tvdb', name: 'TVDB', logo: 'TVDB', currentId: providerDrafts.tvdb, poster: animeDetails.tvdb_poster }
+      { id: 'mal', name: 'MyAnimeList', logo: 'MAL', currentId: providerState.providerDrafts.mal || '', poster: animeDetails.mal_poster },
+      { id: 'tmdb', name: 'TMDB', logo: 'TMDB', currentId: providerState.providerDrafts.tmdb || '', poster: animeDetails.tmdb_poster },
+      { id: 'tvdb', name: 'TVDB', logo: 'TVDB', currentId: providerState.providerDrafts.tvdb || '', poster: animeDetails.tvdb_poster }
     ];
   };
 
   return (
     <div className="app-container">
-      <Header 
-        stats={stats} 
-        currentView={currentView} 
-        setCurrentView={setCurrentView} 
+      <Header
+        stats={catalogState.stats}
+        currentView={currentView}
+        setCurrentView={setCurrentView}
       />
 
       <main className="container" style={{ position: 'relative', minHeight: '60vh' }}>
-        {isLoading && (animeDetails || currentView === 'catalog') && (
+        {isLoadingAnime && animeDetails && (
           <div style={{ position: 'fixed', top: '45%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 100 }}>
             <Loader2 className="animate-spin text-white" size={48} />
           </div>
         )}
-        
-        <div style={{ opacity: isLoading ? 0.4 : 1, pointerEvents: isLoading ? 'none' : 'auto', transition: 'opacity 0.2s ease-in-out' }}>
-          {isLoading && !animeDetails && currentView === 'home' ? (
+
+        <div style={{ opacity: isLoadingAnime ? 0.4 : 1, pointerEvents: isLoadingAnime ? 'none' : 'auto', transition: 'opacity 0.2s ease-in-out' }}>
+          {isLoadingAnime && !animeDetails && currentView === 'home' ? (
             <div className="flex-col items-center justify-center animate-in" style={{ height: '60vh', color: 'var(--accent)' }}>
               <Loader2 className="animate-spin" size={64} style={{ marginBottom: '16px' }} />
               <p className="text-xl font-semibold">Loading Anime Data...</p>
             </div>
           ) : currentView === 'home' && animeDetails ? (
             <>
-              <InfoCard 
-                animeDetails={animeDetails} 
-                animeId={animeId!} 
-                goPrev={goPrev} 
-                goNext={goNext} 
-                loadAnime={loadAnime} 
-                hasChanges={hasChanges} 
-                handleVerify={handleVerify} 
-                handleUnverify={handleUnverify}
+              <InfoCard
+                animeDetails={animeDetails}
+                animeId={catalogState.animeId!}
+                goPrev={catalogState.goPrev}
+                goNext={catalogState.goNext}
+                loadAnime={loadAnime}
+                hasChanges={hasChanges}
+                handleVerify={verifyCurrent}
+                handleUnverify={unverifyCurrent}
               />
               <div className="card h-full flex-col p-0">
-                <ProviderList 
-                  provs={getProviderInfo()} 
-                  providerChanges={providerChanges} 
-                  savingProviders={savingProviders}
-                  animeTitle={animeDetails.title_english || animeDetails.title_romaji}
-                  providerTypes={providerTypes}
-                  handleProviderIdChange={handleProviderIdChange}
-                  handleProviderTypeChange={handleProviderTypeChange}
-                  handleProviderSave={handleProviderSave}
+                <ProviderList
+                  provs={getProviderInfo()}
+                  providerChanges={providerState.providerChanges}
+                  savingProviders={providerState.savingProviders}
+                  animeTitle={animeDetails.title_english || animeDetails.title_romaji || ''}
+                  providerTypes={providerState.providerTypes}
+                  isAutoMapping={providerState.isAutoMapping}
+                  handleProviderIdChange={providerState.handleProviderIdChange}
+                  handleProviderTypeChange={providerState.handleProviderTypeChange}
+                  handleProviderSave={handleProviderSaveAction}
+                  handleAutoMap={providerState.handleAutoMap}
                 />
               </div>
-              {!(providerTypes.tmdb === 'movie' || providerTypes.tvdb === 'movie' || (animeDetails.format || '').toUpperCase().includes('MOVIE')) && (
-                <EpisodeTable 
-                  totalEpisodes={totalEpisodes} 
-                  episodesMap={episodesMap} 
-                  epDrafts={epDrafts} 
-                  episodeChanges={episodeChanges}
-                  savingEpisodes={savingEpisodes}
-                  handleEpisodeChange={handleEpisodeChange}
-                  handleEpisodeSave={handleEpisodeSave}
+              {!(providerState.providerTypes.tmdb === 'movie' || providerState.providerTypes.tvdb === 'movie' || (animeDetails.format || '').toUpperCase().includes('MOVIE')) && (
+                <EpisodeTable
+                  totalEpisodes={episodeState.totalEpisodes}
+                  episodesMap={episodeState.episodesMap}
+                  epDrafts={episodeState.epDrafts}
+                  episodeChanges={episodeState.episodeChanges}
+                  savingEpisodes={episodeState.savingEpisodes}
+                  handleEpisodeChange={episodeState.handleEpisodeChange}
+                  handleEpisodeSave={handleEpisodeSaveAction}
                 />
-              )}</>
+              )}
+            </>
           ) : currentView === 'catalog' ? (
-            <CatalogView 
-              catalog={catalog} 
-              searchQ={searchQ} 
-              setSearchQ={setSearchQ} 
-              filter={filter} 
-              setFilter={setFilter} 
-              status={status} 
-              setStatus={setStatus} 
-              format={format} 
-              setFormat={setFormat} 
-              sort={sort}
-              setSort={setSort}
-              loadCatalog={() => loadCatalog(false)} 
-              loadMore={() => loadCatalog(true)}
-              handleAnimeClick={handleAnimeClick} 
+            <CatalogView
+              catalog={catalogState.catalog}
+              searchQ={catalogState.searchQ}
+              setSearchQ={catalogState.setSearchQ}
+              filter={catalogState.filter}
+              setFilter={catalogState.setFilter}
+              status={catalogState.status}
+              setStatus={catalogState.setStatus}
+              format={catalogState.format}
+              setFormat={catalogState.setFormat}
+              sort={catalogState.sort}
+              setSort={catalogState.setSort}
+              isLoading={catalogState.isLoading}
+              hasMore={catalogState.hasMore}
+              loadCatalog={() => catalogState.loadCatalog(false)}
+              loadMore={catalogState.loadMore}
+              onAnimeClick={handleAnimeClick}
             />
           ) : (
             <div className="flex-col gap-md animate-in text-center text-muted mt-10">

@@ -12,6 +12,7 @@ export interface Anime {
   format: string;
   status: string;
   is_verified: boolean;
+  episodes?: number;
   released_episodes?: number;
   tmdb_show_id?: string;
   tmdb_movie_id?: string;
@@ -40,7 +41,7 @@ export interface EpisodesMap {
 export interface Provider {
   id: string;
   name: string;
-  logo: string;
+  logo?: string;
   currentId: string;
   poster?: string;
 }

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Search } from 'lucide-react';
-import { Anime } from '../types';
+import { Anime } from '../../types';
 
 interface CatalogViewProps {
   catalog: Anime[];
@@ -14,14 +14,17 @@ interface CatalogViewProps {
   setFormat: (f: string) => void;
   sort: string;
   setSort: (s: string) => void;
+  isLoading: boolean;
+  hasMore: boolean;
   loadCatalog: () => void;
   loadMore: () => void;
-  handleAnimeClick: (id: number) => void;
+  onAnimeClick: (id: number) => void;
 }
 
 export default function CatalogView({ 
   catalog, searchQ, setSearchQ, filter, setFilter, 
-  status, setStatus, format, setFormat, sort, setSort, loadCatalog, loadMore, handleAnimeClick 
+  status, setStatus, format, setFormat, sort, setSort,
+  isLoading, hasMore, loadCatalog, loadMore, onAnimeClick 
 }: CatalogViewProps) {
   return (
     <div className="flex-col gap-md animate-in">
@@ -70,7 +73,7 @@ export default function CatalogView({
 
       <div className="provider-grid mt-4">
         {catalog.map(anime => (
-          <div key={anime.anilist_id} className="card flex-col justify-center" style={{ padding: '16px', cursor: 'pointer' }} onClick={() => handleAnimeClick(anime.anilist_id)}>
+          <div key={anime.anilist_id} className="card flex-col justify-center" style={{ padding: '16px', cursor: 'pointer' }} onClick={() => onAnimeClick(anime.anilist_id)}>
             <span className="font-bold text-base truncate mb-2">{anime.title || anime.title_english || anime.title_romaji}</span>
             <div className="flex-row justify-between text-xs text-muted">
               <span>{anime.format} • {anime.status}</span>
@@ -80,10 +83,10 @@ export default function CatalogView({
         ))}
         {catalog.length === 0 && <div className="text-muted">No anime found in this filter.</div>}
       </div>
-      {catalog.length > 0 && (
+      {hasMore && catalog.length > 0 && (
         <div className="flex-row justify-center mt-4">
-          <button className="btn btn-secondary" onClick={loadMore}>
-            Load More
+          <button className="btn btn-secondary" onClick={loadMore} disabled={isLoading}>
+            {isLoading ? 'Loading...' : 'Load More'}
           </button>
         </div>
       )}

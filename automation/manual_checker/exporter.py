@@ -1,5 +1,7 @@
 import os
 import json
+import sqlite3
+from core.database import VerifiedDB
 
 ASSETS_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "assets")
 MAPPING_EDITS_PATH = os.path.join(ASSETS_DIR, "mapping-edits.json")

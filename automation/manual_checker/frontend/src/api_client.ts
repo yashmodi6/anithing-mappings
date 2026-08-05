@@ -49,4 +49,7 @@ export async function unverifyAnime(id: number): Promise<any> {
   return res.json();
 }
 
-
+export async function autoMapAnime(id: number): Promise<{tmdb: {id: string, type: 'show'|'movie'}|null, tvdb: {id: string, type: 'show'|'movie'}|null}> {
+  const res = await fetch(`/api/auto_map/${id}`, { method: 'POST' });
+  return res.json();
+}

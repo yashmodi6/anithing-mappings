@@ -1,5 +1,5 @@
 import React from 'react';
-import { Stats } from '../types';
+import { Stats } from '../../types';
 
 interface HeaderProps {
   currentView: string;
