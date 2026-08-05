@@ -42,6 +42,17 @@ cd automation
 python main.py --clean-graveyard
 ```
 
+## Credits
+
+This pipeline relies on the incredible work of several community-driven databases and projects. Huge thanks to:
+
+- **[AniList](https://anilist.co/)**
+- **[The Movie Database (TMDB)](https://www.themoviedb.org/)**
+- **[TheTVDB](https://thetvdb.com/)**
+- **[MyAnimeList (MAL)](https://myanimelist.net/)**
+- **[AniDB](https://anidb.net/)**
+- **[AniBridge](https://github.com/anibridge/anibridge-mappings)**
+
 <!-- STATS_START -->
 ## Database Coverage & Stats
 
