@@ -48,16 +48,16 @@ python main.py --clean-graveyard
 ### Provider Coverage
 | Provider Category | Total AniList | Mapped Count | Missing / Left |
 | :--- | --: | --: | --: |
-| MyAnimeList (MAL) | 22,473 | 72 (0.3%) | 22,401 (99.7%) |
+| MyAnimeList (MAL) | 22,473 | 114 (0.5%) | 22,359 (99.5%) |
 | AniDB | 22,473 | 0 (0.0%) | 22,473 (100.0%) |
-| TVDB (Show/Movie) | 22,473 | 72 (0.3%) | 22,401 (99.7%) |
-| TMDB (Show/Movie) | 22,473 | 72 (0.3%) | 22,401 (99.7%) |
-| Step 3 Verified (Manual) | 22,473 | 72 (0.3%) | 22,401 (99.7%) |
+| TVDB (Show/Movie) | 22,473 | 114 (0.5%) | 22,359 (99.5%) |
+| TMDB (Show/Movie) | 22,473 | 114 (0.5%) | 22,359 (99.5%) |
+| Step 3 Verified (Manual) | 22,473 | 114 (0.5%) | 22,359 (99.5%) |
 
 ### Anime Status Breakdown
 | Anime Status | Total Anime | Total Verified | Percentage |
 | :--- | --: | --: | --: |
-| FINISHED | 21,429 | 72 | 0.3% |
+| FINISHED | 21,429 | 114 | 0.5% |
 | NOT_YET_RELEASED | 693 | 0 | 0.0% |
 | RELEASING | 312 | 0 | 0.0% |
 | CANCELLED | 39 | 0 | 0.0% |
