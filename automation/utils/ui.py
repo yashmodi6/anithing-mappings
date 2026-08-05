@@ -49,34 +49,6 @@ def query_step1_stats(step1_db: str) -> Tuple[int, Dict[str, int]]:
     return total, status_breakdown
 
 
-# Helper: Query Verified SQLite database for provider mapping counts
-def query_provider_stats(step3_db: str) -> Dict[str, int]:
-    stats = {"total_mapped": 0, "mal": 0, "anidb": 0, "tvdb": 0, "tmdb": 0}
-    if not os.path.exists(step3_db):
-        return stats
-    try:
-        conn = sqlite3.connect(step3_db)
-        cursor = conn.cursor()
-        cursor.execute("SELECT COUNT(*) FROM verified_anime WHERE manual_checked = 1")
-        stats["total_mapped"] = cursor.fetchone()[0]
-
-        cursor.execute("SELECT COUNT(*) FROM verified_anime WHERE manual_checked = 1 AND mal_id IS NOT NULL AND mal_id != 0")
-        stats["mal"] = cursor.fetchone()[0]
-
-        cursor.execute("SELECT COUNT(*) FROM verified_anime WHERE manual_checked = 1 AND anidb_id IS NOT NULL AND anidb_id != 0")
-        stats["anidb"] = cursor.fetchone()[0]
-
-        cursor.execute("SELECT COUNT(*) FROM verified_anime WHERE manual_checked = 1 AND (tvdb_show_id IS NOT NULL OR tvdb_movie_id IS NOT NULL)")
-        stats["tvdb"] = cursor.fetchone()[0]
-
-        cursor.execute("SELECT COUNT(*) FROM verified_anime WHERE manual_checked = 1 AND (tmdb_show_id IS NOT NULL OR tmdb_movie_id IS NOT NULL)")
-        stats["tmdb"] = cursor.fetchone()[0]
-
-        conn.close()
-    except Exception:
-        pass
-    return stats
-
 
 # Helper: Query Step 3 SQLite database for manual verification count
 def query_step3_stats(step3_db: str) -> int:
@@ -93,36 +65,6 @@ def query_step3_stats(step3_db: str) -> int:
         return 0
 
 
-# Render cross-provider coverage summary table
-def render_coverage_table(base_total: int, step2_data: Dict[str, int], verified_count: int) -> None:
-    table = Table(title="📊 ANILIST CROSS-PROVIDER MAPPING COVERAGE", border_style="cyan", header_style="bold magenta")
-    table.add_column("Provider Category", style="bold cyan", width=22)
-    table.add_column("Total AniList", style="bold white", justify="right")
-    table.add_column("Mapped Count", style="bold green", justify="right")
-    table.add_column("Missing / Left", style="bold yellow", justify="right")
-
-    providers = [
-        ("MyAnimeList (MAL)", step2_data.get("mal", 0)),
-        ("AniDB", step2_data.get("anidb", 0)),
-        ("TVDB (Show/Movie)", step2_data.get("tvdb", 0)),
-        ("TMDB (Show/Movie)", step2_data.get("tmdb", 0)),
-        ("Step 3 Verified (Manual)", verified_count)
-    ]
-
-    for name, mapped in providers:
-        missing = max(0, base_total - mapped)
-        mapped_pct = f"({(mapped / base_total * 100):.1f}%)" if base_total > 0 else ""
-        missing_pct = f"({(missing / base_total * 100):.1f}%)" if base_total > 0 else ""
-
-        table.add_row(
-            name,
-            f"{base_total:,}",
-            f"{mapped:,} {mapped_pct}",
-            f"{missing:,} {missing_pct}"
-        )
-
-    console.print()
-    console.print(table)
 
 
 # Render status breakdown summary table
@@ -176,14 +118,8 @@ def render_stats_summary(automation_dir: str) -> None:
     step3_db = os.path.join(output_dir, "step3_verified", "verified.db")
 
     total_anilist, status_breakdown = query_step1_stats(step1_db)
-    provider_data = query_provider_stats(step3_db)
-    verified_count = query_step3_stats(step3_db)
     verified_status_breakdown = query_verified_status_breakdown(step1_db, step3_db)
-
-    base_total = max(total_anilist, provider_data.get("total_mapped", 0))
-
-    if base_total > 0:
-        render_coverage_table(base_total, provider_data, verified_count)
+    base_total = total_anilist
 
     if status_breakdown:
         render_status_table(status_breakdown, verified_status_breakdown)
