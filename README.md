@@ -16,6 +16,12 @@
 > [!WARNING]
 > **Early Development Warning**: This repository is still in its starting phases and actively being developed. Expect frequent changes.
 
+> Note: Most of the codebase up to Step 3 was generated with AI assistance. I have personally tested the implementation, and everything is working correctly at the moment. Over the next couple of weeks (starting from 6 August 2026), I plan to revisit the code, review it thoroughly, and perform manual optimizations and refactoring.»
+
+> Contributions are welcome in the meantime, especially for anime mappings. When verifying mappings, only confirm entries where both the release date and the media type match across providers. If either the release date or the media type does not match—even if there are known edge cases—do not verify that mapping. Simply skip it and move on to the next entry.»
+
+> Contributions to this repository are encouraged rather than cloning separate forks, as working in a single shared repository makes collaboration easier and progress faster for everyone. While the API has already been designed, I will provide regular database dumps that contributors can use to keep their local data up to date. The long-term goal is for this to be a community-driven project.»
+
 This repo provides manually verified cross-mappings from AniList to TMDB, TVDB, and MAL, including precise episode-to-episode mappings, filler arc tracking, and media links (posters, banners, backgrounds, etc).
 
 This repository generates the master database used by the [anithing-api](https://github.com/yashmodi6/anithing-api) GraphQL server.
