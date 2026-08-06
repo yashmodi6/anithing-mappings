@@ -181,22 +181,7 @@ def api_verify():
 def api_auto_map(anilist_id):
     try:
         details = db.get_anime_details(anilist_id)
-        raw = details.get("raw_metadata") or {}
-        title = (
-            raw.get("title", {}).get("english")
-            or details.get("title_english")
-            or details.get("title_romaji")
-        )
-
-        year = None
-        start_date = raw.get("startDate", {})
-        if isinstance(start_date, dict) and start_date.get("year"):
-            year = start_date.get("year")
-
-        if not title:
-            return jsonify({"error": "No title found for auto-mapping"}), 400
-
-        result = auto_map(title, year)
+        result = auto_map(details)
         return jsonify(result)
     except Exception as e:
         return jsonify({"error": str(e)}), 500

@@ -237,7 +237,7 @@ export default function App() {
               <p className="text-xl font-semibold">Loading Anime Data...</p>
             </div>
           ) : currentView === 'home' && animeDetails ? (
-            <>
+            <div className="flex-col gap-md">
               <InfoCard
                 animeDetails={animeDetails}
                 animeId={catalogState.animeId!}
@@ -260,6 +260,7 @@ export default function App() {
                   handleProviderTypeChange={providerState.handleProviderTypeChange}
                   handleProviderSave={handleProviderSaveAction}
                   handleAutoMap={providerState.handleAutoMap}
+                  handleReset={() => loadAnime(animeDetails.anilist_id)}
                 />
               </div>
               {!(providerState.providerTypes.tmdb === 'movie' || providerState.providerTypes.tvdb === 'movie' || (animeDetails.format || '').toUpperCase().includes('MOVIE')) && (
@@ -273,7 +274,7 @@ export default function App() {
                   handleEpisodeSave={handleEpisodeSaveAction}
                 />
               )}
-            </>
+            </div>
           ) : currentView === 'catalog' ? (
             <CatalogView
               catalog={catalogState.catalog}

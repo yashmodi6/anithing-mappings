@@ -1,5 +1,5 @@
 import React from 'react';
-import { Search, Loader2 } from 'lucide-react';
+import { Search, Loader2, RotateCcw } from 'lucide-react';
 import { Provider } from '../../types';
 
 interface ProviderListProps {
@@ -13,9 +13,10 @@ interface ProviderListProps {
   handleProviderTypeChange?: (id: string, val: 'show' | 'movie') => void;
   handleProviderSave: (id: string) => void;
   handleAutoMap?: () => void;
+  handleReset?: () => void;
 }
 
-export default function ProviderList({ provs, providerChanges, savingProviders, animeTitle, providerTypes, isAutoMapping, handleProviderIdChange, handleProviderTypeChange, handleProviderSave, handleAutoMap }: ProviderListProps) {
+export default function ProviderList({ provs, providerChanges, savingProviders, animeTitle, providerTypes, isAutoMapping, handleProviderIdChange, handleProviderTypeChange, handleProviderSave, handleAutoMap, handleReset }: ProviderListProps) {
   const handleSearch = (providerId: string) => {
     const q = encodeURIComponent(animeTitle);
     let url = '';
@@ -32,16 +33,28 @@ export default function ProviderList({ provs, providerChanges, savingProviders, 
     <section className="flex-col gap-md animate-in" style={{ animationDelay: '0.1s' }}>
       <div className="flex-row justify-between items-center">
         <h3 className="text-xl">Provider ID Mapping</h3>
-        {handleAutoMap && (
-          <button 
-            className="btn btn-outline btn-sm flex-row gap-sm items-center" 
-            onClick={handleAutoMap}
-            disabled={isAutoMapping}
-          >
-            {isAutoMapping && <Loader2 className="animate-spin" size={14} />}
-            Auto Map
-          </button>
-        )}
+        <div className="flex-row gap-sm">
+          {handleReset && (
+            <button 
+              className="btn btn-outline btn-sm flex-row gap-sm items-center text-muted" 
+              onClick={handleReset}
+              title="Reset all fields to database defaults"
+            >
+              <RotateCcw size={14} />
+              Reset
+            </button>
+          )}
+          {handleAutoMap && (
+            <button 
+              className="btn btn-outline btn-sm flex-row gap-sm items-center" 
+              onClick={handleAutoMap}
+              disabled={isAutoMapping}
+            >
+              {isAutoMapping && <Loader2 className="animate-spin" size={14} />}
+              Auto Map
+            </button>
+          )}
+        </div>
       </div>
       <div className="provider-grid">
         {provs.map(p => (

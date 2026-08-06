@@ -2068,5 +2068,23 @@
     "tvdb_show_id": null,
     "tvdb_movie_id": "21459",
     "episodes": null
+  },
+  {
+    "anilist_id": 522,
+    "mal_id": 522,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "9606",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "11992",
+    "episodes": null
+  },
+  {
+    "anilist_id": 899,
+    "mal_id": 899,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "39103",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "1904",
+    "episodes": null
   }
 ]
