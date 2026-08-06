@@ -30,7 +30,7 @@ export async function getEpisodes(provider: string, anilistId: number, mappings 
   return res.json();
 }
 
-export async function getPosterPreview(provider: string, id: string, isMovie: boolean = false): Promise<{poster: string}> {
+export async function getPosterPreview(provider: string, id: string, isMovie: boolean = false): Promise<{poster: string, title?: string, date?: string}> {
   const res = await fetch(`/api/poster/${provider}/${id}?movie=${isMovie ? '1' : '0'}`);
   return res.json();
 }

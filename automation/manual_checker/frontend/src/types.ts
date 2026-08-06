@@ -21,8 +21,14 @@ export interface Anime {
   mal_id?: string;
   anilist_poster?: string;
   tmdb_poster?: string;
+  tmdb_title?: string;
+  tmdb_date?: string;
   tvdb_poster?: string;
+  tvdb_title?: string;
+  tvdb_date?: string;
   mal_poster?: string;
+  mal_title?: string;
+  mal_date?: string;
 }
 
 export interface Episode {
@@ -44,4 +50,6 @@ export interface Provider {
   logo?: string;
   currentId: string;
   poster?: string;
+  title?: string;
+  date?: string;
 }

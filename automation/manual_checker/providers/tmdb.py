@@ -12,14 +12,18 @@ def get_auth_kwargs() -> Dict[str, Any]:
         kwargs["params"] = {"api_key": TMDB_READ_ACCESS_TOKEN}
     return kwargs
 
-def fetch_poster(tmdb_id: int, is_movie: bool = False) -> Optional[str]:
+def fetch_preview(tmdb_id: int, is_movie: bool = False) -> Optional[Dict[str, str]]:
     if not tmdb_id or not TMDB_READ_ACCESS_TOKEN or TMDB_READ_ACCESS_TOKEN.startswith("YOUR_"):
         return None
     endpoint = "movie" if is_movie else "tv"
     url = f"https://api.themoviedb.org/3/{endpoint}/{tmdb_id}?language=en-US"
     data = safe_get_json(url, **get_auth_kwargs())
-    if data and data.get("poster_path"):
-        return f"https://image.tmdb.org/t/p/w500{data.get('poster_path')}"
+    if data:
+        return {
+            "poster": f"https://image.tmdb.org/t/p/w500{data.get('poster_path')}" if data.get('poster_path') else None,
+            "title": data.get("title") if is_movie else data.get("name"),
+            "date": data.get("release_date") if is_movie else data.get("first_air_date")
+        }
     return None
 
 def fetch_episodes_with_rollover(tmdb_id: Optional[int], target_episode_count: int, exact_seasons: List[int], start_season: int = 1) -> List[Dict[str, Any]]:

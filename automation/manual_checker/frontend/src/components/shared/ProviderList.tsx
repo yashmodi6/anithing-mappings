@@ -75,6 +75,28 @@ export default function ProviderList({ provs, providerChanges, savingProviders, 
               <div className="provider-poster flex-col justify-center items-center text-muted text-xs">No Poster</div>
             )}
             
+            {(p.title || p.date) && (
+              <div className="flex-col gap-xs text-sm" style={{ minHeight: '40px', width: '100%', overflow: 'hidden' }}>
+                {p.title && (
+                  <div 
+                    className="font-medium" 
+                    style={{ 
+                      display: '-webkit-box', 
+                      WebkitLineClamp: 2, 
+                      WebkitBoxOrient: 'vertical', 
+                      overflow: 'hidden', 
+                      width: '100%',
+                      wordBreak: 'break-word'
+                    }} 
+                    title={p.title}
+                  >
+                    {p.title}
+                  </div>
+                )}
+                {p.date && <div className="text-muted text-xs">{p.date}</div>}
+              </div>
+            )}
+            
             <div className="flex-row gap-sm items-center">
               {(p.id === 'tmdb' || p.id === 'tvdb') && providerTypes && handleProviderTypeChange && (
                 <select 

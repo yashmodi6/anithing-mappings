@@ -209,9 +209,9 @@ export default function App() {
     if (!animeDetails) return [];
     return [
       { id: 'anilist', name: 'AniList', logo: 'AL', currentId: String(animeDetails.anilist_id), poster: animeDetails.anilist_poster },
-      { id: 'mal', name: 'MyAnimeList', logo: 'MAL', currentId: providerState.providerDrafts.mal || '', poster: animeDetails.mal_poster },
-      { id: 'tmdb', name: 'TMDB', logo: 'TMDB', currentId: providerState.providerDrafts.tmdb || '', poster: animeDetails.tmdb_poster },
-      { id: 'tvdb', name: 'TVDB', logo: 'TVDB', currentId: providerState.providerDrafts.tvdb || '', poster: animeDetails.tvdb_poster }
+      { id: 'mal', name: 'MyAnimeList', logo: 'MAL', currentId: providerState.providerDrafts.mal || '', poster: animeDetails.mal_poster, title: animeDetails.mal_title, date: animeDetails.mal_date },
+      { id: 'tmdb', name: 'TMDB', logo: 'TMDB', currentId: providerState.providerDrafts.tmdb || '', poster: animeDetails.tmdb_poster, title: animeDetails.tmdb_title, date: animeDetails.tmdb_date },
+      { id: 'tvdb', name: 'TVDB', logo: 'TVDB', currentId: providerState.providerDrafts.tvdb || '', poster: animeDetails.tvdb_poster, title: animeDetails.tvdb_title, date: animeDetails.tvdb_date }
     ];
   };
 

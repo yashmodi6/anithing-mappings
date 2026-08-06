@@ -55,9 +55,9 @@ def api_anime(anilist_id):
             try:
                 is_movie = bool(details.get(f"{provider}_movie_id"))
                 if provider == "tmdb":
-                    return tmdb.fetch_poster(int(p_id), is_movie)
-                elif provider == "tvdb":
-                    return tvdb.fetch_poster(int(p_id), is_movie)
+                    return tmdb.fetch_preview(int(p_id), is_movie)
+                else:
+                    return tvdb.fetch_preview(int(p_id), is_movie)
             except Exception:
                 pass
         return None
@@ -65,7 +65,7 @@ def api_anime(anilist_id):
     def fetch_m():
         if details.get("mal_id"):
             try:
-                return mal.fetch_poster(int(details["mal_id"]))
+                return mal.fetch_preview(int(details["mal_id"]))
             except Exception:
                 pass
         return None
@@ -83,9 +83,22 @@ def api_anime(anilist_id):
         t_mal = executor.submit(fetch_m)
         t_ani = executor.submit(fetch_a)
 
-        details["tmdb_poster"] = t_tmdb.result()
-        details["tvdb_poster"] = t_tvdb.result()
-        details["mal_poster"] = t_mal.result()
+        tmdb_prev = t_tmdb.result() or {}
+        tvdb_prev = t_tvdb.result() or {}
+        mal_prev = t_mal.result() or {}
+
+        details["tmdb_poster"] = tmdb_prev.get("poster")
+        details["tmdb_title"] = tmdb_prev.get("title")
+        details["tmdb_date"] = tmdb_prev.get("date")
+
+        details["tvdb_poster"] = tvdb_prev.get("poster")
+        details["tvdb_title"] = tvdb_prev.get("title")
+        details["tvdb_date"] = tvdb_prev.get("date")
+
+        details["mal_poster"] = mal_prev.get("poster")
+        details["mal_title"] = mal_prev.get("title")
+        details["mal_date"] = mal_prev.get("date")
+
         details["anilist_poster"] = t_ani.result()
 
     return jsonify(details)
@@ -97,14 +110,14 @@ def api_poster(provider, provider_id):
     try:
         is_movie = request.args.get("movie", "0") == "1"
         if provider == "tmdb":
-            url = tmdb.fetch_poster(provider_id, is_movie)
+            prev = tmdb.fetch_preview(provider_id, is_movie)
         elif provider == "tvdb":
-            url = tvdb.fetch_poster(provider_id, is_movie)
+            prev = tvdb.fetch_preview(provider_id, is_movie)
         elif provider == "mal":
-            url = mal.fetch_poster(provider_id)
+            prev = mal.fetch_preview(provider_id)
         else:
             return jsonify({"error": "Unknown provider"}), 400
-        return jsonify({"poster": url})
+        return jsonify(prev or {"poster": None})
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 

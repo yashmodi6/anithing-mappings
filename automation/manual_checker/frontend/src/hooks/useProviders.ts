@@ -63,9 +63,14 @@ export function useProviders(
       if (pId === 'tmdb' || pId === 'tvdb' || pId === 'mal') {
         isMovie = providerTypes[pId] === 'movie';
         const posterRes = await getPosterPreview(pId, val, isMovie);
-        if (posterRes.poster) {
-          setAnimeDetails(prev => prev ? { ...prev, [`${pId}_poster`]: posterRes.poster } : prev);
-        }
+        setAnimeDetails(prev => {
+          if (!prev) return prev;
+          const updates: any = {};
+          if (posterRes.poster) updates[`${pId}_poster`] = posterRes.poster;
+          if (posterRes.title) updates[`${pId}_title`] = posterRes.title;
+          if (posterRes.date) updates[`${pId}_date`] = posterRes.date;
+          return Object.keys(updates).length > 0 ? { ...prev, ...updates } : prev;
+        });
       }
       setCommittedProviders(prev => ({ ...prev, [pId]: val }));
       setProviderChanges(prev => ({ ...prev, [pId]: false }));

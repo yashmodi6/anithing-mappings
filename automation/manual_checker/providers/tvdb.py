@@ -23,7 +23,7 @@ def get_bearer_headers() -> Optional[Dict[str, str]]:
             return {"Authorization": f"Bearer {_TVDB_BEARER_TOKEN}"}
     return None
 
-def fetch_poster(tvdb_id: int, is_movie: bool = False) -> Optional[str]:
+def fetch_preview(tvdb_id: int, is_movie: bool = False) -> Optional[Dict[str, str]]:
     if not tvdb_id:
         return None
     headers = get_bearer_headers()
@@ -31,7 +31,23 @@ def fetch_poster(tvdb_id: int, is_movie: bool = False) -> Optional[str]:
         return None
     media_type = "movies" if is_movie else "series"
     data = safe_get_json(f"https://api4.thetvdb.com/v4/{media_type}/{tvdb_id}", headers=headers)
-    return data.get("data", {}).get("image") if data else None
+    
+    if data and "data" in data:
+        d = data["data"]
+        title = d.get("name")
+        
+        # Try to fetch English translation if available and not the native language
+        if "eng" in d.get("nameTranslations", []) and d.get("originalLanguage") != "eng":
+            eng_data = safe_get_json(f"https://api4.thetvdb.com/v4/{media_type}/{tvdb_id}/translations/eng", headers=headers)
+            if eng_data and "data" in eng_data and eng_data["data"].get("name"):
+                title = eng_data["data"]["name"]
+                
+        return {
+            "poster": d.get("image"),
+            "title": title,
+            "date": d.get("firstAired") or d.get("year") or d.get("releaseDate")
+        }
+    return None
 
 def fetch_episodes_with_rollover(tvdb_id: Optional[int], target_episode_count: int, start_season: int = 1) -> List[Dict[str, Any]]:
     episodes_list = []
