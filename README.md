@@ -84,14 +84,36 @@ This pipeline relies on the incredible work of several community-driven database
 ---
 
 <!-- STATS_START -->
-## Database Coverage & Stats
+## 📊 Database Coverage & Stats
 
-### Anime Status Breakdown
-| Anime Status | Total Anime | Total Verified | Percentage |
+- **Total Anime Tracked:** 22,474
+- **Total Verified:** 236 (1.1%)
+
+<div align="center">
+
+</div>
+
+### ✅ Verified Database Quality
+*(Indicates how complete the mapping is for anime that have been manually verified)*
+
+| Provider | Successfully Mapped | Missing / No Match |
+| :--- | --: | --: |
+| **TMDB** | 236 | 0 |
+| **TVDB** | 236 | 0 |
+| **MAL** | 236 | 0 |
+
+### 🎬 Format Breakdown
+*(Shows verification progress across different media types)*
+
+| Format | Total in AniList | Verified Here | Progress |
 | :--- | --: | --: | --: |
-| FINISHED | 21,429 | 232 | 1.1% |
-| NOT_YET_RELEASED | 694 | 0 | 0.0% |
-| RELEASING | 312 | 0 | 0.0% |
-| CANCELLED | 39 | 0 | 0.0% |
+| **TV** | 5,000 | 0 | ![0.0%](https://geps.dev/progress/0.0) |
+| **MOVIE** | 4,102 | 236 | ![5.8%](https://geps.dev/progress/5.8) |
+| **OVA** | 3,884 | 0 | ![0.0%](https://geps.dev/progress/0.0) |
+| **ONA** | 3,451 | 0 | ![0.0%](https://geps.dev/progress/0.0) |
+| **MUSIC** | 2,731 | 0 | ![0.0%](https://geps.dev/progress/0.0) |
+| **SPECIAL** | 1,848 | 0 | ![0.0%](https://geps.dev/progress/0.0) |
+| **TV_SHORT** | 1,375 | 0 | ![0.0%](https://geps.dev/progress/0.0) |
+| **UNKNOWN** | 83 | 0 | ![0.0%](https://geps.dev/progress/0.0) |
 
 <!-- STATS_END -->
