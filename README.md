@@ -89,8 +89,8 @@ This pipeline relies on the incredible work of several community-driven database
 ### Anime Status Breakdown
 | Anime Status | Total Anime | Total Verified | Percentage |
 | :--- | --: | --: | --: |
-| FINISHED | 21,429 | 196 | 0.9% |
-| NOT_YET_RELEASED | 693 | 0 | 0.0% |
+| FINISHED | 21,429 | 230 | 1.1% |
+| NOT_YET_RELEASED | 694 | 0 | 0.0% |
 | RELEASING | 312 | 0 | 0.0% |
 | CANCELLED | 39 | 0 | 0.0% |
 

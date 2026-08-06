@@ -1762,5 +1762,311 @@
     "tvdb_show_id": null,
     "tvdb_movie_id": "357016",
     "episodes": null
+  },
+  {
+    "anilist_id": 1829,
+    "mal_id": 1829,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "37933",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "2822",
+    "episodes": null
+  },
+  {
+    "anilist_id": 20768,
+    "mal_id": 25015,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "311056",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "32127",
+    "episodes": null
+  },
+  {
+    "anilist_id": 468,
+    "mal_id": 468,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "12140",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "6352",
+    "episodes": null
+  },
+  {
+    "anilist_id": 101249,
+    "mal_id": 37407,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "508422",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "11704",
+    "episodes": null
+  },
+  {
+    "anilist_id": 20766,
+    "mal_id": 24997,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "333623",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "41617",
+    "episodes": null
+  },
+  {
+    "anilist_id": 97669,
+    "mal_id": 34136,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "419094",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "58754",
+    "episodes": null
+  },
+  {
+    "anilist_id": 101343,
+    "mal_id": 37514,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "526426",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "14478",
+    "episodes": null
+  },
+  {
+    "anilist_id": 101102,
+    "mal_id": 33513,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "431808",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "24593",
+    "episodes": null
+  },
+  {
+    "anilist_id": 7472,
+    "mal_id": 7472,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "71172",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "20099",
+    "episodes": null
+  },
+  {
+    "anilist_id": 9135,
+    "mal_id": 9135,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "80518",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "8026",
+    "episodes": null
+  },
+  {
+    "anilist_id": 104460,
+    "mal_id": 38475,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "566466",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "341533",
+    "episodes": null
+  },
+  {
+    "anilist_id": 1119,
+    "mal_id": 1119,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "12600",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "4892",
+    "episodes": null
+  },
+  {
+    "anilist_id": 128740,
+    "mal_id": 46420,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "843241",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "157503",
+    "episodes": null
+  },
+  {
+    "anilist_id": 898,
+    "mal_id": 898,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "24752",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "1225",
+    "episodes": null
+  },
+  {
+    "anilist_id": 14669,
+    "mal_id": 14669,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "225086",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "32077",
+    "episodes": null
+  },
+  {
+    "anilist_id": 103631,
+    "mal_id": 37986,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "570269",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "63127",
+    "episodes": null
+  },
+  {
+    "anilist_id": 103276,
+    "mal_id": 38085,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "637202",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "134463",
+    "episodes": null
+  },
+  {
+    "anilist_id": 8888,
+    "mal_id": 8888,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "185526",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "29766",
+    "episodes": null
+  },
+  {
+    "anilist_id": 617,
+    "mal_id": 617,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "14282",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "3751",
+    "episodes": null
+  },
+  {
+    "anilist_id": 906,
+    "mal_id": 906,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "39108",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "799",
+    "episodes": null
+  },
+  {
+    "anilist_id": 21757,
+    "mal_id": 33036,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "472516",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "35454",
+    "episodes": null
+  },
+  {
+    "anilist_id": 14407,
+    "mal_id": 14407,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "212153",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "31766",
+    "episodes": null
+  },
+  {
+    "anilist_id": 16528,
+    "mal_id": 16528,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "196761",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "20979",
+    "episodes": null
+  },
+  {
+    "anilist_id": 903,
+    "mal_id": 903,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "44251",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "844",
+    "episodes": null
+  },
+  {
+    "anilist_id": 11743,
+    "mal_id": 11743,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "219250",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "21394",
+    "episodes": null
+  },
+  {
+    "anilist_id": 102649,
+    "mal_id": 37440,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "510242",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "37574",
+    "episodes": null
+  },
+  {
+    "anilist_id": 101992,
+    "mal_id": 35678,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "528225",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "16006",
+    "episodes": null
+  },
+  {
+    "anilist_id": 14807,
+    "mal_id": 14807,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "212156",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "36189",
+    "episodes": null
+  },
+  {
+    "anilist_id": 97981,
+    "mal_id": 34541,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "430447",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "2677",
+    "episodes": null
+  },
+  {
+    "anilist_id": 459,
+    "mal_id": 459,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "19576",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "8045",
+    "episodes": null
+  },
+  {
+    "anilist_id": 2154,
+    "mal_id": 2154,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "13754",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "4748",
+    "episodes": null
+  },
+  {
+    "anilist_id": 732,
+    "mal_id": 732,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "9463",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "7517",
+    "episodes": null
+  },
+  {
+    "anilist_id": 119113,
+    "mal_id": 42091,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "714194",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "140480",
+    "episodes": null
+  },
+  {
+    "anilist_id": 6372,
+    "mal_id": 6372,
+    "tmdb_show_id": null,
+    "tmdb_movie_id": "35435",
+    "tvdb_show_id": null,
+    "tvdb_movie_id": "21459",
+    "episodes": null
   }
 ]
