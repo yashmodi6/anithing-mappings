@@ -39,10 +39,13 @@ def update_mapping_edits_json(data: dict) -> None:
     existing = [e for e in existing if e.get("anilist_id") != anilist_id]
     existing.append(entry)
 
+    # Sort the list by anilist_id to prevent Git merge conflicts
+    existing.sort(key=lambda x: x.get("anilist_id", 0))
+
     # Write to a temporary file first, then atomically replace to prevent data corruption
     tmp_path = MAPPING_EDITS_PATH + ".tmp"
     with open(tmp_path, "w", encoding="utf-8") as f:
-        json.dump(existing, f, ensure_ascii=False, indent=2)
+        json.dump(existing, f, ensure_ascii=False, indent=2, sort_keys=True)
     os.replace(tmp_path, MAPPING_EDITS_PATH)
 
 def remove_mapping_edits_json(anilist_id: int) -> None:
@@ -62,8 +65,10 @@ def remove_mapping_edits_json(anilist_id: int) -> None:
     if len(filtered) == len(existing):
         return
 
+    filtered.sort(key=lambda x: x.get("anilist_id", 0))
+
     tmp_path = MAPPING_EDITS_PATH + ".tmp"
     with open(tmp_path, "w", encoding="utf-8") as f:
-        json.dump(filtered, f, ensure_ascii=False, indent=2)
+        json.dump(filtered, f, ensure_ascii=False, indent=2, sort_keys=True)
     os.replace(tmp_path, MAPPING_EDITS_PATH)
 
