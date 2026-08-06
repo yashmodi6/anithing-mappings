@@ -2,12 +2,17 @@ import os
 import sqlite3
 import re
 import urllib.parse
+import json
 
-AUTOMATION_DIR = os.path.dirname(os.path.abspath(__file__))
+SCRIPT_DIR = os.path.dirname(os.path.abspath(__file__))
+ROOT_DIR = os.path.dirname(SCRIPT_DIR)
+AUTOMATION_DIR = os.path.join(ROOT_DIR, "automation")
 OUTPUT_DIR = os.path.join(AUTOMATION_DIR, "output")
 STEP1_DB = os.path.join(OUTPUT_DIR, "step1_anilist", "anime.db")
+STEP2_DB = os.path.join(OUTPUT_DIR, "step2_anibridge", "anibridge.db")
 STEP3_DB = os.path.join(OUTPUT_DIR, "step3_verified", "verified.db")
-README_PATH = os.path.join(AUTOMATION_DIR, "..", "README.md")
+README_PATH = os.path.join(ROOT_DIR, "README.md")
+MAPPINGS_JSON = os.path.join(ROOT_DIR, "assets", "mapping-edits.json")
 
 def get_stats():
     total_anilist = 0
@@ -17,6 +22,7 @@ def get_stats():
     tmdb_valid = 0
     tvdb_valid = 0
     mal_valid = 0
+    anibridge_corrections = 0
 
     if os.path.exists(STEP1_DB):
         try:
@@ -55,6 +61,51 @@ def get_stats():
         except Exception:
             pass
 
+    # Calculate Anibridge Corrections
+    if os.path.exists(STEP2_DB) and os.path.exists(MAPPINGS_JSON):
+        try:
+            with open(MAPPINGS_JSON, "r", encoding="utf-8") as f:
+                edits = json.load(f)
+            
+            with sqlite3.connect(STEP2_DB) as conn:
+                conn.row_factory = sqlite3.Row
+                cursor = conn.cursor()
+                
+                for edit in edits:
+                    aid = edit["anilist_id"]
+                    cursor.execute("SELECT * FROM mappings WHERE anilist_id = ?", (aid,))
+                    row = cursor.fetchone()
+                    
+                    if not row:
+                        anibridge_corrections += 1
+                        continue
+                        
+                    is_changed = False
+                    
+                    # Compare TMDB
+                    orig_tmdb = str(row["tmdb_movie_id"]) if edit.get("tmdb_type") == "movie" else str(row["tmdb_show_id"])
+                    if orig_tmdb == "None": orig_tmdb = ""
+                    new_tmdb = str(edit.get("tmdb_id", ""))
+                    
+                    # Compare TVDB
+                    orig_tvdb = str(row["tvdb_movie_id"]) if edit.get("tvdb_type") == "movie" else str(row["tvdb_show_id"])
+                    if orig_tvdb == "None": orig_tvdb = ""
+                    new_tvdb = str(edit.get("tvdb_id", ""))
+                    
+                    # Compare MAL
+                    orig_mal = str(row["mal_id"])
+                    if orig_mal == "None": orig_mal = ""
+                    new_mal = str(edit.get("mal_id", ""))
+                    
+                    if orig_tmdb != new_tmdb or orig_tvdb != new_tvdb or orig_mal != new_mal:
+                        is_changed = True
+                        
+                    if is_changed:
+                        anibridge_corrections += 1
+        except Exception as e:
+            print("Error calculating anibridge corrections:", e)
+            pass
+
     return {
         "total": total_anilist,
         "verified": verified_count,
@@ -62,13 +113,9 @@ def get_stats():
         "v_format": verified_format_breakdown,
         "tmdb": tmdb_valid,
         "tvdb": tvdb_valid,
-        "mal": mal_valid
+        "mal": mal_valid,
+        "corrections": anibridge_corrections
     }
-
-def create_shield(label, message, color):
-    label_enc = urllib.parse.quote(label.replace("-", "--"))
-    msg_enc = urllib.parse.quote(message.replace("-", "--"))
-    return f"![{label}](https://img.shields.io/badge/{label_enc}-{msg_enc}-{color}?style=for-the-badge)"
 
 def format_markdown(stats):
     total = stats["total"]
@@ -81,12 +128,11 @@ def format_markdown(stats):
 
     md = "## 📊 Database Coverage & Stats\n\n"
     md += f"- **Total Anime Tracked:** {total:,}\n"
-    md += f"- **Total Verified:** {v_total:,} ({pct}%)\n\n"
+    md += f"- **Total Verified:** {v_total:,} ({pct}%)\n"
+    if stats['corrections'] > 0:
+        md += f"- **Anibridge Corrections:** {stats['corrections']:,} mappings fixed!\n"
+    md += "\n"
     
-    # 1. At-a-glance badges
-    md += f"<div align=\"center\">\n\n"
-    md += f"</div>\n\n"
-
     # 2. Quality Assurance Table
     md += "### ✅ Verified Database Quality\n"
     md += "*(Indicates how complete the mapping is for anime that have been manually verified)*\n\n"
@@ -117,16 +163,17 @@ def main():
         content = f.read()
         
     stats = get_stats()
-    stats_md = format_markdown(stats)
+    new_stats_md = format_markdown(stats)
     
-    pattern = r'(<!-- STATS_START -->)(.*?)(<!-- STATS_END -->)'
-    if re.search(pattern, content, flags=re.DOTALL):
-        new_content = re.sub(pattern, f"\\1\n{stats_md}\n\\3", content, flags=re.DOTALL)
-    else:
-        new_content = content + "\n<!-- STATS_START -->\n" + stats_md + "\n<!-- STATS_END -->\n"
-        
-    with open(README_PATH, 'w', encoding='utf-8') as f:
-        f.write(new_content)
+    # Replace everything between markers
+    marker_start = "<!-- STATS_START -->"
+    marker_end = "<!-- STATS_END -->"
+    
+    pattern = re.compile(f"{marker_start}.*?{marker_end}", re.DOTALL)
+    if pattern.search(content):
+        new_content = pattern.sub(f"{marker_start}\n{new_stats_md}\n{marker_end}", content)
+        with open(README_PATH, 'w', encoding='utf-8') as f:
+            f.write(new_content)
 
 if __name__ == "__main__":
     main()

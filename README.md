@@ -88,10 +88,7 @@ This pipeline relies on the incredible work of several community-driven database
 
 - **Total Anime Tracked:** 22,474
 - **Total Verified:** 372 (1.7%)
-
-<div align="center">
-
-</div>
+- **Anibridge Corrections:** 253 mappings fixed!
 
 ### ✅ Verified Database Quality
 *(Indicates how complete the mapping is for anime that have been manually verified)*
