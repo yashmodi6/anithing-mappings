@@ -81,10 +81,6 @@ export default function ProviderList({ provs, providerChanges, savingProviders, 
                   <div 
                     className="font-medium" 
                     style={{ 
-                      display: '-webkit-box', 
-                      WebkitLineClamp: 2, 
-                      WebkitBoxOrient: 'vertical', 
-                      overflow: 'hidden', 
                       width: '100%',
                       wordBreak: 'break-word'
                     }} 
