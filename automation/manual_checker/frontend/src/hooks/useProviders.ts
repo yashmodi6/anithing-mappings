@@ -1,9 +1,11 @@
 import { useState, useEffect } from 'react';
+import toast from 'react-hot-toast';
 import { autoMapAnime, getPosterPreview } from '../api_client';
 import { Anime, Mapping } from '../types';
+import { mergeAutoMapResult, buildDefaultMapping } from '../utils/mappingHelpers';
 
 export function useProviders(
-  animeDetails: Anime | null, 
+  animeDetails: Anime | null,
   setAnimeDetails: React.Dispatch<React.SetStateAction<Anime | null>>,
   setHasChanges: React.Dispatch<React.SetStateAction<boolean>>
 ) {
@@ -22,14 +24,14 @@ export function useProviders(
   useEffect(() => {
     // Automatically fetch previews for mappings that don't have them yet
     mappings.forEach((mapping, index) => {
-      if (mapping.id && !mapping._preview && !fetchingPreviews[index]) {
+      if (mapping.id && !mapping._preview && !mapping._dirty && !fetchingPreviews[index]) {
         fetchPreviewForMapping(index);
       }
     });
   }, [mappings]);
 
   const handleAddMapping = (provider: Mapping['provider']) => {
-    setMappings(prev => [...prev, { provider, type: 'show', id: '', scope: provider === 'mal' || provider === 'imdb' ? undefined : 's1' }]);
+    setMappings(prev => [...prev, buildDefaultMapping(provider)]);
     setHasChanges(true);
   };
 
@@ -56,40 +58,14 @@ export function useProviders(
     setIsAutoMapping(true);
     try {
       const res = await autoMapAnime(animeDetails.anilist_id);
-      
-      let changed = false;
-      const nextMappings = [...mappings];
-      
-      // A simple automap logic: if it returns tmdb/tvdb, we add or update the first occurrence
-      if (res.tmdb && res.tmdb.id) {
-        const existingIdx = nextMappings.findIndex(m => m.provider === 'tmdb');
-        if (existingIdx >= 0) {
-          nextMappings[existingIdx].id = res.tmdb.id;
-          nextMappings[existingIdx].type = res.tmdb.type;
-        } else {
-          nextMappings.push({ provider: 'tmdb', type: res.tmdb.type, id: res.tmdb.id, scope: res.tmdb.type === 'show' ? 's1' : undefined });
-        }
-        changed = true;
-      }
-      
-      if (res.tvdb && res.tvdb.id) {
-        const existingIdx = nextMappings.findIndex(m => m.provider === 'tvdb');
-        if (existingIdx >= 0) {
-          nextMappings[existingIdx].id = res.tvdb.id;
-          nextMappings[existingIdx].type = res.tvdb.type;
-        } else {
-          nextMappings.push({ provider: 'tvdb', type: res.tvdb.type, id: res.tvdb.id, scope: res.tvdb.type === 'show' ? 's1' : undefined });
-        }
-        changed = true;
-      }
-      
+      const { next, changed } = mergeAutoMapResult(mappings, res);
       if (changed) {
-        setMappings(nextMappings);
+        setMappings(next);
         setHasChanges(true);
       }
-    } catch(e) {
+    } catch (e) {
       console.error(e);
-      alert("Auto mapping failed");
+      toast.error('Auto mapping failed');
     }
     setIsAutoMapping(false);
   };
@@ -97,12 +73,12 @@ export function useProviders(
   const fetchPreviewForMapping = async (index: number) => {
     const mapping = mappings[index];
     if (!mapping || !mapping.id) return;
-    
+
     setFetchingPreviews(prev => ({ ...prev, [index]: true }));
     try {
       const isMovie = mapping.type === 'movie';
       const posterRes = await getPosterPreview(mapping.provider, String(mapping.id), isMovie);
-      
+
       if (posterRes) {
         setMappings(prev => {
           const next = [...prev];
@@ -110,9 +86,9 @@ export function useProviders(
           return next;
         });
       }
-    } catch(e) { 
-      console.error(e); 
-      alert("Failed to fetch provider details"); 
+    } catch (e) {
+      console.error(e);
+      toast.error('Failed to fetch provider details');
     } finally {
       setFetchingPreviews(prev => ({ ...prev, [index]: false }));
     }

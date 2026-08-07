@@ -143,6 +143,9 @@ class VerifiedDB:
                     conditions.append("a.format IN ('TV', 'TV_SHORT')")
                 elif f == "SPECIAL":
                     conditions.append("a.format IN ('OVA', 'ONA', 'SPECIAL')")
+                elif f in ("OVA", "ONA", "MUSIC"):
+                    conditions.append("a.format = ?")
+                    params.append(f)
 
                 if search_query and search_query.strip():
                     q = f"%{search_query.strip().lower()}%"

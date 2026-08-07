@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 import { syncEpisodes } from '../api_client';
 import { Anime, EpisodesMap, Mapping } from '../types';
 
@@ -24,9 +25,24 @@ export function useEpisodes(
       const res = await syncEpisodes(idToUse, mappings);
       setEpisodesMap(res.episodes);
       setTotalEpisodes(res.total_episodes);
+      
+      if (res.mal_fillers && Object.keys(res.mal_fillers).length > 0) {
+        setEpisodeTypes(prev => {
+          const next = { ...prev };
+          let changed = false;
+          for (const [epId, type] of Object.entries(res.mal_fillers!)) {
+            if (next[epId] !== type) {
+              next[epId] = type;
+              changed = true;
+            }
+          }
+          if (changed) setHasChanges(true);
+          return changed ? next : prev;
+        });
+      }
     } catch (e) {
       console.error(e);
-      alert("Failed to sync episodes");
+      toast.error('Failed to sync episodes');
     }
     setIsSyncing(false);
   };

@@ -111,15 +111,4 @@ def fetch_episodes_with_rollover(tvdb_id: Optional[int], target_episode_count: i
     except Exception:
         pass
 
-    while len(episodes_list) < target_episode_count:
-        ep_num = len(episodes_list) + 1
-        episodes_list.append({
-            "global_episode": ep_num,
-            "season": start_season,
-            "episode_in_season": ep_num,
-            "name": f"Episode {ep_num} (Pending TVDB sync)",
-            "thumbnail": None,
-            "rollover_applied": True
-        })
-
     return episodes_list

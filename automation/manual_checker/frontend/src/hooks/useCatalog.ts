@@ -30,7 +30,7 @@ export function useCatalog() {
     if (!append) setIsLoading(true);
     try {
       const currentOffset = append ? offset + 30 : 0;
-      const data = await getQueue(filter, status, format, currentOffset, sort);
+      const data = await getQueue(filter, status, format, currentOffset, sort, searchQ);
       const newQueue = data.queue || [];
       
       if (append) {

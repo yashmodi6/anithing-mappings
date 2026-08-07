@@ -27,6 +27,7 @@ def api_queue():
     format_type = request.args.get("format", "ALL")
     offset = int(request.args.get("offset", 0))
     sort_by = request.args.get("sort", "POPULARITY_DESC")
+    search_query = request.args.get("search_query", None)
     limit = 30
 
     result = db.get_unverified_queue(
@@ -35,7 +36,7 @@ def api_queue():
         format_filter=format_type,
         offset=offset,
         limit=limit,
-        search_query=None,
+        search_query=search_query,
         sort_by=sort_by
     )
     # Inject stats into response — matches original server.py
@@ -79,9 +80,19 @@ def api_episodes_sync(anilist_id):
     mappings = req_data.get("mappings", [])
     
     from services.episode_service import sync_provider_episodes
-    rel_eps = details.get("released_episodes") or details.get("episodes") or 0
+    from providers.mal import fetch_filler_episodes
     
+    rel_eps = details.get("released_episodes") or details.get("episodes") or 0
     tmdb_eps, tvdb_eps = sync_provider_episodes(mappings, rel_eps)
+    
+    mal_fillers = {}
+    for m in mappings:
+        if m.get("provider") == "mal" and m.get("id"):
+            try:
+                mal_fillers = fetch_filler_episodes(int(m["id"]))
+            except Exception:
+                pass
+            break
         
     return jsonify({
         "anilist_id": anilist_id,
@@ -89,7 +100,8 @@ def api_episodes_sync(anilist_id):
         "episodes": {
             "tmdb": tmdb_eps,
             "tvdb": tvdb_eps
-        }
+        },
+        "mal_fillers": mal_fillers
     })
 
 

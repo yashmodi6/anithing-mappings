@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { getAnime, verifyAnime, unverifyAnime, skipAnime } from './api_client';
 import { Loader2 } from 'lucide-react';
+import toast, { Toaster } from 'react-hot-toast';
 import { Anime } from './types';
 
 import { useCatalog } from './hooks/useCatalog';
@@ -48,26 +49,11 @@ export default function App() {
       } else {
         episodeState.setEpisodesMap({ tmdb: [], tvdb: [] });
       }
-      
-      const postersToLoad = [details.anilist_poster].filter(Boolean) as string[];
-      details.mappings?.forEach((m: any) => {
-        if (m._preview?.poster) postersToLoad.push(m._preview.poster);
-      });
-      
-      if (postersToLoad.length > 0) {
-        await Promise.all(postersToLoad.map(url => {
-          return new Promise(resolve => {
-            const img = new Image();
-            img.onload = resolve;
-            img.onerror = resolve;
-            img.src = url;
-          });
-        }));
-      }
+      // Images load lazily in the browser — no need to preload them here
       
     } catch (e) {
       console.error(e);
-      alert("Failed to load anime details");
+      toast.error('Failed to load anime details');
     }
     setIsLoadingAnime(false);
   }
@@ -108,7 +94,7 @@ export default function App() {
       }
     } catch (e) {
       console.error(e);
-      alert("Failed to verify anime");
+      toast.error('Failed to verify anime');
     }
     setIsLoadingAnime(false);
   };
@@ -128,7 +114,7 @@ export default function App() {
       }
     } catch(e) {
       console.error(e);
-      alert("Failed to unverify anime.");
+      toast.error('Failed to unverify anime');
     }
     setIsLoadingAnime(false);
   };
@@ -151,13 +137,22 @@ export default function App() {
       }
     } catch (e) {
       console.error(e);
-      alert("Failed to skip anime");
+      toast.error('Failed to skip anime');
     }
     setIsLoadingAnime(false);
   };
 
   return (
     <div className="app-container">
+      {/* Toast notification container — positioned top-right, dark themed */}
+      <Toaster
+        position="top-right"
+        toastOptions={{
+          style: { background: '#1e2027', color: '#e2e8f0', border: '1px solid #2d3748' },
+          error: { iconTheme: { primary: '#ef4444', secondary: '#1e2027' } },
+          success: { iconTheme: { primary: '#22c55e', secondary: '#1e2027' } },
+        }}
+      />
       <Header
         stats={catalogState.stats}
         currentView={currentView}

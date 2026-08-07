@@ -5,8 +5,9 @@ export async function getStats(): Promise<Stats> {
   return res.json();
 }
 
-export async function getQueue(filter = 'ALL', status = 'ALL', format = 'ALL', offset = 0, sort = 'POPULARITY_DESC'): Promise<{queue: Anime[], stats: Stats}> {
-  const res = await fetch(`/api/queue?filter=${filter}&status=${status}&format=${format}&offset=${offset}&sort=${sort}&limit=30`);
+export async function getQueue(filter = 'ALL', status = 'ALL', format = 'ALL', offset = 0, sort = 'POPULARITY_DESC', search = ''): Promise<{queue: Anime[], stats: Stats}> {
+  const searchParam = search ? `&search_query=${encodeURIComponent(search)}` : '';
+  const res = await fetch(`/api/queue?filter=${filter}&status=${status}&format=${format}&offset=${offset}&sort=${sort}&limit=30${searchParam}`);
   return res.json();
 }
 
@@ -15,7 +16,7 @@ export async function getAnime(id: number): Promise<Anime> {
   return res.json();
 }
 
-export async function syncEpisodes(anilistId: number, mappings: any[]): Promise<{anilist_id: number, total_episodes: number, episodes: {tmdb: Episode[], tvdb: Episode[]}}> {
+export async function syncEpisodes(anilistId: number, mappings: any[]): Promise<{anilist_id: number, total_episodes: number, episodes: {tmdb: Episode[], tvdb: Episode[]}, mal_fillers?: Record<string, string>}> {
   const res = await fetch(`/api/episodes/sync/${anilistId}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },

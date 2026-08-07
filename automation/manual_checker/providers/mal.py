@@ -20,3 +20,47 @@ def fetch_preview(mal_id: int) -> Optional[dict]:
             "date": data.get("start_date")
         }
     return None
+
+def fetch_filler_episodes(mal_id: int) -> dict:
+    import time
+    import subprocess
+    import json
+    episode_types = {}
+    if not mal_id:
+        return episode_types
+        
+    page = 1
+    while True:
+        url = f"https://api.jikan.moe/v4/anime/{mal_id}/episodes?page={page}"
+        try:
+            res = subprocess.run(["curl", "-s", url], capture_output=True, text=True, timeout=10)
+            data = json.loads(res.stdout)
+        except Exception:
+            break
+            
+        if not data or not data.get("data"):
+            break
+            
+        for ep in data["data"]:
+            ep_id = ep.get("mal_id")
+            if not ep_id:
+                continue
+            
+            is_filler = ep.get("filler", False)
+            is_recap = ep.get("recap", False)
+            
+            if is_recap:
+                episode_types[str(ep_id)] = "recap"
+            elif is_filler:
+                episode_types[str(ep_id)] = "filler"
+            else:
+                episode_types[str(ep_id)] = "canon"
+                
+        pagination = data.get("pagination", {})
+        if not pagination.get("has_next_page"):
+            break
+            
+        page += 1
+        time.sleep(0.34)
+        
+    return episode_types

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Search } from 'lucide-react';
 import { Anime } from '../../types';
+import { useDebounce } from '../../hooks/useDebounce';
 
 interface CatalogViewProps {
   catalog: Anime[];
@@ -21,11 +22,16 @@ interface CatalogViewProps {
   onAnimeClick: (id: number) => void;
 }
 
-export default function CatalogView({ 
-  catalog, searchQ, setSearchQ, filter, setFilter, 
+export default function CatalogView({
+  catalog, searchQ, setSearchQ, filter, setFilter,
   status, setStatus, format, setFormat, sort, setSort,
-  isLoading, hasMore, loadCatalog, loadMore, onAnimeClick 
+  isLoading, hasMore, loadCatalog, loadMore, onAnimeClick
 }: CatalogViewProps) {
+  // Debounce the search query so loadCatalog fires 300ms after the user stops typing
+  const debouncedSearch = useDebounce(searchQ, 300);
+  useEffect(() => {
+    loadCatalog();
+  }, [debouncedSearch]);
   return (
     <div className="flex-col gap-md animate-in">
       <div className="flex-row justify-between items-center mb-6">
@@ -35,11 +41,12 @@ export default function CatalogView({
       <div className="card flex-row gap-md items-center" style={{ flexWrap: 'wrap' }}>
         <div className="flex-row items-center gap-sm input-field" style={{ flex: '1 1 300px' }}>
           <Search size={16} className="text-muted" />
-          <input 
-            type="text" placeholder="Search catalog..." 
-            style={{ background: 'transparent', border: 'none', color: 'inherit', outline: 'none', width: '100%' }} 
-            value={searchQ} onChange={e => setSearchQ(e.target.value)} 
-            onBlur={loadCatalog} onKeyDown={e => e.key === 'Enter' && loadCatalog()} 
+          <input
+            type="text" placeholder="Search catalog..."
+            style={{ background: 'transparent', border: 'none', color: 'inherit', outline: 'none', width: '100%' }}
+            value={searchQ}
+            onChange={e => setSearchQ(e.target.value)}
+            onKeyDown={e => e.key === 'Enter' && loadCatalog()}
           />
         </div>
 
@@ -63,6 +70,8 @@ export default function CatalogView({
           <option value="MOVIE">Movie</option>
           <option value="OVA">OVA</option>
           <option value="ONA">ONA</option>
+          <option value="MUSIC">Music</option>
+          <option value="SPECIAL">Special</option>
         </select>
         
         <select className="input-field" style={{ width: 'auto', appearance: 'auto', backgroundColor: 'var(--surface)' }} value={sort} onChange={e => setSort(e.target.value)}>
