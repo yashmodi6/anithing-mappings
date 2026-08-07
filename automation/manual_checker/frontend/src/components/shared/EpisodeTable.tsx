@@ -2,7 +2,7 @@ import React, { useMemo, useRef } from 'react';
 import { useVirtualizer } from '@tanstack/react-virtual';
 import { Check, AlertTriangle, Loader2, RefreshCw, Save } from 'lucide-react';
 import { EpisodesMap } from '../../types';
-import { batchMatchTitles } from '../../utils/titleMatcher';
+import { titlesMatch } from '../../utils/titleMatcher';
 import { useEpisodeEdits } from '../../hooks/useEpisodeEdits';
 
 interface EpisodeTableProps {
@@ -42,44 +42,22 @@ export default function EpisodeTable({
     overscan: 10,
   });
 
-  const [titleMatchCache, setTitleMatchCache] = React.useState<Record<number, boolean>>({});
-  const [isMatching, setIsMatching] = React.useState(false);
-
-  React.useEffect(() => {
-    let active = true;
-    setIsMatching(true);
-
-    const tTitles: string[] = [];
-    const vTitles: string[] = [];
-
+  /**
+   * Cache title-match results for every visible row.
+   * titlesMatch() runs our mathematical vector match on every pair — memoizing this means it
+   * only recomputes when the episodesMap actually changes, not on every
+   * type-dropdown click, dirty-edit keystroke, etc.
+   */
+  const titleMatchCache = useMemo(() => {
+    const cache: Record<number, boolean> = {};
     for (let i = 0; i < totalEpisodes; i++) {
-      const tEp = episodesMap.tmdb[i];
+      const epNum = i + 1;
+      const tTitle = (episodesMap.tmdb[i]?.name || episodesMap.tmdb[i]?.title || '') as string;
       const vEp = episodesMap.tvdb[i];
-      tTitles.push((tEp?.name || tEp?.title || '') as string);
-      vTitles.push((vEp?.name || (Array.isArray(vEp?.names) && vEp?.names.length > 0 ? vEp.names[0] : '') || '') as string);
+      const vTitle = (vEp?.name || (Array.isArray(vEp?.names) && vEp.names.length > 0 ? vEp.names![0] : '') || '') as string;
+      cache[epNum] = titlesMatch(tTitle, vTitle);
     }
-
-    if (totalEpisodes === 0) {
-      setIsMatching(false);
-      return;
-    }
-
-    batchMatchTitles(tTitles, vTitles).then((results) => {
-      if (!active) return;
-      const cache: Record<number, boolean> = {};
-      results.forEach((match, i) => {
-        cache[i + 1] = match;
-      });
-      setTitleMatchCache(cache);
-      setIsMatching(false);
-    }).catch(err => {
-      console.error(err);
-      if (active) setIsMatching(false);
-    });
-
-    return () => {
-      active = false;
-    };
+    return cache;
   }, [episodesMap, totalEpisodes]);
 
   let canonCount = 0;
@@ -157,16 +135,7 @@ export default function EpisodeTable({
               <th className="text-center text-sm text-muted pb-4 px-4" style={{ borderRight: '1px solid var(--border)' }}>Type</th>
               <th className="text-center text-sm text-muted pb-4 px-4" style={{ borderRight: '1px solid var(--border)' }}>TMDB</th>
               <th className="text-center text-sm text-muted pb-4 px-4" style={{ borderRight: '1px solid var(--border)' }}>TVDB</th>
-              <th className="text-center text-sm text-muted pb-4 px-4">
-                {isMatching ? (
-                  <div className="flex-row items-center justify-center gap-xs">
-                    <Loader2 className="animate-spin" size={14} />
-                    <span>Matching</span>
-                  </div>
-                ) : (
-                  'Match'
-                )}
-              </th>
+              <th className="text-center text-sm text-muted pb-4 px-4">Match</th>
             </tr>
           </thead>
           {/* Spacer-based virtualization: rows stay in normal table flow so colgroup widths work.
