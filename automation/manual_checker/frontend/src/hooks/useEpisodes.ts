@@ -15,7 +15,8 @@ export function useEpisodes(
   const handleEpisodeChange = (epIdx: number, provider: string, field: string, val: string) => {
     setHasChanges(true);
     setEpisodeChanges(prev => ({ ...prev, [`${epIdx}_${provider}`]: true }));
-    setEpDrafts(prev => ({ ...prev, [`${epIdx}_${provider}_${field}`]: val }));
+    const key = field ? `${epIdx}_${provider}_${field}` : `${epIdx}_${provider}`;
+    setEpDrafts(prev => ({ ...prev, [key]: val }));
   };
 
   const handleEpisodeSave = async (epIdx: number, pId: string, pVal: string, isMovie: boolean) => {

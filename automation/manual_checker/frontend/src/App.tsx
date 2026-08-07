@@ -67,6 +67,15 @@ export default function App() {
       episodeState.setEpisodesMap({ tmdb: tEps, tvdb: vEps });
       
       const drafts: Record<string, string | number> = {};
+      
+      for (let i = 1; i <= total; i++) {
+        if (details.episode_mappings && details.episode_mappings[i]) {
+          drafts[`${i}_type`] = details.episode_mappings[i].type || 'filler';
+        } else {
+          drafts[`${i}_type`] = 'filler';
+        }
+      }
+
       tEps.forEach((ep: Episode, i: number) => {
         drafts[`${i+1}_tmdb_s`] = ep.season || '';
         drafts[`${i+1}_tmdb_e`] = ep.episode || '';
@@ -135,6 +144,7 @@ export default function App() {
         const tvdbEp = episodeState.episodesMap.tvdb[i - 1];
 
         mappings[i] = {
+          type: episodeState.epDrafts[`${i}_type`] || 'filler',
           tmdb: tmdbEp ? { 
             s: tmdbEp.season, 
             e: tmdbEp.episode,
