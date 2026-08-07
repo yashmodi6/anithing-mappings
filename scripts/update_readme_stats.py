@@ -42,9 +42,9 @@ def get_stats():
                 verified_count = conn.execute("SELECT COUNT(*) FROM verified_anime WHERE manual_checked = 1").fetchone()[0]
                 
                 # TMDB, TVDB, MAL valid counts for Quality Assurance
-                tmdb_valid = conn.execute("SELECT COUNT(*) FROM verified_anime WHERE manual_checked = 1 AND (tmdb_show_id IS NOT NULL OR tmdb_movie_id IS NOT NULL)").fetchone()[0]
-                tvdb_valid = conn.execute("SELECT COUNT(*) FROM verified_anime WHERE manual_checked = 1 AND (tvdb_show_id IS NOT NULL OR tvdb_movie_id IS NOT NULL)").fetchone()[0]
-                mal_valid = conn.execute("SELECT COUNT(*) FROM verified_anime WHERE manual_checked = 1 AND mal_id IS NOT NULL").fetchone()[0]
+                tmdb_valid = conn.execute("SELECT COUNT(*) FROM verified_anime WHERE manual_checked = 1 AND mappings LIKE '%\"provider\": \"tmdb\"%'").fetchone()[0]
+                tvdb_valid = conn.execute("SELECT COUNT(*) FROM verified_anime WHERE manual_checked = 1 AND mappings LIKE '%\"provider\": \"tvdb\"%'").fetchone()[0]
+                mal_valid = conn.execute("SELECT COUNT(*) FROM verified_anime WHERE manual_checked = 1 AND mappings LIKE '%\"provider\": \"mal\"%'").fetchone()[0]
 
                 if os.path.exists(STEP1_DB):
                     conn.execute(f"ATTACH DATABASE '{STEP1_DB}' AS step1")
