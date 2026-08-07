@@ -181,12 +181,13 @@ a {
   box-shadow: 0 4px 12px rgba(108, 99, 255, 0.3);
 }
 
-.btn-primary:disabled {
-  background: var(--border);
-  color: var(--text-muted);
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
+.btn:disabled {
+  background: #3f3f46 !important;
+  color: #a1a1aa !important;
+  cursor: not-allowed !important;
+  transform: none !important;
+  box-shadow: none !important;
+  border-color: #3f3f46 !important;
 }
 
 .btn-secondary {

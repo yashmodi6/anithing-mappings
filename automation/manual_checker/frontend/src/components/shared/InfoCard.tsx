@@ -42,9 +42,14 @@ export default function InfoCard({ animeDetails, animeId, goPrev, goNext, loadAn
         ) : (
           <>
             <div className="flex-row items-center gap-xs mr-2">
-              <select className="input-field" value={skipReason} onChange={(e) => setSkipReason(e.target.value)} style={{ padding: '6px 12px', height: '32px', fontSize: '13px' }}>
+              <select className="select select-sm" value={skipReason} onChange={(e) => setSkipReason(e.target.value)} style={{ padding: '6px 12px', height: '32px', fontSize: '13px', background: '#2a2d33', color: 'var(--text-main)', border: '1px solid var(--border)', borderRadius: '6px' }}>
                 <option value="Release Date Mismatch">Release Date Mismatch</option>
                 <option value="Format Mismatch">Format Mismatch</option>
+                <option value="Not Found on Providers">Not Found on Providers</option>
+                <option value="Different Episode Split">Different Episode Split</option>
+                <option value="Duplicate Entry">Duplicate Entry</option>
+                <option value="Music / Music Video">Music / Music Video</option>
+                <option value="Incomplete Metadata">Incomplete Metadata</option>
                 <option value="Other">Other</option>
               </select>
               <button className="btn btn-secondary" onClick={() => handleSkip(skipReason)} title="Skip this anime">

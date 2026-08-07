@@ -49,7 +49,7 @@ def fetch_preview(tvdb_id: int, is_movie: bool = False) -> Optional[Dict[str, st
         }
     return None
 
-def fetch_episodes_with_rollover(tvdb_id: Optional[int], target_episode_count: int, start_season: int = 1) -> List[Dict[str, Any]]:
+def fetch_episodes_with_rollover(tvdb_id: Optional[int], target_episode_count: int, exact_seasons: Optional[List[int]] = None, start_season: int = 1) -> List[Dict[str, Any]]:
     episodes_list = []
     headers = get_bearer_headers()
     if not tvdb_id or not headers:
@@ -78,8 +78,7 @@ def fetch_episodes_with_rollover(tvdb_id: Optional[int], target_episode_count: i
             for i, ep in enumerate(eps_eng):
                 name_eng = ep.get("name") or ""
                 name_jpn = eps_jpn[i].get("name") or "" if i < len(eps_jpn) else ""
-                combined_name = f"{name_eng} / {name_jpn}" if name_jpn and name_jpn != name_eng and name_eng else (name_eng or name_jpn)
-                ep["name"] = combined_name
+                ep["name"] = name_eng if name_eng else name_jpn
 
             all_eps.extend(eps_eng)
             if not data_eng.get("links", {}).get("next"):
@@ -87,7 +86,10 @@ def fetch_episodes_with_rollover(tvdb_id: Optional[int], target_episode_count: i
             page += 1
 
         if all_eps:
-            season_filtered = [e for e in all_eps if e.get("seasonNumber", 0) >= start_season]
+            if exact_seasons:
+                season_filtered = [e for e in all_eps if e.get("seasonNumber", 0) in exact_seasons]
+            else:
+                season_filtered = [e for e in all_eps if e.get("seasonNumber", 0) >= start_season]
             season_filtered.sort(key=lambda e: (e.get("seasonNumber", 1), e.get("number", 1)))
 
             for ep in season_filtered:

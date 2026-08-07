@@ -62,10 +62,17 @@ def get_stats():
             pass
 
     # Calculate Anibridge Corrections
-    if os.path.exists(STEP2_DB) and os.path.exists(MAPPINGS_JSON):
+    import glob
+    mapping_files = glob.glob(os.path.join(ROOT_DIR, "assets", "mapping-*.json"))
+    if os.path.exists(STEP2_DB) and mapping_files:
         try:
-            with open(MAPPINGS_JSON, "r", encoding="utf-8") as f:
-                edits = json.load(f)
+            edits = []
+            for mf in mapping_files:
+                try:
+                    with open(mf, "r", encoding="utf-8") as f:
+                        edits.extend(json.load(f))
+                except Exception:
+                    pass
             
             with sqlite3.connect(STEP2_DB) as conn:
                 conn.row_factory = sqlite3.Row
@@ -82,22 +89,35 @@ def get_stats():
                         
                     is_changed = False
                     
+                    edit_tmdb_id = ""
+                    edit_tmdb_type = ""
+                    edit_tvdb_id = ""
+                    edit_tvdb_type = ""
+                    edit_mal_id = ""
+                    
+                    for m in edit.get("mappings", []):
+                        if m.get("provider") == "tmdb":
+                            edit_tmdb_id = str(m.get("id", ""))
+                            edit_tmdb_type = m.get("type", "")
+                        elif m.get("provider") == "tvdb":
+                            edit_tvdb_id = str(m.get("id", ""))
+                            edit_tvdb_type = m.get("type", "")
+                        elif m.get("provider") == "mal":
+                            edit_mal_id = str(m.get("id", ""))
+
                     # Compare TMDB
-                    orig_tmdb = str(row["tmdb_movie_id"]) if edit.get("tmdb_type") == "movie" else str(row["tmdb_show_id"])
+                    orig_tmdb = str(row["tmdb_movie_id"]) if edit_tmdb_type == "movie" else str(row["tmdb_show_id"])
                     if orig_tmdb == "None": orig_tmdb = ""
-                    new_tmdb = str(edit.get("tmdb_id", ""))
                     
                     # Compare TVDB
-                    orig_tvdb = str(row["tvdb_movie_id"]) if edit.get("tvdb_type") == "movie" else str(row["tvdb_show_id"])
+                    orig_tvdb = str(row["tvdb_movie_id"]) if edit_tvdb_type == "movie" else str(row["tvdb_show_id"])
                     if orig_tvdb == "None": orig_tvdb = ""
-                    new_tvdb = str(edit.get("tvdb_id", ""))
                     
                     # Compare MAL
                     orig_mal = str(row["mal_id"])
                     if orig_mal == "None": orig_mal = ""
-                    new_mal = str(edit.get("mal_id", ""))
                     
-                    if orig_tmdb != new_tmdb or orig_tvdb != new_tvdb or orig_mal != new_mal:
+                    if orig_tmdb != edit_tmdb_id or orig_tvdb != edit_tvdb_id or orig_mal != edit_mal_id:
                         is_changed = True
                         
                     if is_changed:

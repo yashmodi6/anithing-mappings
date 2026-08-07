@@ -1,6 +1,6 @@
 import { useState } from 'react';
-import { getEpisodes } from '../api_client';
-import { Anime, Episode, EpisodesMap } from '../types';
+import { syncEpisodes } from '../api_client';
+import { Anime, EpisodesMap, Mapping } from '../types';
 
 export function useEpisodes(
   animeDetails: Anime | null,
@@ -8,58 +8,35 @@ export function useEpisodes(
 ) {
   const [episodesMap, setEpisodesMap] = useState<EpisodesMap>({ tmdb: [], tvdb: [] });
   const [totalEpisodes, setTotalEpisodes] = useState<number>(0);
-  const [episodeChanges, setEpisodeChanges] = useState<Record<string, boolean>>({});
-  const [savingEpisodes, setSavingEpisodes] = useState<Record<string, boolean>>({});
-  const [epDrafts, setEpDrafts] = useState<Record<string, string | number>>({});
+  const [episodeTypes, setEpisodeTypes] = useState<Record<string, string>>({});
+  const [isSyncing, setIsSyncing] = useState(false);
 
-  const handleEpisodeChange = (epIdx: number, provider: string, field: string, val: string) => {
+  const handleEpisodeTypeChange = (epIdx: number, val: string) => {
     setHasChanges(true);
-    setEpisodeChanges(prev => ({ ...prev, [`${epIdx}_${provider}`]: true }));
-    const key = field ? `${epIdx}_${provider}_${field}` : `${epIdx}_${provider}`;
-    setEpDrafts(prev => ({ ...prev, [key]: val }));
+    setEpisodeTypes(prev => ({ ...prev, [epIdx]: val }));
   };
 
-  const handleEpisodeSave = async (epIdx: number, pId: string, pVal: string, isMovie: boolean) => {
-    if (!animeDetails) return;
-    setSavingEpisodes(prev => ({ ...prev, [`${epIdx}_${pId}`]: true }));
+  const handleSyncEpisodes = async (mappings: Mapping[], overrideId?: number) => {
+    const idToUse = overrideId || animeDetails?.anilist_id;
+    if (!idToUse) return;
+    setIsSyncing(true);
     try {
-      const mappings: any = {};
-      for (let i = 1; i <= totalEpisodes; i++) {
-        mappings[i] = {
-          tmdb: { s: epDrafts[`${i}_tmdb_s`], e: epDrafts[`${i}_tmdb_e`] },
-          tvdb: { s: epDrafts[`${i}_tvdb_s`], e: epDrafts[`${i}_tvdb_e`] }
-        };
-      }
-      
-      const epRes = await getEpisodes(pId, animeDetails.anilist_id, mappings, pVal, isMovie);
-      setEpisodesMap(prev => ({ ...prev, [pId]: epRes.episodes || [] }));
-      
-      const newDrafts = { ...epDrafts };
-      (epRes.episodes || []).forEach((ep: Episode, i: number) => {
-        newDrafts[`${i+1}_${pId}_s`] = ep.season || '';
-        newDrafts[`${i+1}_${pId}_e`] = ep.episode || '';
-      });
-      setEpDrafts(newDrafts);
-      
-      const newChanges = { ...episodeChanges };
-      for (let i = 1; i <= totalEpisodes; i++) {
-        delete newChanges[`${i}_${pId}`];
-      }
-      setEpisodeChanges(newChanges);
-    } catch(e) {
+      const res = await syncEpisodes(idToUse, mappings);
+      setEpisodesMap(res.episodes);
+      setTotalEpisodes(res.total_episodes);
+    } catch (e) {
       console.error(e);
-      alert("Failed to save episode mapping");
+      alert("Failed to sync episodes");
     }
-    setSavingEpisodes(prev => ({ ...prev, [`${epIdx}_${pId}`]: false }));
+    setIsSyncing(false);
   };
 
   return {
     episodesMap, setEpisodesMap,
     totalEpisodes, setTotalEpisodes,
-    episodeChanges, setEpisodeChanges,
-    savingEpisodes,
-    epDrafts, setEpDrafts,
-    handleEpisodeChange,
-    handleEpisodeSave
+    episodeTypes, setEpisodeTypes,
+    handleEpisodeTypeChange,
+    handleSyncEpisodes,
+    isSyncing
   };
 }

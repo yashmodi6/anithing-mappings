@@ -53,19 +53,21 @@ def auto_map(details: Dict[str, Any]) -> Dict[str, Any]:
     tmdb_auth = get_auth_kwargs() if (TMDB_READ_ACCESS_TOKEN and not TMDB_READ_ACCESS_TOKEN.startswith("YOUR_")) else None
     tvdb_headers = get_bearer_headers()
     
-    existing_tmdb_id = details.get("tmdb_movie_id") if is_movie else details.get("tmdb_show_id")
+    existing_tmdb_id_full = str(details.get("tmdb_movie_id") if is_movie else details.get("tmdb_show_id") or "")
+    existing_tmdb_id = existing_tmdb_id_full.split(":")[0] if existing_tmdb_id_full else None
     if existing_tmdb_id and tmdb_auth:
         endpoint = "movie" if is_movie else "tv"
         val_data = safe_get_json(f"https://api.themoviedb.org/3/{endpoint}/{existing_tmdb_id}", **tmdb_auth)
         if val_data and val_data.get("id"):
-            result["tmdb"] = {"id": str(existing_tmdb_id), "type": "movie" if is_movie else "show"}
+            result["tmdb"] = {"id": existing_tmdb_id_full, "type": "movie" if is_movie else "show"}
 
-    existing_tvdb_id = details.get("tvdb_movie_id") if is_movie else details.get("tvdb_show_id")
+    existing_tvdb_id_full = str(details.get("tvdb_movie_id") if is_movie else details.get("tvdb_show_id") or "")
+    existing_tvdb_id = existing_tvdb_id_full.split(":")[0] if existing_tvdb_id_full else None
     if existing_tvdb_id and tvdb_headers:
         endpoint = "movies" if is_movie else "series"
         val_data = safe_get_json(f"https://api4.thetvdb.com/v4/{endpoint}/{existing_tvdb_id}", headers=tvdb_headers)
         if val_data and val_data.get("data"):
-            result["tvdb"] = {"id": str(existing_tvdb_id), "type": "movie" if is_movie else "show"}
+            result["tvdb"] = {"id": existing_tvdb_id_full, "type": "movie" if is_movie else "show"}
 
     # --- Phase 2: Strict Searching ---
     

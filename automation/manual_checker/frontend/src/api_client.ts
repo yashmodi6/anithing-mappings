@@ -15,18 +15,12 @@ export async function getAnime(id: number): Promise<Anime> {
   return res.json();
 }
 
-export async function getEpisodes(provider: string, anilistId: number, mappings = null, overrideId: string | null = null, isMovie: boolean = false): Promise<{anilist_id: number, total_episodes: number, episodes: Episode[]}> {
-  const body: any = {};
-  if (mappings) body.mappings = mappings;
-  if (overrideId) body[`${provider}_id`] = overrideId;
-  body.is_movie = isMovie;
-  
-  const options = Object.keys(body).length > 0 ? {
+export async function syncEpisodes(anilistId: number, mappings: any[]): Promise<{anilist_id: number, total_episodes: number, episodes: {tmdb: Episode[], tvdb: Episode[]}}> {
+  const res = await fetch(`/api/episodes/sync/${anilistId}`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(body)
-  } : {};
-  const res = await fetch(`/api/episodes/${provider}/${anilistId}`, options);
+    body: JSON.stringify({ mappings })
+  });
   return res.json();
 }
 

@@ -1,11 +1,16 @@
 import os
 import json
-import sqlite3
+import glob
 from core.database import VerifiedDB
 
 ASSETS_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "assets")
-MAPPING_EDITS_PATH = os.path.join(ASSETS_DIR, "mapping-edits.json")
 SKIPPED_ANIME_PATH = os.path.join(ASSETS_DIR, "skipped-anime.json")
+
+def get_mapping_path(format_str: str) -> str:
+    fmt = str(format_str).lower().replace("_", "-")
+    if not fmt:
+        fmt = "unknown"
+    return os.path.join(ASSETS_DIR, f"mapping-{fmt}.json")
 
 def update_skipped_anime_json(anilist_id: int, reason: str) -> None:
     """Atomically append or update a skipped anime in the skipped-anime.json file."""
@@ -27,68 +32,60 @@ def update_skipped_anime_json(anilist_id: int, reason: str) -> None:
     os.replace(tmp_path, SKIPPED_ANIME_PATH)
 
 def update_mapping_edits_json(data: dict) -> None:
-    """Atomically append or update a verified anime in the mapping-edits.json file."""
+    """Atomically append or update a verified anime in its format-specific mapping JSON file."""
     os.makedirs(ASSETS_DIR, exist_ok=True)
-
-    # Load existing file
-    existing: list = []
-    if os.path.exists(MAPPING_EDITS_PATH):
-        with open(MAPPING_EDITS_PATH, "r", encoding="utf-8") as f:
-            existing = json.load(f)
-        if not isinstance(existing, list):
-            raise ValueError(f"Expected a list in {MAPPING_EDITS_PATH}, but got {type(existing)}")
-
-    # Replace or append entry for this anilist_id
-    anilist_id = data["anilist_id"]
     
-    # If the format is MOVIE, set episodes to null, otherwise use the full mappings
-    is_movie = "MOVIE" in str(data.get("format", "")).upper()
-    episodes_data = None if is_movie else data.get("episode_mappings", {})
+    format_str = data.get("format", "UNKNOWN")
+    path = get_mapping_path(format_str)
 
+    existing: list = []
+    if os.path.exists(path):
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                existing = json.load(f)
+            if not isinstance(existing, list):
+                existing = []
+        except Exception:
+            pass
+
+    anilist_id = data["anilist_id"]
+    from core.transformers import compress_episode_types, clean_mappings_for_export
+    
+    clean_mappings = clean_mappings_for_export(data.get("mappings", []))
+    
     entry = {
         "anilist_id": anilist_id,
-        "mal_id": data.get("mal_id"),
-        "tmdb_show_id": data.get("tmdb_show_id"),
-        "tmdb_movie_id": data.get("tmdb_movie_id"),
-        "tvdb_show_id": data.get("tvdb_show_id"),
-        "tvdb_movie_id": data.get("tvdb_movie_id"),
-        "episodes": episodes_data
+        "title": data.get("title") or data.get("title_english") or data.get("title_romaji"),
+        "format": format_str,
+        "status": data.get("status"),
+        "total_episodes": data.get("total_episodes") or data.get("episodes"),
+        "episode_types": compress_episode_types(data.get("episode_types", {})),
+        "mappings": clean_mappings
     }
     
-    # Remove existing entry for this anime to avoid duplicates on re-verification
     existing = [e for e in existing if e.get("anilist_id") != anilist_id]
     existing.append(entry)
-
-    # Sort the list by anilist_id to prevent Git merge conflicts
     existing.sort(key=lambda x: x.get("anilist_id", 0))
 
-    # Write to a temporary file first, then atomically replace to prevent data corruption
-    tmp_path = MAPPING_EDITS_PATH + ".tmp"
+    tmp_path = path + ".tmp"
     with open(tmp_path, "w", encoding="utf-8") as f:
         json.dump(existing, f, ensure_ascii=False, indent=2, sort_keys=True)
-    os.replace(tmp_path, MAPPING_EDITS_PATH)
+    os.replace(tmp_path, path)
 
 def remove_mapping_edits_json(anilist_id: int) -> None:
-    """Remove a verified anime from the mapping-edits.json file."""
-    if not os.path.exists(MAPPING_EDITS_PATH):
-        return
-
-    try:
-        with open(MAPPING_EDITS_PATH, "r", encoding="utf-8") as f:
-            existing = json.load(f)
-        if not isinstance(existing, list):
-            return
-    except Exception:
-        return
-
-    filtered = [e for e in existing if e.get("anilist_id") != anilist_id]
-    if len(filtered) == len(existing):
-        return
-
-    filtered.sort(key=lambda x: x.get("anilist_id", 0))
-
-    tmp_path = MAPPING_EDITS_PATH + ".tmp"
-    with open(tmp_path, "w", encoding="utf-8") as f:
-        json.dump(filtered, f, ensure_ascii=False, indent=2, sort_keys=True)
-    os.replace(tmp_path, MAPPING_EDITS_PATH)
-
+    """Remove a verified anime from any mapping JSON file it might exist in."""
+    for path in glob.glob(os.path.join(ASSETS_DIR, "mapping-*.json")):
+        try:
+            with open(path, "r", encoding="utf-8") as f:
+                existing = json.load(f)
+            if not isinstance(existing, list):
+                continue
+            
+            filtered = [e for e in existing if e.get("anilist_id") != anilist_id]
+            if len(filtered) < len(existing):
+                tmp_path = path + ".tmp"
+                with open(tmp_path, "w", encoding="utf-8") as f:
+                    json.dump(filtered, f, ensure_ascii=False, indent=2, sort_keys=True)
+                os.replace(tmp_path, path)
+        except Exception:
+            continue

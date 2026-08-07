@@ -33,12 +33,19 @@ export default function Header({ currentView, setCurrentView, stats }: HeaderPro
         <span className="text-muted">Total Verified: <span className="text-success font-bold">{stats.verified_count}</span></span>
       </div>
       <div className="flex-row gap-sm items-center">
-        <a href="/api/skipped.json" target="_blank" rel="noopener noreferrer" className="btn btn-secondary" style={{ padding: '6px 12px', fontSize: '13px' }}>
-          skipped-anime.json
-        </a>
-        <a href="/api/mappings.json" target="_blank" rel="noopener noreferrer" className="btn btn-secondary" style={{ padding: '6px 12px', fontSize: '13px' }}>
-          mappings.json
-        </a>
+        <select 
+          className="select select-sm" 
+          onChange={(e) => { if(e.target.value) window.open(e.target.value, '_blank'); e.target.value=''; }}
+          style={{ padding: '6px 12px', fontSize: '13px', background: 'var(--surface)', color: 'var(--text-main)', border: '1px solid var(--border)', borderRadius: '6px', cursor: 'pointer' }}
+        >
+          <option value="">View JSONs...</option>
+          <option value="/api/mapping-tv.json">mapping-tv.json</option>
+          <option value="/api/mapping-movie.json">mapping-movie.json</option>
+          <option value="/api/mapping-special.json">mapping-special.json</option>
+          <option value="/api/mapping-ova.json">mapping-ova.json</option>
+          <option value="/api/mapping-ona.json">mapping-ona.json</option>
+          <option value="/api/skipped.json">skipped-anime.json</option>
+        </select>
         <button className="btn btn-primary" style={{ padding: '6px 12px', fontSize: '13px' }} onClick={handleComplete}>
           Complete for now
         </button>

@@ -4,6 +4,17 @@ export interface Stats {
   percentage?: number;
 }
 
+export interface Mapping {
+  provider: 'tmdb' | 'tvdb' | 'mal' | 'imdb';
+  type: 'show' | 'movie';
+  id: string | number;
+  scope?: string;
+  episode_mapping?: string;
+  episodes?: Record<string, string>;
+  _preview?: any;
+  _dirty?: boolean;
+}
+
 export interface Anime {
   anilist_id: number;
   title?: string;
@@ -15,42 +26,22 @@ export interface Anime {
   is_skipped?: boolean;
   episodes?: number;
   released_episodes?: number;
-  tmdb_show_id?: string;
-  tmdb_movie_id?: string;
-  tvdb_show_id?: string;
-  tvdb_movie_id?: string;
-  mal_id?: string;
   anilist_poster?: string;
-  tmdb_poster?: string;
-  tmdb_title?: string;
-  tmdb_date?: string;
-  tvdb_poster?: string;
-  tvdb_title?: string;
-  tvdb_date?: string;
-  mal_poster?: string;
-  mal_title?: string;
-  mal_date?: string;
+  mappings: Mapping[];
+  episode_types: Record<string, string>;
 }
 
 export interface Episode {
   season?: string | number;
   episode?: string | number;
+  episode_in_season?: string | number;
   thumbnail?: string;
   title?: string;
+  name?: string;
   names?: string[];
 }
 
 export interface EpisodesMap {
   tmdb: Episode[];
   tvdb: Episode[];
-}
-
-export interface Provider {
-  id: string;
-  name: string;
-  logo?: string;
-  currentId: string;
-  poster?: string;
-  title?: string;
-  date?: string;
 }

@@ -55,3 +55,25 @@ def align_episodes(provider: str, total_eps: int, mappings: dict, provider_eps: 
             curr_e += 1
 
     return aligned
+
+def fetch_anime_with_previews(anilist_id: int, db) -> Optional[Dict[str, Any]]:
+    from concurrent.futures import ThreadPoolExecutor
+    from providers import anilist
+
+    details = db.get_anime_details(anilist_id)
+    if not details:
+        return None
+
+    def fetch_a():
+        try:
+            return anilist.fetch_cover_image(anilist_id)
+        except Exception:
+            pass
+        return None
+
+    with ThreadPoolExecutor(max_workers=1) as executor:
+        t_ani = executor.submit(fetch_a)
+        details["anilist_poster"] = t_ani.result()
+
+    return details
+

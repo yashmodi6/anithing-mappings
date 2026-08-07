@@ -25,9 +25,10 @@ class VerifiedDB:
             conn.execute("""
             CREATE TABLE IF NOT EXISTS verified_anime (
                 anilist_id INTEGER PRIMARY KEY,
-                mal_id INTEGER, anidb_id INTEGER, tmdb_show_id INTEGER, tmdb_movie_id INTEGER,
-                tvdb_show_id INTEGER, tvdb_movie_id INTEGER, imdb_id TEXT, episode_mappings TEXT,
-                manual_checked BOOLEAN DEFAULT 1, verified_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+                mappings TEXT,
+                episode_types TEXT,
+                manual_checked BOOLEAN DEFAULT 1, 
+                verified_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
             """)
             conn.execute("""
@@ -38,25 +39,27 @@ class VerifiedDB:
             );
             """)
             
-            json_path = os.path.join(AUTOMATION_ROOT, "..", "assets", "mapping-edits.json")
-            if os.path.exists(json_path):
-                try:
-                    with open(json_path, "r", encoding="utf-8") as f:
-                        data = json.load(f)
-                    if isinstance(data, list):
-                        for entry in data:
-                            conn.execute("""
-                            INSERT OR IGNORE INTO verified_anime (
-                                anilist_id, mal_id, anidb_id, tmdb_show_id, tmdb_movie_id, tvdb_show_id, tvdb_movie_id, imdb_id, episode_mappings, manual_checked
-                            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)
-                            """, (
-                                entry.get("anilist_id"), entry.get("mal_id"), entry.get("anidb_id"),
-                                entry.get("tmdb_show_id"), entry.get("tmdb_movie_id"), entry.get("tvdb_show_id"),
-                                entry.get("tvdb_movie_id"), entry.get("imdb_id"), json.dumps(entry.get("episode_overrides", {}))
-                            ))
-                except Exception as e:
-                    import sys
-                    print(f"[VerifiedDB] Sync error: {e}", file=sys.stderr)
+            import glob
+            mapping_files = glob.glob(os.path.join(AUTOMATION_ROOT, "..", "assets", "mapping-*.json"))
+            for json_path in mapping_files:
+                if os.path.exists(json_path):
+                    try:
+                        with open(json_path, "r", encoding="utf-8") as f:
+                            data = json.load(f)
+                        if isinstance(data, list):
+                            for entry in data:
+                                conn.execute("""
+                                INSERT OR IGNORE INTO verified_anime (
+                                    anilist_id, mappings, episode_types, manual_checked
+                                ) VALUES (?, ?, ?, 1)
+                                """, (
+                                    entry.get("anilist_id"),
+                                    json.dumps(entry.get("mappings", [])),
+                                    json.dumps(entry.get("episode_types", {}))
+                                ))
+                    except Exception as e:
+                        import sys
+                        print(f"[VerifiedDB] Sync error on {json_path}: {e}", file=sys.stderr)
                     
             skip_json_path = os.path.join(AUTOMATION_ROOT, "..", "assets", "skipped-anime.json")
             if os.path.exists(skip_json_path):
@@ -186,16 +189,15 @@ class VerifiedDB:
 
     def get_anime_details(self, anilist_id: int) -> Dict[str, Any]:
         details = {
-            "anilist_id": anilist_id, "mal_id": None, "anidb_id": None, "tmdb_show_id": None,
-            "tmdb_movie_id": None, "tvdb_show_id": None, "tvdb_movie_id": None, "imdb_id": None,
-            "episode_mappings": {}, "title_romaji": None, "title_english": None, "format": None,
-            "status": None, "episodes": None, "raw_metadata": {}, "is_verified": False
+            "anilist_id": anilist_id, "title_romaji": None, "title_english": None, 
+            "format": None, "status": None, "episodes": None, "raw_metadata": {}, 
+            "is_verified": False, "mappings": [], "episode_types": {}
         }
 
         if os.path.exists(STEP1_DB_PATH):
             with sqlite3.connect(STEP1_DB_PATH) as conn:
                 conn.row_factory = sqlite3.Row
-                row = conn.execute("SELECT mal_id, title_romaji, title_english, format, status, episodes, released_episodes, raw_metadata FROM anime WHERE anilist_id = ?", (anilist_id,)).fetchone()
+                row = conn.execute("SELECT title_romaji, title_english, format, status, episodes, released_episodes, raw_metadata FROM anime WHERE anilist_id = ?", (anilist_id,)).fetchone()
                 if row:
                     details.update(dict(row))
                     if row["raw_metadata"]:
@@ -208,10 +210,16 @@ class VerifiedDB:
         if os.path.exists(self.db_path):
             with sqlite3.connect(self.db_path) as conn:
                 conn.row_factory = sqlite3.Row
-                verified_row = conn.execute("SELECT mal_id, anidb_id, tmdb_show_id, tmdb_movie_id, tvdb_show_id, tvdb_movie_id, imdb_id FROM verified_anime WHERE anilist_id = ?", (anilist_id,)).fetchone()
+                verified_row = conn.execute("SELECT mappings, episode_types FROM verified_anime WHERE anilist_id = ?", (anilist_id,)).fetchone()
 
         if verified_row:
-            details.update(dict(verified_row))
+            try:
+                details["mappings"] = json.loads(verified_row["mappings"]) if verified_row["mappings"] else []
+                ep_types = json.loads(verified_row["episode_types"]) if verified_row["episode_types"] else {}
+                from core.transformers import decompress_episode_types
+                details["episode_types"] = decompress_episode_types(ep_types)
+            except Exception:
+                pass
             details["is_verified"] = True
         elif os.path.exists(STEP2_DB_PATH):
             with sqlite3.connect(STEP2_DB_PATH) as conn:
@@ -219,16 +227,10 @@ class VerifiedDB:
                 row2 = conn.execute("SELECT mal_id, anidb_id, tmdb_show_id, tmdb_movie_id, tvdb_show_id, tvdb_movie_id, imdb_id, episode_mappings FROM mappings WHERE anilist_id = ?", (anilist_id,)).fetchone()
                 if row2:
                     r2_dict = dict(row2)
-                    ep_map_raw = r2_dict.pop("episode_mappings", None)
-                    if not details["mal_id"]:
-                        details["mal_id"] = r2_dict.get("mal_id")
-                    for k in ("anidb_id", "tmdb_show_id", "tmdb_movie_id", "tvdb_show_id", "tvdb_movie_id", "imdb_id"):
-                        details[k] = r2_dict.get(k)
-                    if ep_map_raw:
-                        try:
-                            details["episode_mappings"] = json.loads(ep_map_raw)
-                        except Exception:
-                            pass
+                    fmt = (details.get("format") or "").lower()
+                    is_movie = "movie" in fmt
+                    from core.transformers import build_anibridge_mappings
+                    details["mappings"].extend(build_anibridge_mappings(r2_dict, is_movie))
 
         rel_eps = details.get("released_episodes") or details.get("episodes")
         if not rel_eps or rel_eps <= 0:
@@ -237,35 +239,31 @@ class VerifiedDB:
             if next_airing and isinstance(next_airing, dict):
                 rel_eps = max(0, next_airing.get("episode", 1) - 1)
 
-        if not rel_eps or rel_eps <= 0:
-            mappings = details.get("episode_mappings")
-            max_ep = 0
-            if mappings and isinstance(mappings, dict):
-                for outer_val in mappings.values():
-                    if isinstance(outer_val, dict):
-                        for sub_k, sub_v in outer_val.items():
-                            for expr in (str(sub_k), str(sub_v)):
-                                for n in re.findall(r"\b\d+\b", expr):
-                                    max_ep = max(max_ep, int(n))
-            rel_eps = max_ep if max_ep > 0 else 0
-
-        details["released_episodes"] = rel_eps
+        details["released_episodes"] = rel_eps if rel_eps else 0
         return details
 
     def save_verified_anime(self, data: Dict[str, Any]) -> None:
+        clean_mappings = []
+        for m in data.get("mappings", []):
+            cleaned = {k: v for k, v in m.items() if k != "_preview" and k != "globalIndex"}
+            if cleaned.get("provider") == "mal":
+                cleaned = {"provider": "mal", "id": cleaned.get("id")}
+            clean_mappings.append(cleaned)
+            
         with sqlite3.connect(self.db_path) as conn:
             conn.execute("""
             INSERT INTO verified_anime (
-                anilist_id, mal_id, anidb_id, tmdb_show_id, tmdb_movie_id, tvdb_show_id, tvdb_movie_id, imdb_id, episode_mappings, manual_checked
-            ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, 1)
+                anilist_id, mappings, episode_types, manual_checked
+            ) VALUES (?, ?, ?, 1)
             ON CONFLICT(anilist_id) DO UPDATE SET
-                mal_id=excluded.mal_id, anidb_id=excluded.anidb_id, tmdb_show_id=excluded.tmdb_show_id,
-                tmdb_movie_id=excluded.tmdb_movie_id, tvdb_show_id=excluded.tvdb_show_id, tvdb_movie_id=excluded.tvdb_movie_id,
-                imdb_id=excluded.imdb_id, episode_mappings=excluded.episode_mappings, manual_checked=1, verified_at=CURRENT_TIMESTAMP
+                mappings=excluded.mappings,
+                episode_types=excluded.episode_types,
+                manual_checked=1,
+                verified_at=CURRENT_TIMESTAMP
             """, (
-                data["anilist_id"], data.get("mal_id"), data.get("anidb_id"), data.get("tmdb_show_id"),
-                data.get("tmdb_movie_id"), data.get("tvdb_show_id"), data.get("tvdb_movie_id"), data.get("imdb_id"),
-                json.dumps(data.get("episode_mappings", {}), ensure_ascii=False)
+                data["anilist_id"],
+                json.dumps(clean_mappings, ensure_ascii=False),
+                json.dumps(data.get("episode_types", {}), ensure_ascii=False)
             ))
 
     def remove_verified_anime(self, anilist_id: int) -> None:

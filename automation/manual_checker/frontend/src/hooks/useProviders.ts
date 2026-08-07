@@ -1,29 +1,54 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { autoMapAnime, getPosterPreview } from '../api_client';
-import { Anime } from '../types';
+import { Anime, Mapping } from '../types';
 
 export function useProviders(
   animeDetails: Anime | null, 
   setAnimeDetails: React.Dispatch<React.SetStateAction<Anime | null>>,
   setHasChanges: React.Dispatch<React.SetStateAction<boolean>>
 ) {
-  const [providerChanges, setProviderChanges] = useState<Record<string, boolean>>({});
-  const [savingProviders, setSavingProviders] = useState<Record<string, boolean>>({});
-  const [providerDrafts, setProviderDrafts] = useState<Record<string, string>>({});
-  const [providerTypes, setProviderTypes] = useState<Record<string, 'show' | 'movie'>>({});
-  const [committedProviders, setCommittedProviders] = useState<Record<string, string>>({});
+  const [mappings, setMappings] = useState<Mapping[]>([]);
   const [isAutoMapping, setIsAutoMapping] = useState<boolean>(false);
+  const [fetchingPreviews, setFetchingPreviews] = useState<Record<number, boolean>>({});
 
-  const handleProviderIdChange = (pId: string, val: string) => {
+  useEffect(() => {
+    if (animeDetails?.mappings) {
+      setMappings(animeDetails.mappings);
+    } else {
+      setMappings([]);
+    }
+  }, [animeDetails]);
+
+  useEffect(() => {
+    // Automatically fetch previews for mappings that don't have them yet
+    mappings.forEach((mapping, index) => {
+      if (mapping.id && !mapping._preview && !fetchingPreviews[index]) {
+        fetchPreviewForMapping(index);
+      }
+    });
+  }, [mappings]);
+
+  const handleAddMapping = (provider: Mapping['provider']) => {
+    setMappings(prev => [...prev, { provider, type: 'show', id: '', scope: provider === 'mal' || provider === 'imdb' ? undefined : 's1' }]);
     setHasChanges(true);
-    setProviderChanges(prev => ({ ...prev, [pId]: true }));
-    setProviderDrafts(prev => ({ ...prev, [pId]: val }));
   };
 
-  const handleProviderTypeChange = (pId: string, val: 'show' | 'movie') => {
+  const handleUpdateMapping = (index: number, updates: Partial<Mapping>) => {
+    setMappings(prev => {
+      const next = [...prev];
+      next[index] = { ...next[index], ...updates };
+      return next;
+    });
     setHasChanges(true);
-    setProviderChanges(prev => ({ ...prev, [pId]: true }));
-    setProviderTypes(prev => ({ ...prev, [pId]: val }));
+  };
+
+  const handleRemoveMapping = (index: number) => {
+    setMappings(prev => {
+      const next = [...prev];
+      next.splice(index, 1);
+      return next;
+    });
+    setHasChanges(true);
   };
 
   const handleAutoMap = async () => {
@@ -31,21 +56,36 @@ export function useProviders(
     setIsAutoMapping(true);
     try {
       const res = await autoMapAnime(animeDetails.anilist_id);
+      
+      let changed = false;
+      const nextMappings = [...mappings];
+      
+      // A simple automap logic: if it returns tmdb/tvdb, we add or update the first occurrence
       if (res.tmdb && res.tmdb.id) {
-        if (res.tmdb.id !== providerDrafts['tmdb']) {
-          handleProviderIdChange('tmdb', res.tmdb.id);
+        const existingIdx = nextMappings.findIndex(m => m.provider === 'tmdb');
+        if (existingIdx >= 0) {
+          nextMappings[existingIdx].id = res.tmdb.id;
+          nextMappings[existingIdx].type = res.tmdb.type;
+        } else {
+          nextMappings.push({ provider: 'tmdb', type: res.tmdb.type, id: res.tmdb.id, scope: res.tmdb.type === 'show' ? 's1' : undefined });
         }
-        if (res.tmdb.type !== providerTypes['tmdb']) {
-          handleProviderTypeChange('tmdb', res.tmdb.type);
-        }
+        changed = true;
       }
+      
       if (res.tvdb && res.tvdb.id) {
-        if (res.tvdb.id !== providerDrafts['tvdb']) {
-          handleProviderIdChange('tvdb', res.tvdb.id);
+        const existingIdx = nextMappings.findIndex(m => m.provider === 'tvdb');
+        if (existingIdx >= 0) {
+          nextMappings[existingIdx].id = res.tvdb.id;
+          nextMappings[existingIdx].type = res.tvdb.type;
+        } else {
+          nextMappings.push({ provider: 'tvdb', type: res.tvdb.type, id: res.tvdb.id, scope: res.tvdb.type === 'show' ? 's1' : undefined });
         }
-        if (res.tvdb.type !== providerTypes['tvdb']) {
-          handleProviderTypeChange('tvdb', res.tvdb.type);
-        }
+        changed = true;
+      }
+      
+      if (changed) {
+        setMappings(nextMappings);
+        setHasChanges(true);
       }
     } catch(e) {
       console.error(e);
@@ -54,47 +94,39 @@ export function useProviders(
     setIsAutoMapping(false);
   };
 
-  const saveProviderPreview = async (pId: string) => {
-    if (!animeDetails || pId === 'anilist') return null;
-    setSavingProviders(prev => ({ ...prev, [pId]: true }));
-    let isMovie = false;
+  const fetchPreviewForMapping = async (index: number) => {
+    const mapping = mappings[index];
+    if (!mapping || !mapping.id) return;
+    
+    setFetchingPreviews(prev => ({ ...prev, [index]: true }));
     try {
-      const val = providerDrafts[pId];
-      if (pId === 'tmdb' || pId === 'tvdb' || pId === 'mal') {
-        isMovie = providerTypes[pId] === 'movie';
-        const posterRes = await getPosterPreview(pId, val, isMovie);
-        setAnimeDetails(prev => {
-          if (!prev) return prev;
-          const updates: any = {};
-          if (posterRes.poster) updates[`${pId}_poster`] = posterRes.poster;
-          if (posterRes.title) updates[`${pId}_title`] = posterRes.title;
-          if (posterRes.date) updates[`${pId}_date`] = posterRes.date;
-          return Object.keys(updates).length > 0 ? { ...prev, ...updates } : prev;
+      const isMovie = mapping.type === 'movie';
+      const posterRes = await getPosterPreview(mapping.provider, String(mapping.id), isMovie);
+      
+      if (posterRes) {
+        setMappings(prev => {
+          const next = [...prev];
+          next[index] = { ...next[index], _preview: posterRes, _dirty: false };
+          return next;
         });
       }
-      setCommittedProviders(prev => ({ ...prev, [pId]: val }));
-      setProviderChanges(prev => ({ ...prev, [pId]: false }));
-      
-      return { val, isMovie };
     } catch(e) { 
       console.error(e); 
       alert("Failed to fetch provider details"); 
-      return null;
     } finally {
-      setSavingProviders(prev => ({ ...prev, [pId]: false }));
+      setFetchingPreviews(prev => ({ ...prev, [index]: false }));
     }
   };
 
   return {
-    providerChanges, setProviderChanges,
-    savingProviders,
-    providerDrafts, setProviderDrafts,
-    providerTypes, setProviderTypes,
-    committedProviders, setCommittedProviders,
+    mappings,
+    setMappings,
+    handleAddMapping,
+    handleUpdateMapping,
+    handleRemoveMapping,
     isAutoMapping,
-    handleProviderIdChange,
-    handleProviderTypeChange,
     handleAutoMap,
-    saveProviderPreview
+    fetchingPreviews,
+    fetchPreviewForMapping
   };
 }
