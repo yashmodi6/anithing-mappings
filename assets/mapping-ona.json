@@ -1,0 +1,66 @@
+[
+  {
+    "anilist_id": 98460,
+    "episode_types": {
+      "canon": [
+        "1-10"
+      ]
+    },
+    "format": "ONA",
+    "mappings": [
+      {
+        "id": 35120,
+        "provider": "mal"
+      },
+      {
+        "_dirty": false,
+        "episode_mapping": "{\"s1\": {\"1-10\": \"1-10\"}}",
+        "id": 75208,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "_dirty": false,
+        "episode_mapping": "{\"s1\": {\"1-10\": \"1-10\"}}",
+        "id": 338192,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Devilman Crybaby",
+    "total_episodes": 10
+  },
+  {
+    "anilist_id": 120377,
+    "episode_types": {
+      "canon": [
+        "1-10"
+      ]
+    },
+    "format": "ONA",
+    "mappings": [
+      {
+        "id": 42310,
+        "provider": "mal"
+      },
+      {
+        "_dirty": false,
+        "episode_mapping": "{\"s1\": {\"1-10\": \"1-10\"}}",
+        "id": 105248,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "_dirty": false,
+        "episode_mapping": "{\"s1\": {\"1-10\": \"1-10\"}}",
+        "id": 384541,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Cyberpunk: Edgerunners",
+    "total_episodes": 10
+  }
+]
