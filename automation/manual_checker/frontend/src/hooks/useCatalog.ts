@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { getStats, getQueue } from '../api_client';
 import { Anime, Stats } from '../types';
 
@@ -11,11 +11,15 @@ export function useCatalog() {
   const [status, setStatus] = useState<string>('ALL');
   const [format, setFormat] = useState<string>('ALL');
   const [sort, setSort] = useState<string>('POPULARITY_DESC');
+  const [episodesLt, setEpisodesLt] = useState<string>('');
   const [offset, setOffset] = useState<number>(0);
   
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [hasMore, setHasMore] = useState<boolean>(true);
   const [animeId, setAnimeId] = useState<number | null>(null);
+
+  // Use a ref to track the latest offset to completely avoid stale closures in async functions
+  const offsetRef = useRef(0);
 
   // Fetch stats once on mount
   useEffect(() => {
@@ -23,21 +27,28 @@ export function useCatalog() {
   }, []);
 
   useEffect(() => {
-    loadCatalog();
-  }, [filter, status, format, sort]);
+    loadCatalog(false);
+  }, [filter, status, format, sort, episodesLt]);
 
   async function loadCatalog(append: boolean = false) {
-    if (!append) setIsLoading(true);
+    setIsLoading(true);
     try {
-      const currentOffset = append ? offset + 30 : 0;
-      const data = await getQueue(filter, status, format, currentOffset, sort, searchQ);
+      const currentOffset = append ? offsetRef.current + 30 : 0;
+      const data = await getQueue(filter, status, format, currentOffset, sort, searchQ, episodesLt);
       const newQueue = data.queue || [];
       
       if (append) {
-        setCatalog(prev => [...prev, ...newQueue]);
+        setCatalog(prev => {
+          // Avoid appending duplicates by checking IDs
+          const existingIds = new Set(prev.map(a => a.anilist_id));
+          const uniqueNew = newQueue.filter((a: Anime) => !existingIds.has(a.anilist_id));
+          return [...prev, ...uniqueNew];
+        });
+        offsetRef.current = currentOffset;
         setOffset(currentOffset);
       } else {
         setCatalog(newQueue);
+        offsetRef.current = 0;
         setOffset(0);
       }
       
@@ -56,7 +67,7 @@ export function useCatalog() {
       console.error(e); 
       return []; 
     } finally {
-      if (!append) setIsLoading(false);
+      setIsLoading(false);
     }
   }
 
@@ -87,6 +98,7 @@ export function useCatalog() {
     status, setStatus,
     format, setFormat,
     sort, setSort,
+    episodesLt, setEpisodesLt,
     isLoading,
     hasMore,
     animeId, setAnimeId,

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Search, Loader2, RotateCcw, Plus, Trash2, CheckCircle2, Save, Code2 } from 'lucide-react';
-import { Mapping } from '../../types';
+import { Anime, Mapping } from '../../types';
 
 interface ProviderListProps {
+  animeDetails: Anime;
   mappings: Mapping[];
   animeTitle: string;
   isAutoMapping?: boolean;
@@ -16,6 +17,7 @@ interface ProviderListProps {
 }
 
 export default function ProviderList({
+  animeDetails,
   mappings,
   animeTitle,
   isAutoMapping,
@@ -68,6 +70,58 @@ export default function ProviderList({
     handleUpdateMapping(globalIndex, { episode_mapping: value });
     // Close the editor
     setJsonEditorOpen(prev => ({ ...prev, [globalIndex]: false }));
+  };
+
+  const renderAnilistSection = () => {
+    return (
+      <div
+        className="flex-col gap-sm"
+        style={{ border: '1px solid var(--border)', borderRadius: '8px', padding: '16px', background: 'var(--surface-overlay)' }}
+      >
+        <div className="flex-row justify-between items-center mb-2">
+          <div className="font-semibold text-lg" style={{ textTransform: 'uppercase' }}>
+            ANILIST
+          </div>
+          <button className="btn-icon" title="Go to AniList" onClick={() => window.open(`https://anilist.co/anime/${animeDetails.anilist_id}`, '_blank')}>
+            <Search size={16} />
+          </button>
+        </div>
+
+        <div style={{ position: 'relative', display: 'flex', flexDirection: 'column', gap: '12px', minWidth: '180px' }}>
+          <div style={{ display: 'flex', justifyContent: 'center', width: '100%' }}>
+            <div style={{ width: '160px' }}>
+              {animeDetails.anilist_poster ? (
+                <img
+                  src={animeDetails.anilist_poster}
+                  alt="Poster"
+                  style={{ width: '100%', height: '240px', objectFit: 'cover', borderRadius: '6px', boxShadow: '0 4px 8px rgba(0,0,0,0.4)' }}
+                />
+              ) : (
+                <div style={{ width: '100%', height: '240px', background: 'var(--border)', borderRadius: '6px', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '10px', color: 'var(--text-muted)' }}>No Img</div>
+              )}
+            </div>
+          </div>
+
+          <div style={{ textAlign: 'center', minHeight: '40px', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+            <div className="text-sm font-medium" style={{ color: 'var(--text-main)', lineHeight: '1.2' }}>
+              {animeDetails.title_english || animeDetails.title_romaji || animeDetails.title}
+            </div>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', paddingTop: '8px', borderTop: 'none' }}>
+            <div style={{ display: 'flex', flexDirection: 'row', gap: '8px', alignItems: 'center' }}>
+              <input
+                type="text"
+                className="input-field input-sm"
+                style={{ flex: 1, padding: '6px 12px', background: '#2a2d33', border: '1px solid var(--border)', color: 'var(--text-muted)' }}
+                value={animeDetails.anilist_id}
+                readOnly
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    );
   };
 
   const renderProviderSection = (providerId: Mapping['provider']) => {
@@ -323,9 +377,10 @@ export default function ProviderList({
       </div>
 
       <div className="flex-row gap-lg" style={{ display: 'flex', flexDirection: 'row', alignItems: 'flex-start', flexWrap: 'wrap' }}>
-        <div style={{ flex: 1, minWidth: '320px' }}>{renderProviderSection('tmdb')}</div>
-        <div style={{ flex: 1, minWidth: '320px' }}>{renderProviderSection('tvdb')}</div>
-        <div style={{ flex: 1, minWidth: '320px' }}>{renderProviderSection('mal')}</div>
+        <div style={{ flex: 1, minWidth: '280px' }}>{renderAnilistSection()}</div>
+        <div style={{ flex: 1, minWidth: '280px' }}>{renderProviderSection('tmdb')}</div>
+        <div style={{ flex: 1, minWidth: '280px' }}>{renderProviderSection('tvdb')}</div>
+        <div style={{ flex: 1, minWidth: '280px' }}>{renderProviderSection('mal')}</div>
       </div>
     </section>
   );

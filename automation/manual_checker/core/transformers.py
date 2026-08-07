@@ -94,7 +94,7 @@ def build_anibridge_mappings(r2_dict: Dict[str, Any], is_movie: bool) -> List[Di
 def clean_mappings_for_export(mappings: List[Dict[str, Any]]) -> List[Dict[str, Any]]:
     clean_mappings = []
     for m in mappings:
-        cleaned = {k: v for k, v in m.items() if k != "_preview" and k != "globalIndex"}
+        cleaned = {k: v for k, v in m.items() if k not in ("_preview", "globalIndex", "_dirty")}
         if cleaned.get("provider") == "mal":
             cleaned = {"provider": "mal", "id": cleaned.get("id")}
         clean_mappings.append(cleaned)

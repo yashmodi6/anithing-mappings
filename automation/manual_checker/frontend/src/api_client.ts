@@ -5,9 +5,11 @@ export async function getStats(): Promise<Stats> {
   return res.json();
 }
 
-export async function getQueue(filter = 'ALL', status = 'ALL', format = 'ALL', offset = 0, sort = 'POPULARITY_DESC', search = ''): Promise<{queue: Anime[], stats: Stats}> {
-  const searchParam = search ? `&search_query=${encodeURIComponent(search)}` : '';
-  const res = await fetch(`/api/queue?filter=${filter}&status=${status}&format=${format}&offset=${offset}&sort=${sort}&limit=30${searchParam}`);
+export async function getQueue(filter = 'ALL', status = 'ALL', format = 'ALL', offset = 0, sort = 'POPULARITY_DESC', search = '', episodesLt: string = ''): Promise<{queue: Anime[], stats: Stats}> {
+  let url = `/api/queue?filter=${filter}&status=${status}&format=${format}&offset=${offset}&sort=${sort}&limit=30`;
+  if (search) url += `&search_query=${encodeURIComponent(search)}`;
+  if (episodesLt) url += `&episodes_lt=${encodeURIComponent(episodesLt)}`;
+  const res = await fetch(url);
   return res.json();
 }
 

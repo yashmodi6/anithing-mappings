@@ -114,11 +114,10 @@ export default function EpisodeTable({
         </button>
       </div>
 
-      {/* Fixed-height scroll container — the virtualizer needs a bounded scroll area */}
       <div
         ref={tableScrollRef}
         className="episodes-table-wrapper"
-        style={{ overflowX: 'auto', overflowY: 'auto', height: '600px', position: 'relative' }}
+        style={{ overflowX: 'auto', overflowY: 'auto', height: 'calc(100vh - 150px)', position: 'relative' }}
       >
         {/*
           table-layout: fixed + colgroup: single source of truth for all 5 column widths.

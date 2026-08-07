@@ -85,7 +85,7 @@ export default function WorkspaceView({
 
   return (
     <div className="flex-col" style={{ gap: '64px' }}>
-      <div className="flex-col gap-xl" style={{ maxWidth: '1200px', margin: '0 auto', width: '100%' }}>
+      <div className="flex-col gap-xl" style={{ maxWidth: '1600px', margin: '0 auto', width: '100%' }}>
         <InfoCard
           animeDetails={animeDetails}
           animeId={catalogState.animeId!}
@@ -99,6 +99,7 @@ export default function WorkspaceView({
         />
         <div className="card h-full flex-col" style={{ padding: '24px' }}>
           <ProviderList
+            animeDetails={animeDetails}
             mappings={providerState.mappings}
             animeTitle={animeDetails.title_english || animeDetails.title_romaji || ''}
             isAutoMapping={providerState.isAutoMapping}

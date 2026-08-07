@@ -106,7 +106,7 @@ class VerifiedDB:
             except Exception:
                 return set()
 
-    def get_unverified_queue(self, status_filter: str = "ALL", verification_filter: str = "UNVERIFIED", format_filter: str = "ALL", offset: int = 0, limit: Optional[int] = 30, search_query: Optional[str] = None, sort_by: str = "POPULARITY_DESC") -> Dict[str, Any]:
+    def get_unverified_queue(self, status_filter: str = "ALL", verification_filter: str = "UNVERIFIED", format_filter: str = "ALL", offset: int = 0, limit: Optional[int] = 30, search_query: Optional[str] = None, sort_by: str = "POPULARITY_DESC", episodes_lt: Optional[int] = None) -> Dict[str, Any]:
         if not os.path.exists(STEP1_DB_PATH):
             return {"queue": [], "total_matched": 0, "has_more": False}
 
@@ -146,6 +146,10 @@ class VerifiedDB:
                 elif f in ("OVA", "ONA", "MUSIC"):
                     conditions.append("a.format = ?")
                     params.append(f)
+                    
+                if episodes_lt is not None:
+                    conditions.append("COALESCE(a.episodes, 0) <= ?")
+                    params.append(episodes_lt)
 
                 if search_query and search_query.strip():
                     q = f"%{search_query.strip().lower()}%"
@@ -248,7 +252,7 @@ class VerifiedDB:
     def save_verified_anime(self, data: Dict[str, Any]) -> None:
         clean_mappings = []
         for m in data.get("mappings", []):
-            cleaned = {k: v for k, v in m.items() if k != "_preview" and k != "globalIndex"}
+            cleaned = {k: v for k, v in m.items() if k not in ("_preview", "globalIndex", "_dirty")}
             if cleaned.get("provider") == "mal":
                 cleaned = {"provider": "mal", "id": cleaned.get("id")}
             clean_mappings.append(cleaned)

@@ -193,6 +193,8 @@ export default function App() {
               setFormat={catalogState.setFormat}
               sort={catalogState.sort}
               setSort={catalogState.setSort}
+              episodesLt={catalogState.episodesLt}
+              setEpisodesLt={catalogState.setEpisodesLt}
               isLoading={catalogState.isLoading}
               hasMore={catalogState.hasMore}
               loadCatalog={() => catalogState.loadCatalog(false)}

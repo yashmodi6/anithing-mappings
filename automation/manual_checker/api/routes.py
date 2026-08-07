@@ -28,6 +28,10 @@ def api_queue():
     offset = int(request.args.get("offset", 0))
     sort_by = request.args.get("sort", "POPULARITY_DESC")
     search_query = request.args.get("search_query", None)
+    
+    episodes_lt_str = request.args.get("episodes_lt", None)
+    episodes_lt = int(episodes_lt_str) if episodes_lt_str and episodes_lt_str.isdigit() else None
+
     limit = 30
 
     result = db.get_unverified_queue(
@@ -37,7 +41,8 @@ def api_queue():
         offset=offset,
         limit=limit,
         search_query=search_query,
-        sort_by=sort_by
+        sort_by=sort_by,
+        episodes_lt=episodes_lt
     )
     # Inject stats into response — matches original server.py
     result["stats"] = db.get_stats()

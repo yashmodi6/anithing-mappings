@@ -15,6 +15,8 @@ interface CatalogViewProps {
   setFormat: (f: string) => void;
   sort: string;
   setSort: (s: string) => void;
+  episodesLt: string;
+  setEpisodesLt: (v: string) => void;
   isLoading: boolean;
   hasMore: boolean;
   loadCatalog: () => void;
@@ -25,6 +27,7 @@ interface CatalogViewProps {
 export default function CatalogView({
   catalog, searchQ, setSearchQ, filter, setFilter,
   status, setStatus, format, setFormat, sort, setSort,
+  episodesLt, setEpisodesLt,
   isLoading, hasMore, loadCatalog, loadMore, onAnimeClick
 }: CatalogViewProps) {
   // Debounce the search query so loadCatalog fires 300ms after the user stops typing
@@ -79,6 +82,18 @@ export default function CatalogView({
           <option value="ID_ASC">Sort: Oldest First (ID Asc)</option>
           <option value="ID_DESC">Sort: Newest First (ID Desc)</option>
         </select>
+
+        <div className="flex-row items-center gap-sm input-field" style={{ width: 'auto', maxWidth: '140px', backgroundColor: 'var(--surface)' }}>
+          <span className="text-muted text-sm font-medium">Max Eps:</span>
+          <input
+            type="number"
+            min="1"
+            placeholder="No limit"
+            style={{ background: 'transparent', border: 'none', color: 'inherit', outline: 'none', width: '100%', minWidth: '60px' }}
+            value={episodesLt}
+            onChange={e => setEpisodesLt(e.target.value)}
+          />
+        </div>
       </div>
 
       <div className="provider-grid mt-4">
