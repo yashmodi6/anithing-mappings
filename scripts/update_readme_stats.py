@@ -106,18 +106,41 @@ def get_stats():
                             edit_mal_id = str(m.get("id", ""))
 
                     # Compare TMDB
-                    orig_tmdb = str(row["tmdb_movie_id"]) if edit_tmdb_type == "movie" else str(row["tmdb_show_id"])
-                    if orig_tmdb == "None": orig_tmdb = ""
+                    orig_tmdb_show = str(row["tmdb_show_id"])
+                    orig_tmdb_movie = str(row["tmdb_movie_id"])
+                    if orig_tmdb_show == "None": orig_tmdb_show = ""
+                    if orig_tmdb_movie == "None": orig_tmdb_movie = ""
                     
+                    if edit_tmdb_type == "movie":
+                        if edit_tmdb_id != orig_tmdb_movie or orig_tmdb_show != "":
+                            is_changed = True
+                    elif edit_tmdb_type == "show":
+                        if edit_tmdb_id != orig_tmdb_show or orig_tmdb_movie != "":
+                            is_changed = True
+                    else:
+                        if orig_tmdb_show != "" or orig_tmdb_movie != "":
+                            is_changed = True
+
                     # Compare TVDB
-                    orig_tvdb = str(row["tvdb_movie_id"]) if edit_tvdb_type == "movie" else str(row["tvdb_show_id"])
-                    if orig_tvdb == "None": orig_tvdb = ""
+                    orig_tvdb_show = str(row["tvdb_show_id"])
+                    orig_tvdb_movie = str(row["tvdb_movie_id"])
+                    if orig_tvdb_show == "None": orig_tvdb_show = ""
+                    if orig_tvdb_movie == "None": orig_tvdb_movie = ""
+
+                    if edit_tvdb_type == "movie":
+                        if edit_tvdb_id != orig_tvdb_movie or orig_tvdb_show != "":
+                            is_changed = True
+                    elif edit_tvdb_type == "show":
+                        if edit_tvdb_id != orig_tvdb_show or orig_tvdb_movie != "":
+                            is_changed = True
+                    else:
+                        if orig_tvdb_show != "" or orig_tvdb_movie != "":
+                            is_changed = True
                     
                     # Compare MAL
                     orig_mal = str(row["mal_id"])
                     if orig_mal == "None": orig_mal = ""
-                    
-                    if orig_tmdb != edit_tmdb_id or orig_tvdb != edit_tvdb_id or orig_mal != edit_mal_id:
+                    if orig_mal != edit_mal_id:
                         is_changed = True
                         
                     if is_changed:
