@@ -33,12 +33,13 @@ export default function EpisodeTable({
 
   /**
    * Row virtualizer: only renders the rows visible in the viewport + a small overscan buffer.
-   * Each estimated row height is 80px — the virtualizer adjusts dynamically after first render.
+   * Based on cell padding (32px) + thumbnail (68px) + gap (8px) + inputs (24px), the actual height is ~132px.
+   * An accurate estimateSize is CRUCIAL to prevent scroll stutter.
    */
   const rowVirtualizer = useVirtualizer({
     count: totalEpisodes,
     getScrollElement: () => tableScrollRef.current,
-    estimateSize: () => 80,
+    estimateSize: () => 135,
     overscan: 10,
   });
 
@@ -60,22 +61,26 @@ export default function EpisodeTable({
     return cache;
   }, [episodesMap, totalEpisodes]);
 
-  let canonCount = 0;
-  let fillerCount = 0;
-  let mixedCount = 0;
-  for (let i = 1; i <= totalEpisodes; i++) {
-    const type = episodeTypes[i] || 'canon';
-    if (type === 'canon') canonCount++;
-    else if (type === 'filler') fillerCount++;
-    else if (type === 'mixed') mixedCount++;
-  }
+  const { canonCount, fillerCount, mixedCount } = useMemo(() => {
+    let canon = 0;
+    let filler = 0;
+    let mixed = 0;
+    for (let i = 1; i <= totalEpisodes; i++) {
+      const type = episodeTypes[i] || 'canon';
+      if (type === 'canon') canon++;
+      else if (type === 'filler') filler++;
+      else if (type === 'mixed') mixed++;
+    }
+    return { canonCount: canon, fillerCount: filler, mixedCount: mixed };
+  }, [episodeTypes, totalEpisodes]);
 
   /** How many rows have at least one dirty field */
-  const dirtyRowCount =
-    new Set([
-      ...Object.keys(dirtyEdits.tmdb).map(Number),
-      ...Object.keys(dirtyEdits.tvdb).map(Number),
+  const dirtyRowCount = useMemo(() => {
+    return new Set([
+      ...Object.keys(dirtyEdits.tmdb),
+      ...Object.keys(dirtyEdits.tvdb),
     ]).size;
+  }, [dirtyEdits]);
 
   const handleSaveAll = () => {
     commitEdits(episodesMap, onSaveEdits);
