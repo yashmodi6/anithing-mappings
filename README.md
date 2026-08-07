@@ -92,7 +92,7 @@ This pipeline relies on the incredible work of several community-driven database
 <!-- STATS_START -->
 ## 📊 Database Coverage & Stats
 
-- **Total Anime Tracked:** 22,474
+- **Total Anime Tracked:** 22,475
 - **Total Verified:** 389 (1.7%)
 - **Anibridge Corrections:** 265 mappings fixed!
 
@@ -114,7 +114,7 @@ This pipeline relies on the incredible work of several community-driven database
 | **MOVIE** | 4,102 | 389 | ![9.5%](https://geps.dev/progress/9.5) |
 | **OVA** | 3,884 | 0 | ![0.0%](https://geps.dev/progress/0.0) |
 | **ONA** | 3,451 | 0 | ![0.0%](https://geps.dev/progress/0.0) |
-| **MUSIC** | 2,731 | 0 | ![0.0%](https://geps.dev/progress/0.0) |
+| **MUSIC** | 2,732 | 0 | ![0.0%](https://geps.dev/progress/0.0) |
 | **SPECIAL** | 1,848 | 0 | ![0.0%](https://geps.dev/progress/0.0) |
 | **TV_SHORT** | 1,375 | 0 | ![0.0%](https://geps.dev/progress/0.0) |
 | **UNKNOWN** | 83 | 0 | ![0.0%](https://geps.dev/progress/0.0) |

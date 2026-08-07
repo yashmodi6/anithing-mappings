@@ -131,6 +131,11 @@ def format_markdown(stats):
     md += f"- **Total Verified:** {v_total:,} ({pct}%)\n"
     if stats['corrections'] > 0:
         md += f"- **Anibridge Corrections:** {stats['corrections']:,} mappings fixed!\n"
+    
+    skipped_md_path = os.path.join(ROOT_DIR, "SKIPPED.md")
+    if os.path.exists(skipped_md_path):
+        md += f"- **Skipped Anime:** [View Skipped Entries](SKIPPED.md)\n"
+        
     md += "\n"
     
     # 2. Quality Assurance Table
@@ -155,7 +160,60 @@ def format_markdown(stats):
 
     return md
 
+def generate_skipped_md():
+    skipped_json_path = os.path.join(ROOT_DIR, "assets", "skipped-anime.json")
+    skipped_md_path = os.path.join(ROOT_DIR, "SKIPPED.md")
+    if not os.path.exists(skipped_json_path):
+        return
+        
+    try:
+        with open(skipped_json_path, "r", encoding="utf-8") as f:
+            skipped_data = json.load(f)
+    except Exception:
+        return
+        
+    if not skipped_data:
+        return
+        
+    md = "# Skipped Anime\n\n"
+    md += "This document lists anime that were manually reviewed but intentionally skipped during verification. These entries either had significant metadata issues (like wrong formatting or release dates) or were too ambiguous to map confidently.\n\n"
+    md += "| AniList ID | Title | Format | Status | Skip Reason |\n"
+    md += "| :--- | :--- | :--- | :--- | :--- |\n"
+    
+    # Connect to STEP1_DB to fetch metadata
+    metadata = {}
+    if os.path.exists(STEP1_DB):
+        try:
+            with sqlite3.connect(STEP1_DB) as conn:
+                conn.row_factory = sqlite3.Row
+                ids = [str(entry.get("anilist_id")) for entry in skipped_data if entry.get("anilist_id")]
+                if ids:
+                    placeholders = ",".join("?" * len(ids))
+                    cur = conn.cursor()
+                    cur.execute(f"SELECT anilist_id, title_english, title_romaji, format, status FROM anime WHERE anilist_id IN ({placeholders})", ids)
+                    for row in cur.fetchall():
+                        metadata[row["anilist_id"]] = dict(row)
+        except Exception:
+            pass
+            
+    for entry in skipped_data:
+        aid = entry.get("anilist_id")
+        reason = entry.get("reason", "Other")
+        info = metadata.get(aid, {})
+        title = info.get("title_english") or info.get("title_romaji") or "Unknown"
+        fmt = info.get("format") or "Unknown"
+        status = info.get("status") or "Unknown"
+        
+        title_clean = title.replace("|", "\\|")
+        
+        md += f"| [{aid}](https://anilist.co/anime/{aid}) | {title_clean} | {fmt} | {status} | {reason} |\n"
+        
+    with open(skipped_md_path, "w", encoding="utf-8") as f:
+        f.write(md)
+
 def main():
+    generate_skipped_md()
+    
     if not os.path.exists(README_PATH):
         return
         

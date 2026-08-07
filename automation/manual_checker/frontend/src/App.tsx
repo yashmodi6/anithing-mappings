@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { getAnime, verifyAnime, unverifyAnime, getEpisodes } from './api_client';
+import { getAnime, verifyAnime, unverifyAnime, getEpisodes, skipAnime } from './api_client';
 import { Loader2 } from 'lucide-react';
 import { Anime, Provider, Episode } from './types';
 
@@ -205,6 +205,31 @@ export default function App() {
     setIsLoadingAnime(false);
   };
 
+  const skipCurrent = async (reason: string) => {
+    if (!animeDetails || isLoadingAnime) return;
+    setIsLoadingAnime(true);
+    try {
+      const res = await skipAnime(animeDetails.anilist_id, reason);
+      if (res.success) {
+        if (res.stats) catalogState.setStats(res.stats);
+        // Remove from current view if filtering by UNVERIFIED
+        if (catalogState.filter === 'UNVERIFIED') {
+          catalogState.setCatalog(prev => prev.filter(a => a.anilist_id !== animeDetails.anilist_id));
+        } else {
+          // Just move past it
+          catalogState.setCatalog(prev => prev.map(a => 
+            a.anilist_id === animeDetails.anilist_id ? { ...a, is_skipped: true } : a
+          ));
+        }
+        catalogState.goNext();
+      }
+    } catch (e) {
+      console.error(e);
+      alert("Failed to skip anime");
+    }
+    setIsLoadingAnime(false);
+  };
+
   const getProviderInfo = (): Provider[] => {
     if (!animeDetails) return [];
     return [
@@ -247,6 +272,7 @@ export default function App() {
                 hasChanges={hasChanges}
                 handleVerify={verifyCurrent}
                 handleUnverify={unverifyCurrent}
+                handleSkip={skipCurrent}
               />
               <div className="card h-full flex-col p-0">
                 <ProviderList

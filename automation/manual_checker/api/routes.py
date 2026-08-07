@@ -210,12 +210,33 @@ def api_unverify(anilist_id):
     except Exception as e:
         return jsonify({"error": str(e)}), 500
 
+@api_bp.route("/api/skip/<int:anilist_id>", methods=["POST"])
+def api_skip(anilist_id):
+    try:
+        req_data = request.json or {}
+        reason = req_data.get("reason", "Other")
+        
+        from exporter import update_skipped_anime_json
+        db.skip_anime(anilist_id, reason)
+        update_skipped_anime_json(anilist_id, reason)
+        
+        return jsonify({"success": True, "stats": db.get_stats()})
+    except Exception as e:
+        return jsonify({"error": str(e)}), 500
+
 
 @api_bp.route("/api/mappings.json", methods=["GET"])
 def api_mappings_json():
     from exporter import MAPPING_EDITS_PATH
     if os.path.exists(MAPPING_EDITS_PATH):
         return send_file(MAPPING_EDITS_PATH, mimetype="application/json")
+    return jsonify([])
+
+@api_bp.route("/api/skipped.json", methods=["GET"])
+def api_skipped_json():
+    from exporter import SKIPPED_ANIME_PATH
+    if os.path.exists(SKIPPED_ANIME_PATH):
+        return send_file(SKIPPED_ANIME_PATH, mimetype="application/json")
     return jsonify([])
 
 

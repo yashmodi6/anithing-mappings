@@ -49,6 +49,15 @@ export async function unverifyAnime(id: number): Promise<any> {
   return res.json();
 }
 
+export async function skipAnime(id: number, reason: string): Promise<any> {
+  const res = await fetch(`/api/skip/${id}`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ reason })
+  });
+  return res.json();
+}
+
 export async function autoMapAnime(id: number): Promise<{tmdb: {id: string, type: 'show'|'movie'}|null, tvdb: {id: string, type: 'show'|'movie'}|null}> {
   const res = await fetch(`/api/auto_map/${id}`, { method: 'POST' });
   return res.json();

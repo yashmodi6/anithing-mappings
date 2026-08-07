@@ -33,6 +33,9 @@ export default function Header({ currentView, setCurrentView, stats }: HeaderPro
         <span className="text-muted">Total Verified: <span className="text-success font-bold">{stats.verified_count}</span></span>
       </div>
       <div className="flex-row gap-sm items-center">
+        <a href="/api/skipped.json" target="_blank" rel="noopener noreferrer" className="btn btn-secondary" style={{ padding: '6px 12px', fontSize: '13px' }}>
+          skipped-anime.json
+        </a>
         <a href="/api/mappings.json" target="_blank" rel="noopener noreferrer" className="btn btn-secondary" style={{ padding: '6px 12px', fontSize: '13px' }}>
           mappings.json
         </a>

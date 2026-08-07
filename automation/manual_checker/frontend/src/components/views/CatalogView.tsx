@@ -47,6 +47,7 @@ export default function CatalogView({
           <option value="ALL">All Entries</option>
           <option value="VERIFIED">Verified</option>
           <option value="UNVERIFIED">Unverified</option>
+          <option value="SKIPPED">Skipped</option>
         </select>
 
         <select className="input-field" style={{ width: 'auto', appearance: 'auto', backgroundColor: 'var(--surface)' }} value={status} onChange={e => setStatus(e.target.value)}>
@@ -77,7 +78,13 @@ export default function CatalogView({
             <span className="font-bold text-base truncate mb-2">{anime.title || anime.title_english || anime.title_romaji}</span>
             <div className="flex-row justify-between text-xs text-muted">
               <span>{anime.format} • {anime.status}</span>
-              {anime.is_verified ? <span className="text-success font-medium">Verified</span> : <span className="text-warning font-medium">Unverified</span>}
+              {anime.is_skipped ? (
+                <span className="text-muted font-medium" style={{ textDecoration: 'line-through' }}>Skipped</span>
+              ) : anime.is_verified ? (
+                <span className="text-success font-medium">Verified</span>
+              ) : (
+                <span className="text-warning font-medium">Unverified</span>
+              )}
             </div>
           </div>
         ))}

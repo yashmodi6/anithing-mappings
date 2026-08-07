@@ -1,5 +1,5 @@
-import React from 'react';
-import { ChevronLeft, ChevronRight, RefreshCw, Check, X } from 'lucide-react';
+import React, { useState } from 'react';
+import { ChevronLeft, ChevronRight, RefreshCw, Check, X, SkipForward } from 'lucide-react';
 import { Anime } from '../../types';
 
 interface InfoCardProps {
@@ -11,9 +11,12 @@ interface InfoCardProps {
   hasChanges: boolean;
   handleVerify: () => void;
   handleUnverify: () => void;
+  handleSkip: (reason: string) => void;
 }
 
-export default function InfoCard({ animeDetails, animeId, goPrev, goNext, loadAnime, hasChanges, handleVerify, handleUnverify }: InfoCardProps) {
+export default function InfoCard({ animeDetails, animeId, goPrev, goNext, loadAnime, hasChanges, handleVerify, handleUnverify, handleSkip }: InfoCardProps) {
+  const [skipReason, setSkipReason] = useState("Release Date Mismatch");
+
   return (
     <div className="card animate-in flex-row gap-md items-center justify-between" style={{ padding: '12px 16px' }}>
       <div className="flex-row items-center gap-md">
@@ -26,7 +29,7 @@ export default function InfoCard({ animeDetails, animeId, goPrev, goNext, loadAn
           <span className="badge badge-neutral">{animeDetails.format} • Episodes: {animeDetails.released_episodes || animeDetails.episodes || '?'} • {animeDetails.status}</span>
         </span>
       </div>
-      <div className="flex-row gap-sm">
+      <div className="flex-row gap-sm items-center">
         {animeDetails.is_verified ? (
           <>
             <button className="btn btn-primary" onClick={handleVerify} disabled={!hasChanges} title={!hasChanges ? "Make changes to re-verify" : "Re-verify changes"}>
@@ -37,9 +40,21 @@ export default function InfoCard({ animeDetails, animeId, goPrev, goNext, loadAn
             </button>
           </>
         ) : (
-          <button className="btn btn-primary" onClick={handleVerify}>
-            <Check size={16} /> Verify
-          </button>
+          <>
+            <div className="flex-row items-center gap-xs mr-2">
+              <select className="input-field" value={skipReason} onChange={(e) => setSkipReason(e.target.value)} style={{ padding: '6px 12px', height: '32px', fontSize: '13px' }}>
+                <option value="Release Date Mismatch">Release Date Mismatch</option>
+                <option value="Format Mismatch">Format Mismatch</option>
+                <option value="Other">Other</option>
+              </select>
+              <button className="btn btn-secondary" onClick={() => handleSkip(skipReason)} title="Skip this anime">
+                <SkipForward size={16} /> Skip
+              </button>
+            </div>
+            <button className="btn btn-primary" onClick={handleVerify}>
+              <Check size={16} /> Verify
+            </button>
+          </>
         )}
       </div>
     </div>

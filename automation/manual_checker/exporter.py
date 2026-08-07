@@ -5,6 +5,26 @@ from core.database import VerifiedDB
 
 ASSETS_DIR = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.path.abspath(__file__)))), "assets")
 MAPPING_EDITS_PATH = os.path.join(ASSETS_DIR, "mapping-edits.json")
+SKIPPED_ANIME_PATH = os.path.join(ASSETS_DIR, "skipped-anime.json")
+
+def update_skipped_anime_json(anilist_id: int, reason: str) -> None:
+    """Atomically append or update a skipped anime in the skipped-anime.json file."""
+    os.makedirs(ASSETS_DIR, exist_ok=True)
+    existing: list = []
+    if os.path.exists(SKIPPED_ANIME_PATH):
+        with open(SKIPPED_ANIME_PATH, "r", encoding="utf-8") as f:
+            existing = json.load(f)
+        if not isinstance(existing, list):
+            existing = []
+
+    existing = [e for e in existing if e.get("anilist_id") != anilist_id]
+    existing.append({"anilist_id": anilist_id, "reason": reason})
+    existing.sort(key=lambda x: x.get("anilist_id", 0))
+
+    tmp_path = SKIPPED_ANIME_PATH + ".tmp"
+    with open(tmp_path, "w", encoding="utf-8") as f:
+        json.dump(existing, f, ensure_ascii=False, indent=2, sort_keys=True)
+    os.replace(tmp_path, SKIPPED_ANIME_PATH)
 
 def update_mapping_edits_json(data: dict) -> None:
     """Atomically append or update a verified anime in the mapping-edits.json file."""

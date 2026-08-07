@@ -30,6 +30,14 @@ class VerifiedDB:
                 manual_checked BOOLEAN DEFAULT 1, verified_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
             );
             """)
+            conn.execute("""
+            CREATE TABLE IF NOT EXISTS skipped_anime (
+                anilist_id INTEGER PRIMARY KEY,
+                reason TEXT,
+                skipped_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+            );
+            """)
+            
             json_path = os.path.join(AUTOMATION_ROOT, "..", "assets", "mapping-edits.json")
             if os.path.exists(json_path):
                 try:
@@ -49,6 +57,18 @@ class VerifiedDB:
                 except Exception as e:
                     import sys
                     print(f"[VerifiedDB] Sync error: {e}", file=sys.stderr)
+                    
+            skip_json_path = os.path.join(AUTOMATION_ROOT, "..", "assets", "skipped-anime.json")
+            if os.path.exists(skip_json_path):
+                try:
+                    with open(skip_json_path, "r", encoding="utf-8") as f:
+                        data = json.load(f)
+                    if isinstance(data, list):
+                        for entry in data:
+                            conn.execute("INSERT OR REPLACE INTO skipped_anime (anilist_id, reason) VALUES (?, ?)", 
+                                (entry.get("anilist_id"), entry.get("reason")))
+                except Exception as e:
+                    pass
 
     def ensure_step1_indexes(self) -> None:
         if os.path.exists(STEP1_DB_PATH):
@@ -74,6 +94,15 @@ class VerifiedDB:
         with sqlite3.connect(self.db_path) as conn:
             return {row[0] for row in conn.execute("SELECT anilist_id FROM verified_anime WHERE manual_checked = 1").fetchall()}
 
+    def get_skipped_ids(self) -> set:
+        if not os.path.exists(self.db_path):
+            return set()
+        with sqlite3.connect(self.db_path) as conn:
+            try:
+                return {row[0] for row in conn.execute("SELECT anilist_id FROM skipped_anime").fetchall()}
+            except Exception:
+                return set()
+
     def get_unverified_queue(self, status_filter: str = "ALL", verification_filter: str = "UNVERIFIED", format_filter: str = "ALL", offset: int = 0, limit: Optional[int] = 30, search_query: Optional[str] = None, sort_by: str = "POPULARITY_DESC") -> Dict[str, Any]:
         if not os.path.exists(STEP1_DB_PATH):
             return {"queue": [], "total_matched": 0, "has_more": False}
@@ -91,8 +120,11 @@ class VerifiedDB:
                 if verified_attached:
                     if ver == "UNVERIFIED":
                         conditions.append("a.anilist_id NOT IN (SELECT anilist_id FROM verified_db.verified_anime WHERE manual_checked = 1)")
+                        conditions.append("a.anilist_id NOT IN (SELECT anilist_id FROM verified_db.skipped_anime)")
                     elif ver == "VERIFIED":
                         conditions.append("a.anilist_id IN (SELECT anilist_id FROM verified_db.verified_anime WHERE manual_checked = 1)")
+                    elif ver == "SKIPPED":
+                        conditions.append("a.anilist_id IN (SELECT anilist_id FROM verified_db.skipped_anime)")
                 elif ver == "VERIFIED":
                     return {"queue": [], "total_matched": 0, "has_more": False}
 
@@ -126,11 +158,13 @@ class VerifiedDB:
                 """
                 rows = conn.execute(data_sql, params + [limit if limit is not None else -1, offset]).fetchall()
                 verified_ids = self.get_verified_ids()
+                skipped_ids = self.get_skipped_ids()
 
                 queue = [{
                     "anilist_id": r["anilist_id"], "title": r["title"], "format": r["format"] or "TV",
                     "status": r["status"] or "FINISHED", "episodes": r["episodes"] or 0,
-                    "is_verified": r["anilist_id"] in verified_ids
+                    "is_verified": r["anilist_id"] in verified_ids,
+                    "is_skipped": r["anilist_id"] in skipped_ids
                 } for r in rows]
 
                 return {"queue": queue, "total_matched": total_matched, "has_more": (offset + len(queue)) < total_matched}
@@ -239,3 +273,7 @@ class VerifiedDB:
             return
         with sqlite3.connect(self.db_path) as conn:
             conn.execute("DELETE FROM verified_anime WHERE anilist_id = ?", (anilist_id,))
+
+    def skip_anime(self, anilist_id: int, reason: str) -> None:
+        with sqlite3.connect(self.db_path) as conn:
+            conn.execute("INSERT OR REPLACE INTO skipped_anime (anilist_id, reason) VALUES (?, ?)", (anilist_id, reason))

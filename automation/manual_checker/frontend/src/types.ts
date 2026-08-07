@@ -12,6 +12,7 @@ export interface Anime {
   format: string;
   status: string;
   is_verified: boolean;
+  is_skipped?: boolean;
   episodes?: number;
   released_episodes?: number;
   tmdb_show_id?: string;
