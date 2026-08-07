@@ -31,28 +31,23 @@ def main() -> None:
     print(f"VERIFIED_PROGRESS:{stats['verified_count']}/{stats['total_count']} ({stats['percentage']}%)", flush=True)
     print(f"[Info] Starting Step 3 Manual Verification Web GUI on http://localhost:{port}...", flush=True)
 
-    flask_app, shutdown_event = start_server(port=port)
-
-    # Use make_server so we can call srv.shutdown() and cleanly release the port
-    srv = make_server("127.0.0.1", port, flask_app)
-    server_thread = threading.Thread(target=srv.serve_forever, daemon=True)
-    server_thread.start()
-
-    time.sleep(0.5)
-    webbrowser.open(f"http://localhost:{port}")
-
+    flask_app = None # just to clarify it isn't returning
+    
+    # Open browser slightly after starting
+    def open_browser():
+        time.sleep(1)
+        webbrowser.open(f"http://localhost:{port}")
+    
+    threading.Thread(target=open_browser, daemon=True).start()
+    
     print(f"[Info] Web GUI server is active at http://localhost:{port}", flush=True)
     print(f"[Info] Press Ctrl+C or click 'Complete For Now' in the browser when finished.", flush=True)
-
+    
     try:
-        while not shutdown_event.is_set():
-            time.sleep(0.5)
+        start_server(port=port)
         print("\n[Info] Step 3 session completed. Server stopped.", flush=True)
     except KeyboardInterrupt:
         print("\n[Info] Step 3 Manual Verifier server stopped by user.", flush=True)
-    finally:
-        srv.shutdown()   # cleanly releases the port so the next run doesn't hit "Address already in use"
-
 
 if __name__ == "__main__":
     main()
