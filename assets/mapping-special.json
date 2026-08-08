@@ -1,0 +1,32 @@
+[
+  {
+    "anilist_id": 146984,
+    "episode_types": {
+      "canon": [
+        "1"
+      ]
+    },
+    "format": "SPECIAL",
+    "mappings": [
+      {
+        "id": 51535,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s0\": {\"1\": \"36\"}}",
+        "id": 1429,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s4\": {\"1\": \"29\"}}",
+        "id": 267440,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Attack on Titan Final Season THE FINAL CHAPTERS Special 1",
+    "total_episodes": 1
+  }
+]

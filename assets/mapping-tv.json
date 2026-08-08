@@ -60,6 +60,36 @@
     "total_episodes": 26
   },
   {
+    "anilist_id": 33,
+    "episode_types": {
+      "canon": [
+        "1-25"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 33,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-25\": \"1-25\"}}",
+        "id": 35935,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-25\": \"1-25\"}}",
+        "id": 73752,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Berserk",
+    "total_episodes": 25
+  },
+  {
     "anilist_id": 205,
     "episode_types": {
       "canon": [
@@ -118,6 +148,278 @@
     "status": "FINISHED",
     "title": "Elfen Lied",
     "total_episodes": 13
+  },
+  {
+    "anilist_id": 270,
+    "episode_types": {
+      "canon": [
+        "1-13"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 270,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": 16830,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": 71278,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Hellsing",
+    "total_episodes": 13
+  },
+  {
+    "anilist_id": 339,
+    "episode_types": {
+      "canon": [
+        "1-13"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 339,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": 1087,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": 78814,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Serial Experiments Lain",
+    "total_episodes": 13
+  },
+  {
+    "anilist_id": 790,
+    "episode_types": {
+      "canon": [
+        "1-23"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 790,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-23\": \"1-23\"}}",
+        "id": 1097,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-23\": \"1-23\"}}",
+        "id": 79228,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Ergo Proxy",
+    "total_episodes": 23
+  },
+  {
+    "anilist_id": 849,
+    "episode_types": {
+      "canon": [
+        "1-14"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 849,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\":{\"1-14\":\"1:14\"}}",
+        "id": "42511",
+        "provider": "tmdb",
+        "scope": "s1",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\":{\"1-14\":\"1:14\"}}",
+        "id": "79414",
+        "provider": "tvdb",
+        "scope": "s1",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "The Melancholy of Haruhi Suzumiya",
+    "total_episodes": 14
+  },
+  {
+    "anilist_id": 853,
+    "episode_types": {
+      "canon": [
+        "1-26"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 853,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-26\": \"1-26\"}}",
+        "id": 1043,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-26\": \"1-26\"}}",
+        "id": 79713,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Ouran High School Host Club",
+    "total_episodes": 26
+  },
+  {
+    "anilist_id": 889,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 889,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 12598,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 79604,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Black Lagoon",
+    "total_episodes": 12
+  },
+  {
+    "anilist_id": 934,
+    "episode_types": {
+      "canon": [
+        "1-26"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 934,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-26\": \"1-26\"}}",
+        "id": 25760,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-26\": \"1-26\"}}",
+        "id": 79682,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "When They Cry",
+    "total_episodes": 26
+  },
+  {
+    "anilist_id": 1195,
+    "episode_types": {
+      "canon": [
+        "1-13"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 1195,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": 35753,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": 79719,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "The Familiar of Zero",
+    "total_episodes": 13
+  },
+  {
+    "anilist_id": 1210,
+    "episode_types": {
+      "canon": [
+        "1-24"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 1210,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-24\": \"1-24\"}}",
+        "id": 42821,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-24\": \"1-24\"}}",
+        "id": 79415,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Welcome to the N-H-K",
+    "total_episodes": 24
   },
   {
     "anilist_id": 1535,
@@ -211,6 +513,36 @@
     "status": "FINISHED",
     "title": "Gurren Lagann",
     "total_episodes": 27
+  },
+  {
+    "anilist_id": 2025,
+    "episode_types": {
+      "canon": [
+        "1-25"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 2025,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-25\": \"1-25\"}}",
+        "id": 31718,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-25\": \"1-25\"}}",
+        "id": 80042,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Darker than Black",
+    "total_episodes": 25
   },
   {
     "anilist_id": 2167,
@@ -397,6 +729,36 @@
     "total_episodes": 13
   },
   {
+    "anilist_id": 6045,
+    "episode_types": {
+      "canon": [
+        "1-25"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 6045,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-25\": \"1-25\"}}",
+        "id": 68854,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-25\": \"1-25\"}}",
+        "id": 117801,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Kimi ni Todoke: From Me to You",
+    "total_episodes": 25
+  },
+  {
     "anilist_id": 6547,
     "episode_types": {
       "canon": [
@@ -455,6 +817,36 @@
     "status": "FINISHED",
     "title": "Durarara!!",
     "total_episodes": 24
+  },
+  {
+    "anilist_id": 6880,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 6880,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 42503,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 247997,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Deadman Wonderland",
+    "total_episodes": 12
   },
   {
     "anilist_id": 7054,
@@ -669,6 +1061,36 @@
     "total_episodes": 13
   },
   {
+    "anilist_id": 10165,
+    "episode_types": {
+      "canon": [
+        "1-26"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 10165,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-26\": \"1-26\"}}",
+        "id": 44684,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-26\": \"1-26\"}}",
+        "id": 240291,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Nichijou - My Ordinary Life",
+    "total_episodes": 26
+  },
+  {
     "anilist_id": 10620,
     "episode_types": {
       "canon": [
@@ -697,6 +1119,66 @@
     "status": "FINISHED",
     "title": "The Future Diary",
     "total_episodes": 26
+  },
+  {
+    "anilist_id": 10719,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 10719,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 60730,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 251908,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Haganai",
+    "total_episodes": 12
+  },
+  {
+    "anilist_id": 10793,
+    "episode_types": {
+      "canon": [
+        "1-22"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 10793,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-22\": \"1-22\"}}",
+        "id": 43125,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-22\": \"1-22\"}}",
+        "id": 252471,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Guilty Crown",
+    "total_episodes": 22
   },
   {
     "anilist_id": 11111,
@@ -731,6 +1213,36 @@
     "total_episodes": 12
   },
   {
+    "anilist_id": 11597,
+    "episode_types": {
+      "canon": [
+        "1-11"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 11597,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-11\": \"1-11\"}}",
+        "id": 46195,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-11\": \"1-11\"}}",
+        "id": 102261,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Nisemonogatari",
+    "total_episodes": 11
+  },
+  {
     "anilist_id": 11617,
     "episode_types": {
       "canon": [
@@ -758,6 +1270,36 @@
     ],
     "status": "FINISHED",
     "title": "High School DxD",
+    "total_episodes": 12
+  },
+  {
+    "anilist_id": 11741,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 11741,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-12\": \"1-12\"}}",
+        "id": 45845,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"14-25\"}}",
+        "id": 275798,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Fate/Zero Season 2",
     "total_episodes": 12
   },
   {
@@ -849,6 +1391,36 @@
     "status": "FINISHED",
     "title": "Hyouka",
     "total_episodes": 22
+  },
+  {
+    "anilist_id": 13125,
+    "episode_types": {
+      "canon": [
+        "1-25"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 13125,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-25\": \"1-25\"}}",
+        "id": 53052,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-25\": \"1-25\"}}",
+        "id": 262838,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "From the New World",
+    "total_episodes": 25
   },
   {
     "anilist_id": 13601,
@@ -943,6 +1515,66 @@
     "total_episodes": 13
   },
   {
+    "anilist_id": 14289,
+    "episode_types": {
+      "canon": [
+        "1-13"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 14289,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": 52878,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": 262112,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Say \"I love you\".",
+    "total_episodes": 13
+  },
+  {
+    "anilist_id": 14345,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 14345,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 45125,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 262095,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "BTOOOM!",
+    "total_episodes": 12
+  },
+  {
     "anilist_id": 14719,
     "episode_types": {
       "canon": [
@@ -1035,6 +1667,36 @@
     "total_episodes": 13
   },
   {
+    "anilist_id": 15583,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 15583,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 46004,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 264663,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Date A Live",
+    "total_episodes": 12
+  },
+  {
     "anilist_id": 15809,
     "episode_types": {
       "canon": [
@@ -1097,6 +1759,66 @@
     "total_episodes": 25
   },
   {
+    "anilist_id": 16894,
+    "episode_types": {
+      "canon": [
+        "1-25"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 16894,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-25\": \"1-25\"}}",
+        "id": 45783,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-25\": \"1-25\"}}",
+        "id": 257765,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Kuroko's Basketball 2",
+    "total_episodes": 25
+  },
+  {
+    "anilist_id": 17895,
+    "episode_types": {
+      "canon": [
+        "1-24"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 17895,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-24\": \"1-24\"}}",
+        "id": 67389,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-24\": \"1-24\"}}",
+        "id": 272138,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Golden Time",
+    "total_episodes": 24
+  },
+  {
     "anilist_id": 18153,
     "episode_types": {
       "canon": [
@@ -1124,6 +1846,66 @@
     ],
     "status": "FINISHED",
     "title": "Beyond the Boundary",
+    "total_episodes": 12
+  },
+  {
+    "anilist_id": 18507,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 18507,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 61456,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 270065,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Free! -Iwatobi Swim Club-",
+    "total_episodes": 12
+  },
+  {
+    "anilist_id": 18671,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 18671,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-12\": \"1-12\"}}",
+        "id": 45501,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-12\": \"1-12\"}}",
+        "id": 261862,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Love, Chunibyo & Other Delusions - Heart Throb -",
     "total_episodes": 12
   },
   {
@@ -1157,6 +1939,36 @@
     "status": "FINISHED",
     "title": "Kill la Kill",
     "total_episodes": 24
+  },
+  {
+    "anilist_id": 18897,
+    "episode_types": {
+      "canon": [
+        "1-20"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 18897,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-20\": \"1-20\"}}",
+        "id": 62640,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-20\": \"1-20\"}}",
+        "id": 275670,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Nisekoi",
+    "total_episodes": 20
   },
   {
     "anilist_id": 19815,
@@ -1339,6 +2151,66 @@
     "total_episodes": 24
   },
   {
+    "anilist_id": 20596,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 21995,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 62602,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 279554,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Blue Spring Ride",
+    "total_episodes": 12
+  },
+  {
+    "anilist_id": 20602,
+    "episode_types": {
+      "canon": [
+        "1-13"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 22147,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": 65332,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": 280330,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Amagi Brilliant Park",
+    "total_episodes": 13
+  },
+  {
     "anilist_id": 20605,
     "episode_types": {
       "canon": [
@@ -1489,6 +2361,36 @@
     "total_episodes": 22
   },
   {
+    "anilist_id": 20678,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 23233,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 64163,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 284719,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "The Testament of Sister New Devil",
+    "total_episodes": 12
+  },
+  {
     "anilist_id": 20698,
     "episode_types": {
       "canon": [
@@ -1517,6 +2419,66 @@
     "status": "FINISHED",
     "title": "My Teen Romantic Comedy SNAFU TOO!",
     "total_episodes": 13
+  },
+  {
+    "anilist_id": 20725,
+    "episode_types": {
+      "canon": [
+        "1-25"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 24415,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s3\": {\"1-25\": \"1-25\"}}",
+        "id": 45783,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s3\": {\"1-25\": \"1-25\"}}",
+        "id": 257765,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Kuroko's Basketball 3",
+    "total_episodes": 25
+  },
+  {
+    "anilist_id": 20745,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 24703,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s3\": {\"1-12\": \"1-12\"}}",
+        "id": 45950,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s3\": {\"1-12\": \"1-12\"}}",
+        "id": 254653,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "High School DxD BorN",
+    "total_episodes": 12
   },
   {
     "anilist_id": 20755,
@@ -1549,6 +2511,36 @@
     "total_episodes": 22
   },
   {
+    "anilist_id": 20770,
+    "episode_types": {
+      "canon": [
+        "1-24"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 25013,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-24\": \"1-24\"}}",
+        "id": 61461,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-24\": \"1-24\"}}",
+        "id": 283942,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Yona of the Dawn",
+    "total_episodes": 24
+  },
+  {
     "anilist_id": 20789,
     "episode_types": {
       "canon": [
@@ -1579,6 +2571,36 @@
     "total_episodes": 24
   },
   {
+    "anilist_id": 20792,
+    "episode_types": {
+      "canon": [
+        "1-13"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 28701,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-13\": \"1-13\"}}",
+        "id": 61415,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"13-25\"}}",
+        "id": 278626,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Fate/stay night: Unlimited Blade Works 2nd Season",
+    "total_episodes": 13
+  },
+  {
     "anilist_id": 20799,
     "episode_types": {
       "canon": [
@@ -1607,6 +2629,36 @@
     "status": "FINISHED",
     "title": "JoJo's Bizarre Adventure: Stardust Crusaders - Battle in Egypt",
     "total_episodes": 24
+  },
+  {
+    "anilist_id": 20807,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 30240,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 64706,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 293267,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Prison School",
+    "total_episodes": 12
   },
   {
     "anilist_id": 20829,
@@ -1705,6 +2757,96 @@
     "total_episodes": 12
   },
   {
+    "anilist_id": 20872,
+    "episode_types": {
+      "canon": [
+        "1-13"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 27775,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": 62450,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": 291627,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Plastic Memories",
+    "total_episodes": 13
+  },
+  {
+    "anilist_id": 20876,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 27787,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-12\": \"1-12\"}}",
+        "id": 62640,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-12\": \"1-12\"}}",
+        "id": 275670,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Nisekoi:",
+    "total_episodes": 12
+  },
+  {
+    "anilist_id": 20910,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 29786,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 63323,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 293774,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "SHIMONETA: A Boring World Where the Concept of Dirty Jokes Doesn’t Exist",
+    "total_episodes": 12
+  },
+  {
     "anilist_id": 20920,
     "episode_types": {
       "canon": [
@@ -1799,6 +2941,36 @@
     "total_episodes": 12
   },
   {
+    "anilist_id": 20946,
+    "episode_types": {
+      "canon": [
+        "1-24"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 28297,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-24\": \"1-24\"}}",
+        "id": 62565,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-24\": \"1-24\"}}",
+        "id": 289905,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "My Love Story!!",
+    "total_episodes": 24
+  },
+  {
     "anilist_id": 20958,
     "episode_types": {
       "canon": [
@@ -1891,6 +3063,36 @@
     "total_episodes": 13
   },
   {
+    "anilist_id": 21058,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 30123,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 63087,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 295205,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Snow White with the Red Hair",
+    "total_episodes": 12
+  },
+  {
     "anilist_id": 21087,
     "episode_types": {
       "canon": [
@@ -1918,6 +3120,36 @@
     ],
     "status": "FINISHED",
     "title": "One-Punch Man",
+    "total_episodes": 12
+  },
+  {
+    "anilist_id": 21092,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 30296,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 67154,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 299506,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Chivalry of a Failed Knight",
     "total_episodes": 12
   },
   {
@@ -1949,6 +3181,36 @@
     "status": "FINISHED",
     "title": "Noragami Aragoto",
     "total_episodes": 13
+  },
+  {
+    "anilist_id": 21131,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 30544,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 64671,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 293996,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "The Asterisk War",
+    "total_episodes": 12
   },
   {
     "anilist_id": 21170,
@@ -2043,6 +3305,36 @@
     "total_episodes": 12
   },
   {
+    "anilist_id": 21290,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 31404,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 65948,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 306741,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "And you thought there is never a girl online?",
+    "total_episodes": 12
+  },
+  {
     "anilist_id": 21311,
     "episode_types": {
       "canon": [
@@ -2103,6 +3395,96 @@
     "status": "FINISHED",
     "title": "Re:ZERO -Starting Life in Another World-",
     "total_episodes": 25
+  },
+  {
+    "anilist_id": 21366,
+    "episode_types": {
+      "canon": [
+        "1-22"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 31646,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-22\": \"1-22\"}}",
+        "id": 65336,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-22\": \"1-22\"}}",
+        "id": 306269,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "March comes in like a lion",
+    "total_episodes": 22
+  },
+  {
+    "anilist_id": 21421,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 31798,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 65950,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 305679,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Kiznaiver",
+    "total_episodes": 12
+  },
+  {
+    "anilist_id": 21428,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 31859,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 65369,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 303868,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Grimgar of Fantasy and Ash",
+    "total_episodes": 12
   },
   {
     "anilist_id": 21459,
@@ -2289,6 +3671,66 @@
     "total_episodes": 10
   },
   {
+    "anilist_id": 21700,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 32951,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 70637,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 318950,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Akashic Records of Bastard Magic Instructor",
+    "total_episodes": 12
+  },
+  {
+    "anilist_id": 21701,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 32949,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 69292,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 318895,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Scum's Wish",
+    "total_episodes": 12
+  },
+  {
     "anilist_id": 21776,
     "episode_types": {
       "canon": [
@@ -2349,6 +3791,66 @@
     "status": "FINISHED",
     "title": "My Hero Academia Season 2",
     "total_episodes": 25
+  },
+  {
+    "anilist_id": 21857,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 33487,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 69295,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 318860,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Masamune-kun's Revenge",
+    "total_episodes": 12
+  },
+  {
+    "anilist_id": 21861,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 33506,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-12\": \"1-12\"}}",
+        "id": 38464,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-12\": \"1-12\"}}",
+        "id": 248035,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Blue Exorcist: Kyoto Saga",
+    "total_episodes": 12
   },
   {
     "anilist_id": 97668,
@@ -2413,6 +3915,66 @@
     "total_episodes": 13
   },
   {
+    "anilist_id": 97994,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 34618,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 74081,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 332162,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "BLEND-S",
+    "total_episodes": 12
+  },
+  {
+    "anilist_id": 98202,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 34822,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 70880,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 325197,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Tsukigakirei",
+    "total_episodes": 12
+  },
+  {
     "anilist_id": 98314,
     "episode_types": {
       "canon": [
@@ -2443,6 +4005,96 @@
     "total_episodes": 12
   },
   {
+    "anilist_id": 98436,
+    "episode_types": {
+      "canon": [
+        "1-24"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 35062,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-24\": \"1-24\"}}",
+        "id": 73833,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-24\": \"1-24\"}}",
+        "id": 316842,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "The Ancient Magus' Bride",
+    "total_episodes": 24
+  },
+  {
+    "anilist_id": 98437,
+    "episode_types": {
+      "canon": [
+        "1-13"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 35073,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-13\": \"1-13\"}}",
+        "id": 64196,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-13\": \"1-13\"}}",
+        "id": 294002,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Overlord II",
+    "total_episodes": 13
+  },
+  {
+    "anilist_id": 98491,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 35203,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 72505,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 329992,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "In Another World With My Smartphone",
+    "total_episodes": 12
+  },
+  {
     "anilist_id": 98659,
     "episode_types": {
       "canon": [
@@ -2470,6 +4122,36 @@
     ],
     "status": "FINISHED",
     "title": "Classroom of the Elite",
+    "total_episodes": 12
+  },
+  {
+    "anilist_id": 98707,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 35557,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 74091,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 331787,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Land of the Lustrous",
     "total_episodes": 12
   },
   {
@@ -2625,6 +4307,66 @@
     "total_episodes": 11
   },
   {
+    "anilist_id": 99629,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 80477,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 344844,
+        "provider": "tvdb",
+        "type": "show"
+      },
+      {
+        "id": "35994",
+        "provider": "mal"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Angels of Death",
+    "total_episodes": 12
+  },
+  {
+    "anilist_id": 100112,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 36407,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 85844,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 354602,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Wise Man’s Grandchild",
+    "total_episodes": 12
+  },
+  {
     "anilist_id": 100166,
     "episode_types": {
       "canon": [
@@ -2750,6 +4492,66 @@
     "total_episodes": 24
   },
   {
+    "anilist_id": 100977,
+    "episode_types": {
+      "canon": [
+        "1-13"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 37141,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": 80671,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": 346931,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Cells at Work!",
+    "total_episodes": 13
+  },
+  {
+    "anilist_id": 101004,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 37210,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 80563,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 347425,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "How NOT to Summon a Demon Lord",
+    "total_episodes": 12
+  },
+  {
     "anilist_id": 101165,
     "episode_types": {
       "canon": [
@@ -2777,6 +4579,36 @@
     ],
     "status": "FINISHED",
     "title": "GOBLIN SLAYER",
+    "total_episodes": 12
+  },
+  {
+    "anilist_id": 101167,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 37347,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-12\": \"1-12\"}}",
+        "id": 62745,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-12\": \"1-12\"}}",
+        "id": 289882,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Is It Wrong to Try to Pick Up Girls in a Dungeon? II",
     "total_episodes": 12
   },
   {
@@ -2935,6 +4767,36 @@
     "total_episodes": 24
   },
   {
+    "anilist_id": 101474,
+    "episode_types": {
+      "canon": [
+        "1-13"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 37675,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s3\": {\"1-13\": \"1-13\"}}",
+        "id": 64196,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s3\": {\"1-13\": \"1-13\"}}",
+        "id": 294002,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Overlord III",
+    "total_episodes": 13
+  },
+  {
     "anilist_id": 101759,
     "episode_types": {
       "canon": [
@@ -3055,6 +4917,36 @@
     "total_episodes": 12
   },
   {
+    "anilist_id": 103871,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 37976,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 82822,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 351953,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "ZOMBIE LAND SAGA",
+    "total_episodes": 12
+  },
+  {
     "anilist_id": 104276,
     "episode_types": {
       "canon": [
@@ -3113,6 +5005,36 @@
     "status": "FINISHED",
     "title": "Attack on Titan Season 3 Part 2",
     "total_episodes": 10
+  },
+  {
+    "anilist_id": 105156,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 38659,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 93256,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 369048,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Cautious Hero: The Hero Is Overpowered but Overly Cautious",
+    "total_episodes": 12
   },
   {
     "anilist_id": 105310,
@@ -3205,6 +5127,36 @@
     "total_episodes": 25
   },
   {
+    "anilist_id": 106479,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 38790,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 96402,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 373679,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "BOFURI: I Don't Want to Get Hurt, so I'll Max Out My Defense.",
+    "total_episodes": 12
+  },
+  {
     "anilist_id": 106625,
     "episode_types": {
       "canon": [
@@ -3235,6 +5187,38 @@
     "total_episodes": 13
   },
   {
+    "anilist_id": 107201,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 39017,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": "368565",
+        "provider": "tvdb",
+        "scope": "s1",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": "93653",
+        "provider": "tmdb",
+        "scope": "s1",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "In/Spectre",
+    "total_episodes": 12
+  },
+  {
     "anilist_id": 107660,
     "episode_types": {
       "canon": [
@@ -3263,6 +5247,36 @@
     "status": "FINISHED",
     "title": "BEASTARS",
     "total_episodes": 12
+  },
+  {
+    "anilist_id": 108430,
+    "episode_types": {
+      "canon": [
+        "1-11"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 39533,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-11\": \"1-11\"}}",
+        "id": 88040,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-11\": \"1-11\"}}",
+        "id": 361218,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "given",
+    "total_episodes": 11
   },
   {
     "anilist_id": 108465,
@@ -3387,6 +5401,66 @@
     "total_episodes": 11
   },
   {
+    "anilist_id": 108928,
+    "episode_types": {
+      "canon": [
+        "1-24"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 39701,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s3\": {\"1-24\": \"1-24\"}}",
+        "id": 62104,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s3\": {\"1-24\": \"1-24\"}}",
+        "id": 284131,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "The Seven Deadly Sins: Imperial Wrath of the Gods",
+    "total_episodes": 24
+  },
+  {
+    "anilist_id": 109963,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 39940,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s4\": {\"1-12\": \"1-12\"}}",
+        "id": 62273,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s4\": {\"1-12\": \"1-12\"}}",
+        "id": 289909,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Food Wars! The Fourth Plate",
+    "total_episodes": 12
+  },
+  {
     "anilist_id": 110277,
     "episode_types": {
       "canon": [
@@ -3415,6 +5489,127 @@
     "status": "FINISHED",
     "title": "Attack on Titan Final Season",
     "total_episodes": 16
+  },
+  {
+    "anilist_id": 111321,
+    "episode_types": {
+      "canon": [
+        "1-13"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 40356,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-13\": \"1-13\"}}",
+        "id": 83095,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-13\": \"1-13\"}}",
+        "id": 353712,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "The Rising of the Shield Hero Season 2",
+    "total_episodes": 13
+  },
+  {
+    "anilist_id": 111762,
+    "episode_types": {
+      "canon": [
+        "1-25"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 40417,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-25\": \"1-25\"}}",
+        "id": 85991,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-25\": \"1-25\"}}",
+        "id": 357488,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Fruits Basket Season 2",
+    "total_episodes": 25
+  },
+  {
+    "anilist_id": 112124,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 40454,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s3\": {\"1-12\": \"1-12\"}}",
+        "id": 62745,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s3\": {\"1-12\": \"1-12\"}}",
+        "id": 289882,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Is It Wrong to Try to Pick Up Girls in a Dungeon? III",
+    "total_episodes": 12
+  },
+  {
+    "anilist_id": 112301,
+    "episode_types": {
+      "canon": [
+        "1-13"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 40496,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": 375927,
+        "provider": "tvdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": "97617",
+        "provider": "tmdb",
+        "scope": "s1",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "The Misfit of Demon King Academy: History’s Strongest Demon King Reincarnates and Goes to School with His Descendants",
+    "total_episodes": 13
   },
   {
     "anilist_id": 112641,
@@ -3475,6 +5670,36 @@
     "status": "FINISHED",
     "title": "JUJUTSU KAISEN",
     "total_episodes": 24
+  },
+  {
+    "anilist_id": 113538,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 40776,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s4\": {\"1-12\": \"14-25\"}}",
+        "id": 60863,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s4\": {\"1-12\": \"14-25\"}}",
+        "id": 278157,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "HAIKYU!! TO THE TOP Part 2",
+    "total_episodes": 12
   },
   {
     "anilist_id": 113813,
@@ -3539,6 +5764,36 @@
     "total_episodes": 11
   },
   {
+    "anilist_id": 114124,
+    "episode_types": {
+      "canon": [
+        "1-11"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 40911,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-11\": \"1-11\"}}",
+        "id": 100281,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-11\": \"1-11\"}}",
+        "id": 385542,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Moriarty the Patriot",
+    "total_episodes": 11
+  },
+  {
     "anilist_id": 114236,
     "episode_types": {
       "canon": [
@@ -3597,6 +5852,66 @@
     "status": "FINISHED",
     "title": "To Your Eternity",
     "total_episodes": 20
+  },
+  {
+    "anilist_id": 114745,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 41084,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-12\": \"1-12\"}}",
+        "id": 72636,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-12\": \"1-12\"}}",
+        "id": 326109,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Made in Abyss: The Golden City of the Scorching Sun",
+    "total_episodes": 12
+  },
+  {
+    "anilist_id": 114888,
+    "episode_types": {
+      "canon": [
+        "1-11"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 41120,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-11\": \"1-11\"}}",
+        "id": 98491,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-11\": \"1-11\"}}",
+        "id": 376211,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "The Millionaire Detective - Balance: UNLIMITED",
+    "total_episodes": 11
   },
   {
     "anilist_id": 115230,
@@ -3661,6 +5976,66 @@
     "total_episodes": 13
   },
   {
+    "anilist_id": 116267,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 41389,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 100049,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 385077,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "TONIKAWA: Over The Moon For You",
+    "total_episodes": 12
+  },
+  {
+    "anilist_id": 116566,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 41433,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 100436,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 378879,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Akudama Drive",
+    "total_episodes": 12
+  },
+  {
     "anilist_id": 116589,
     "episode_types": {
       "canon": [
@@ -3689,6 +6064,66 @@
     "status": "FINISHED",
     "title": "86 EIGHTY-SIX",
     "total_episodes": 11
+  },
+  {
+    "anilist_id": 116674,
+    "episode_types": {
+      "canon": [
+        "1-13"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 41467,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-13\": \"1-13\"}}",
+        "id": 30984,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s17\": {\"1-13\": \"1-13\"}}",
+        "id": 74796,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "BLEACH: Thousand-Year Blood War",
+    "total_episodes": 13
+  },
+  {
+    "anilist_id": 116742,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 41487,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-12\": \"13-24\"}}",
+        "id": 82684,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-12\": \"13-24\"}}",
+        "id": 352408,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "That Time I Got Reincarnated as a Slime Season 2 Part 2",
+    "total_episodes": 12
   },
   {
     "anilist_id": 117193,
@@ -3783,6 +6218,36 @@
     "total_episodes": 24
   },
   {
+    "anilist_id": 120697,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 42361,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 105556,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 385278,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "DON'T TOY WITH ME, MISS NAGATORO",
+    "total_episodes": 12
+  },
+  {
     "anilist_id": 124080,
     "episode_types": {
       "canon": [
@@ -3810,6 +6275,36 @@
     ],
     "status": "FINISHED",
     "title": "Horimiya",
+    "total_episodes": 13
+  },
+  {
+    "anilist_id": 124194,
+    "episode_types": {
+      "canon": [
+        "1-13"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 42938,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s3\": {\"1-13\": \"1-13\"}}",
+        "id": 85991,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s3\": {\"1-13\": \"1-13\"}}",
+        "id": 357488,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Fruits Basket The Final Season",
     "total_episodes": 13
   },
   {
@@ -3933,6 +6428,66 @@
     "total_episodes": 12
   },
   {
+    "anilist_id": 127911,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 45613,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 115694,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 402117,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Shikimori's Not Just a Cutie",
+    "total_episodes": 12
+  },
+  {
+    "anilist_id": 128546,
+    "episode_types": {
+      "canon": [
+        "1-13"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 46095,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": 116725,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": 397774,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Vivy -Fluorite Eye's Song-",
+    "total_episodes": 13
+  },
+  {
     "anilist_id": 128893,
     "episode_types": {
       "canon": [
@@ -3995,6 +6550,66 @@
     "total_episodes": 7
   },
   {
+    "anilist_id": 129898,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 47790,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 118821,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 398193,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "The World's Finest Assassin Gets Reincarnated in Another World as an Aristocrat",
+    "total_episodes": 12
+  },
+  {
+    "anilist_id": 130003,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 47917,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 119100,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 413522,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "BOCCHI THE ROCK!",
+    "total_episodes": 12
+  },
+  {
     "anilist_id": 130298,
     "episode_types": {
       "canon": [
@@ -4023,6 +6638,126 @@
     "status": "FINISHED",
     "title": "The Eminence in Shadow",
     "total_episodes": 20
+  },
+  {
+    "anilist_id": 130592,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 48413,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-12\": \"1-12\"}}",
+        "id": 45997,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-12\": \"1-12\"}}",
+        "id": 267441,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "The Devil is a Part-Timer! Season 2",
+    "total_episodes": 12
+  },
+  {
+    "anilist_id": 131083,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 48483,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 121078,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 399121,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Mieruko-chan",
+    "total_episodes": 12
+  },
+  {
+    "anilist_id": 131518,
+    "episode_types": {
+      "canon": [
+        "1-11"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "episode_mapping": "{\"s3\": {\"1-11\": \"1-11\"}}",
+        "id": 86031,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s3\": {\"1-11\": \"1-11\"}}",
+        "id": 355774,
+        "provider": "tvdb",
+        "type": "show"
+      },
+      {
+        "id": "48549",
+        "provider": "mal"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Dr. STONE New World",
+    "total_episodes": 11
+  },
+  {
+    "anilist_id": 131646,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 48580,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 121964,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 400133,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "The Case Study of Vanitas",
+    "total_episodes": 12
   },
   {
     "anilist_id": 131681,
@@ -4086,6 +6821,36 @@
     "total_episodes": 12
   },
   {
+    "anilist_id": 133844,
+    "episode_types": {
+      "canon": [
+        "1-13"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 48895,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s4\": {\"1-13\": \"1-13\"}}",
+        "id": 64196,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s4\": {\"1-13\": \"1-13\"}}",
+        "id": 294002,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Overlord IV",
+    "total_episodes": 13
+  },
+  {
     "anilist_id": 133965,
     "episode_types": {
       "canon": [
@@ -4146,6 +6911,36 @@
     "total_episodes": 24
   },
   {
+    "anilist_id": 136804,
+    "episode_types": {
+      "canon": [
+        "1-11"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 49458,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s3\": {\"1-11\": \"1-11\"}}",
+        "id": 65844,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s3\": {\"1-11\": \"1-11\"}}",
+        "id": 303867,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "KONOSUBA -God's blessing on this wonderful world! 3",
+    "total_episodes": 11
+  },
+  {
     "anilist_id": 137822,
     "episode_types": {
       "canon": [
@@ -4176,6 +6971,66 @@
     "status": "FINISHED",
     "title": "BLUE LOCK",
     "total_episodes": 24
+  },
+  {
+    "anilist_id": 139630,
+    "episode_types": {
+      "canon": [
+        "1-25"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 49918,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s6\": {\"1-25\": \"1-25\"}}",
+        "id": 65930,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s6\": {\"1-25\": \"1-25\"}}",
+        "id": 305074,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "My Hero Academia Season 6",
+    "total_episodes": 25
+  },
+  {
+    "anilist_id": 140439,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 50172,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s3\": {\"1-12\": \"1-12\"}}",
+        "id": 67075,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s3\": {\"1-12\": \"1-12\"}}",
+        "id": 307375,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Mob Psycho 100 III",
+    "total_episodes": 12
   },
   {
     "anilist_id": 140960,
@@ -4238,6 +7093,36 @@
     "total_episodes": 13
   },
   {
+    "anilist_id": 141949,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 50425,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 139287,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 412806,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "More than a Married Couple, but Not Lovers.",
+    "total_episodes": 12
+  },
+  {
     "anilist_id": 142329,
     "episode_types": {
       "canon": [
@@ -4297,6 +7182,36 @@
     ],
     "status": "FINISHED",
     "title": "SPY x FAMILY Cour 2",
+    "total_episodes": 13
+  },
+  {
+    "anilist_id": 143270,
+    "episode_types": {
+      "canon": [
+        "1-13"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 50709,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": 154494,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": 414057,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Lycoris Recoil",
     "total_episodes": 13
   },
   {
@@ -4487,6 +7402,68 @@
     "total_episodes": 12
   },
   {
+    "anilist_id": 151970,
+    "episode_types": {
+      "canon": [
+        "1-25"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 52347,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-25\": \"1-25\"}}",
+        "id": 205050,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-25\": \"1-25\"}}",
+        "id": 421855,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Shangri-La Frontier",
+    "total_episodes": 25
+  },
+  {
+    "anilist_id": 153152,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 52578,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": "422981",
+        "provider": "tvdb",
+        "scope": "s1",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": "207250",
+        "provider": "tmdb",
+        "scope": "s1",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "The Dangers in My Heart",
+    "total_episodes": 12
+  },
+  {
     "anilist_id": 153288,
     "episode_types": {
       "canon": [
@@ -4547,6 +7524,126 @@
     "total_episodes": 28
   },
   {
+    "anilist_id": 154965,
+    "episode_types": {
+      "canon": [
+        "1-13"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 53126,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": 208067,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": 423413,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "My Love Story with Yamada-kun at Lv999",
+    "total_episodes": 13
+  },
+  {
+    "anilist_id": 155783,
+    "episode_types": {
+      "canon": [
+        "1-13"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 53393,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": 208891,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": 426165,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Tengoku Daimakyo",
+    "total_episodes": 13
+  },
+  {
+    "anilist_id": 156822,
+    "episode_types": {
+      "canon": [
+        "1-24"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 53580,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s3\": {\"1-24\": \"1-24\"}}",
+        "id": 82684,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s3\": {\"1-24\": \"1-24\"}}",
+        "id": 352408,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "That Time I Got Reincarnated as a Slime Season 3",
+    "total_episodes": 24
+  },
+  {
+    "anilist_id": 159831,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 54112,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 217766,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 429310,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Zom 100: Bucket List of the Dead",
+    "total_episodes": 12
+  },
+  {
     "anilist_id": 161645,
     "episode_types": {
       "canon": [
@@ -4577,6 +7674,96 @@
     "total_episodes": 24
   },
   {
+    "anilist_id": 162804,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 54744,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 235758,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 432531,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Alya Sometimes Hides Her Feelings in Russian",
+    "total_episodes": 12
+  },
+  {
+    "anilist_id": 163132,
+    "episode_types": {
+      "canon": [
+        "1-13"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 54856,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": 228663,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": 436124,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Horimiya: The Missing Pieces",
+    "total_episodes": 13
+  },
+  {
+    "anilist_id": 163139,
+    "episode_types": {
+      "canon": [
+        "1-21"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 54789,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s7\": {\"1-21\": \"1-21\"}}",
+        "id": 65930,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s7\": {\"1-21\": \"1-21\"}}",
+        "id": 305074,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "My Hero Academia Season 7",
+    "total_episodes": 21
+  },
+  {
     "anilist_id": 166240,
     "episode_types": {
       "canon": [
@@ -4605,6 +7792,126 @@
     "status": "FINISHED",
     "title": "Demon Slayer: Kimetsu no Yaiba Hashira Training Arc",
     "total_episodes": 8
+  },
+  {
+    "anilist_id": 166531,
+    "episode_types": {
+      "canon": [
+        "1-13"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 55791,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"12-24\"}}",
+        "id": 203737,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-13\": \"1-13\"}}",
+        "id": 421069,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "OSHI NO KO Season 2",
+    "total_episodes": 13
+  },
+  {
+    "anilist_id": 166610,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 55813,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"13-24\"}}",
+        "id": 204832,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-12\": \"1-12\"}}",
+        "id": 421737,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "MASHLE: MAGIC AND MUSCLES Season 2",
+    "total_episodes": 12
+  },
+  {
+    "anilist_id": 166873,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 55888,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-12\": \"13-24\"}}",
+        "id": 94664,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-12\": \"13-24\"}}",
+        "id": 371310,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Mushoku Tensei: Jobless Reincarnation Season 2 Part 2",
+    "total_episodes": 12
+  },
+  {
+    "anilist_id": 167152,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 56009,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 249907,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 437266,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Sentenced to Be a Hero",
+    "total_episodes": 12
   },
   {
     "anilist_id": 171018,
@@ -4640,6 +7947,36 @@
     "total_episodes": 12
   },
   {
+    "anilist_id": 172463,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 57658,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"48-59\"}}",
+        "id": 95479,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s3\": {\"1-12\": \"1-12\"}}",
+        "id": 377543,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "JUJUTSU KAISEN Season 3: The Culling Game Part 1",
+    "total_episodes": 12
+  },
+  {
     "anilist_id": 176496,
     "episode_types": {
       "canon": [
@@ -4668,5 +8005,95 @@
     "status": "FINISHED",
     "title": "Solo Leveling Season 2 -Arise from the Shadow-",
     "total_episodes": 13
+  },
+  {
+    "anilist_id": 178025,
+    "episode_types": {
+      "canon": [
+        "1-24"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 59062,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-24\": \"1-24\"}}",
+        "id": 256721,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-24\": \"1-24\"}}",
+        "id": 450537,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Gachiakuta",
+    "total_episodes": 24
+  },
+  {
+    "anilist_id": 181444,
+    "episode_types": {
+      "canon": [
+        "1-13"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 59845,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": 271607,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": 454524,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "The Fragrant Flower Blooms With Dignity",
+    "total_episodes": 13
+  },
+  {
+    "anilist_id": 182255,
+    "episode_types": {
+      "canon": [
+        "1-10"
+      ]
+    },
+    "format": "TV",
+    "mappings": [
+      {
+        "id": 59978,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-10\": \"29-38\"}}",
+        "id": 209867,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s2\": {\"1-10\": \"1-10\"}}",
+        "id": 424536,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Frieren: Beyond Journey’s End Season 2",
+    "total_episodes": 10
   }
 ]

@@ -1,5 +1,35 @@
 [
   {
+    "anilist_id": 21049,
+    "episode_types": {
+      "canon": [
+        "1-13"
+      ]
+    },
+    "format": "ONA",
+    "mappings": [
+      {
+        "id": 30015,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": 66941,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": 299508,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "ReLIFE",
+    "total_episodes": 13
+  },
+  {
     "anilist_id": 98460,
     "episode_types": {
       "canon": [
@@ -62,5 +92,125 @@
     "status": "FINISHED",
     "title": "Cyberpunk: Edgerunners",
     "total_episodes": 10
+  },
+  {
+    "anilist_id": 128705,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "ONA",
+    "mappings": [
+      {
+        "id": 46352,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 116983,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 399990,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Blue Period",
+    "total_episodes": 12
+  },
+  {
+    "anilist_id": 141014,
+    "episode_types": {
+      "canon": [
+        "1-12"
+      ]
+    },
+    "format": "ONA",
+    "mappings": [
+      {
+        "id": 50273,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 137718,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-12\": \"1-12\"}}",
+        "id": 412031,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Tomodachi Game",
+    "total_episodes": 12
+  },
+  {
+    "anilist_id": 147105,
+    "episode_types": {
+      "canon": [
+        "1-13"
+      ]
+    },
+    "format": "ONA",
+    "mappings": [
+      {
+        "id": 51553,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": 196950,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-13\": \"1-13\"}}",
+        "id": 418666,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Witch Hat Atelier",
+    "total_episodes": 13
+  },
+  {
+    "anilist_id": 177709,
+    "episode_types": {
+      "canon": [
+        "1-11"
+      ]
+    },
+    "format": "ONA",
+    "mappings": [
+      {
+        "id": 58939,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-11\": \"1-11\"}}",
+        "id": 207332,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-11\": \"1-11\"}}",
+        "id": 423732,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "SAKAMOTO DAYS",
+    "total_episodes": 11
   }
 ]

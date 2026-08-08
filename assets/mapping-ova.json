@@ -1,0 +1,62 @@
+[
+  {
+    "anilist_id": 227,
+    "episode_types": {
+      "canon": [
+        "1-6"
+      ]
+    },
+    "format": "OVA",
+    "mappings": [
+      {
+        "id": 227,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-6\": \"1-6\"}}",
+        "id": 5895,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-6\": \"1-6\"}}",
+        "id": 78878,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "FLCL",
+    "total_episodes": 6
+  },
+  {
+    "anilist_id": 777,
+    "episode_types": {
+      "canon": [
+        "1-10"
+      ]
+    },
+    "format": "OVA",
+    "mappings": [
+      {
+        "id": 777,
+        "provider": "mal"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-10\": \"1-10\"}}",
+        "id": 61752,
+        "provider": "tmdb",
+        "type": "show"
+      },
+      {
+        "episode_mapping": "{\"s1\": {\"1-10\": \"1-10\"}}",
+        "id": 263688,
+        "provider": "tvdb",
+        "type": "show"
+      }
+    ],
+    "status": "FINISHED",
+    "title": "Hellsing Ultimate",
+    "total_episodes": 10
+  }
+]
